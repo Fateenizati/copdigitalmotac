@@ -71,7 +71,7 @@
       animation: floatSoft 4s ease-in-out infinite;
     }
 
-    /* Mod Cetak Biasa vs Mod Cetak Sijil */
+    /* Mod Cetak */
     @media print {
       body.printing-cert * { visibility: hidden !important; }
       body.printing-cert #printableCertificateArea, 
@@ -112,7 +112,6 @@
   <header class="no-print glass-header sticky top-0 z-40 px-4 py-3 shadow-lg">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <!-- Logo Jata Negara Rasmi -->
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" 
              alt="Jata Negara Malaysia" 
              class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
@@ -125,7 +124,6 @@
         </div>
       </div>
       
-      <!-- Nav Tabs -->
       <div class="flex items-center bg-slate-950/80 p-1.5 rounded-2xl border border-cyan-500/30 text-xs shadow-inner">
         <button id="navUser" onclick="switchTab('user')" class="px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow transition-all duration-300">
           📱 Cop Digital Peserta
@@ -147,7 +145,7 @@
     <!-- ============================================================== -->
     <section id="viewUser" class="max-w-xl mx-auto">
       
-      <!-- A. LOG MASUK (HANYA EMEL) -->
+      <!-- LOG MASUK -->
       <div id="userLoginBox" class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl text-center anim-float">
         <div class="flex justify-center mb-4">
           <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" 
@@ -173,20 +171,13 @@
             Buka Cop Digital Saya ➔
           </button>
         </form>
-
-        <div class="mt-6 text-center">
-          <p class="text-[11px] text-slate-400">Jika menghantar wakil, sila pastikan urus setia telah mengemas kini nama dan emel anda di kaunter pendaftaran.</p>
-        </div>
       </div>
 
-      <!-- B. SKRIN COP DIGITAL (SELEPAS LOG MASUK) -->
+      <!-- SKRIN COP DIGITAL & PROGRESS PESERTA -->
       <div id="userPassportBox" class="hidden space-y-4">
         
-        <!-- ============================================================== -->
-        <!-- PROGRESS BAR INTERAKTIF TINDAKAN PENGGUNA (STEP PROGRESS BAR)  -->
-        <!-- ============================================================== -->
+        <!-- PROGRESS BAR INTERAKTIF 4 LANGKAH -->
         <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 shadow-2xl relative overflow-hidden">
-          
           <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-800">
             <div>
               <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Kemajuan Keseluruhan Misi</span>
@@ -201,50 +192,31 @@
 
           <!-- Progress Bar Utama Garis Sambung -->
           <div class="relative mb-6 mx-2 sm:mx-6">
-            <!-- Garis Latar Belakang -->
             <div class="absolute top-1/2 left-0 w-full h-1.5 bg-slate-900 -translate-y-1/2 rounded-full z-0"></div>
-            <!-- Garis Dinamik Biru-Emas Berkebal -->
             <div id="timelineProgressBar" class="absolute top-1/2 left-0 h-1.5 bg-gradient-to-r from-cyan-400 via-indigo-500 to-amber-400 -translate-y-1/2 rounded-full z-0 transition-all duration-700 shadow-[0_0_12px_rgba(34,211,238,0.7)]" style="width: 0%;"></div>
 
-            <!-- 4 Titik Langkah Visual (Step Nodes) -->
+            <!-- 4 Titik Langkah Visual -->
             <div class="relative z-10 flex justify-between items-center">
-              
-              <!-- Nod 1: Cop -->
               <div class="flex flex-col items-center">
-                <div id="nodeCircle1" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-cyan-400 text-cyan-300 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">
-                  1
-                </div>
+                <div id="nodeCircle1" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-cyan-400 text-cyan-300 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">1</div>
                 <span class="text-[10px] font-bold text-slate-300 mt-1.5 text-center leading-tight">10 Cop<br><span id="nodeSub1" class="text-[9px] text-cyan-400 font-mono">0/10</span></span>
               </div>
-
-              <!-- Nod 2: Maklum Balas -->
               <div class="flex flex-col items-center">
-                <div id="nodeCircle2" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">
-                  2
-                </div>
+                <div id="nodeCircle2" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">2</div>
                 <span class="text-[10px] font-bold text-slate-400 mt-1.5 text-center leading-tight">Maklum Balas<br><span id="nodeSub2" class="text-[9px] text-slate-500 font-mono">5 Soalan</span></span>
               </div>
-
-              <!-- Nod 3: e-Sijil -->
               <div class="flex flex-col items-center">
-                <div id="nodeCircle3" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">
-                  3
-                </div>
+                <div id="nodeCircle3" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">3</div>
                 <span class="text-[10px] font-bold text-slate-400 mt-1.5 text-center leading-tight">e-Sijil<br><span id="nodeSub3" class="text-[9px] text-slate-500 font-mono">PDF</span></span>
               </div>
-
-              <!-- Nod 4: Goodies (TERAKHIR) -->
               <div class="flex flex-col items-center">
-                <div id="nodeCircle4" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">
-                  4
-                </div>
+                <div id="nodeCircle4" class="w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md">4</div>
                 <span class="text-[10px] font-bold text-slate-400 mt-1.5 text-center leading-tight">Goodies Bag<br><span id="nodeSub4" class="text-[9px] text-slate-500 font-mono">Tebus</span></span>
               </div>
-
             </div>
           </div>
 
-          <!-- KOTAK TINDAKAN KINI / ACTION ALERT BANNER (ALERT PENGGUNA) -->
+          <!-- KOTAK TINDAKAN KINI -->
           <div id="actionBannerBox" class="p-3.5 bg-slate-950/90 rounded-2xl border border-cyan-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner">
             <div class="flex items-center gap-3">
               <span id="actionBannerIcon" class="text-2xl">📷</span>
@@ -257,41 +229,9 @@
               Imbas QR Booth
             </button>
           </div>
-
         </div>
 
-        <!-- REMARK BESAR 10/10 COP -->
-        <div id="bigRemarkQualified" class="hidden golden-banner-glow rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-amber-950/90 via-slate-950/95 to-emerald-950/90 border-2 border-amber-400/80 shadow-2xl relative overflow-hidden text-center">
-          <div class="relative z-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-xs font-black tracking-wider uppercase shadow-md mb-3">
-              <span>🏆</span> MISI 10 COP LENGKAP SEPENUHNYA
-            </div>
-            
-            <h2 class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-emerald-300 tracking-tight leading-tight">
-              TAHNIAH! ANDA KINI LAYAK KE CABUTAN BERTUAH
-            </h2>
-            
-            <p id="userFeedbackRemarkText" class="text-xs sm:text-sm text-amber-100/90 mt-2 max-w-md mx-auto leading-relaxed">
-              Semua 10 reruai pempamer telah berjaya anda lawati. Rekod kehadiran anda telah disahkan ke dalam senarai cabutan pentas.
-            </p>
-
-            <div class="mt-4 p-3.5 bg-slate-950/80 border border-amber-400/30 rounded-2xl flex items-center justify-between gap-3 text-left">
-              <div>
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Status Cabutan Pentas</span>
-                <p id="userWinStatusText" class="text-xs sm:text-sm font-black text-emerald-400 flex items-center gap-1.5 mt-0.5">
-                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                  AKTIF DALAM SENARAI CABUTAN
-                </p>
-              </div>
-              <div class="text-right">
-                <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Jumlah Cop</span>
-                <p class="text-base sm:text-lg font-black font-mono text-amber-300">10 / 10 ✅</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kad Identiti Peserta Kaca -->
+        <!-- Kad Identiti Peserta -->
         <div class="glass-card rounded-3xl p-5 shadow-2xl relative overflow-hidden">
           <div class="flex justify-between items-start">
             <div>
@@ -305,7 +245,6 @@
             <button onclick="handleUserLogout()" class="text-xs text-rose-300 hover:text-rose-200 underline font-medium">Log Keluar</button>
           </div>
 
-          <!-- Bar Kemajuan Cop Kecil -->
           <div class="mt-5 pt-4 border-t border-slate-700/60">
             <div class="flex justify-between items-center mb-1.5">
               <span class="text-xs font-semibold text-slate-200" id="pStatusLabel">Kemajuan Cop Reruai</span>
@@ -319,18 +258,16 @@
 
         <!-- Butang Imbas Kamera -->
         <div class="glass-card rounded-2xl p-4">
-          <button onclick="startQRScanner()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 active:scale-98 transition">
+          <button onclick="startQRScanner()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 text-slate-950 font-black rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg active:scale-98 transition">
             <span class="text-base">📷</span> IMBAS QR DI BOOTH UNTUK DAPAT COP
           </button>
           <p class="text-[11px] text-slate-300 text-center mt-2">Halakan kamera telefon ke kod QR di atas meja setiap pempamer.</p>
         </div>
 
-        <!-- Grid 10 Booth Rasmi -->
+        <!-- Grid 10 Booth -->
         <div>
           <h4 class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-2 px-1">Senarai 10 Reruai Pempamer</h4>
-          <div id="boothsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- 10 Booth Diisi Dinamik -->
-          </div>
+          <div id="boothsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
         </div>
 
       </div>
@@ -338,11 +275,9 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- 2. MODUL SKRIN PENTAS LIVE (PAPARAN SAHAJA)                    -->
+    <!-- 2. MODUL SKRIN PENTAS LIVE                                     -->
     <!-- ============================================================== -->
     <section id="viewStage" class="hidden space-y-6">
-      
-      <!-- Metrik Statistik Kaca -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div class="glass-card rounded-2xl p-4 text-center">
           <span class="text-[10px] text-slate-300 uppercase font-semibold">Jumlah Berdaftar</span>
@@ -366,42 +301,25 @@
         </div>
       </div>
 
-      <!-- Kotak Paparan Pentas (Visual Cabutan Semasa) -->
+      <!-- Visual Cabutan Semasa -->
       <div class="glass-card rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl">
-        <div class="inline-block bg-cyan-500/20 border border-cyan-400/40 px-3 py-1 rounded-full text-cyan-300 text-xs font-semibold mb-2">
-          🖥️ SKRIN PAPARAN PENTAS UTAMA
-        </div>
-        <h2 class="text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-100 to-indigo-300 tracking-wide">
+        <h2 class="text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-100 to-indigo-300">
           CABUTAN BERTUAH HARI PENDIGITALAN MOTAC
         </h2>
-        <p class="text-xs text-slate-300 mt-2 max-w-xl mx-auto">
-          Pemenang dipilih secara rawak daripada senarai peserta yang layak. Setiap individu hanya boleh menang sekali sahaja.
-        </p>
-
         <div class="bg-slate-950/90 border border-cyan-500/30 rounded-3xl p-6 sm:p-8 max-w-xl mx-auto my-6 shadow-2xl">
           <span id="stageWinnerBadge" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Menunggu Giliran Cabutan oleh Urus Setia...</span>
           <h3 id="stageWinnerName" class="text-3xl sm:text-5xl font-black text-amber-300 my-3">---</h3>
           <p id="stageWinnerAgency" class="text-xs sm:text-sm text-cyan-200 font-mono">---</p>
         </div>
-
-        <div class="text-[11px] text-slate-400 flex items-center justify-center gap-1.5">
-          <span>🔒</span> Kawalan cabutan dikawal sepenuhnya oleh urus setia dari Panel Admin.
-        </div>
       </div>
 
-      <!-- SENARAI RASMI PEMENANG YANG TELAH DICABUT (LIVE STAGE) -->
+      <!-- Jadual Pemenang Sah -->
       <div class="glass-card border-amber-500/30 rounded-2xl p-5">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-amber-300 text-sm flex items-center gap-2">
-            <span>🎉</span> Senarai Pemenang Bertuah Yang Telah Berjaya Dicabut
-          </h3>
-          <span id="liveWinnerPill" class="text-xs px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono font-bold">0 Pemenang</span>
-        </div>
-        
+        <h3 class="font-bold text-amber-300 text-sm mb-3">🎉 Senarai Pemenang Bertuah Yang Berjaya Dicabut</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
             <thead>
-              <tr class="border-b border-slate-700/80 text-amber-400 uppercase tracking-wider font-semibold">
+              <tr class="border-b border-slate-700 text-amber-400 uppercase font-semibold">
                 <th class="py-2.5 px-3">Cabutan #</th>
                 <th class="py-2.5 px-3">Nama Pemenang</th>
                 <th class="py-2.5 px-3">Bahagian / Agensi</th>
@@ -409,42 +327,10 @@
                 <th class="py-2.5 px-3 text-right">Status</th>
               </tr>
             </thead>
-            <tbody id="stageWinnersTableBody" class="divide-y divide-slate-800 font-mono">
-              <!-- Diisi Senarai Pemenang -->
-            </tbody>
+            <tbody id="stageWinnersTableBody" class="divide-y divide-slate-800 font-mono"></tbody>
           </table>
         </div>
       </div>
-
-      <!-- Jadual Live Feed Peserta Layak (Pool Cabutan Aktif) -->
-      <div class="glass-card rounded-2xl p-5">
-        <div class="flex justify-between items-center mb-4">
-          <div>
-            <h3 class="font-bold text-white text-sm flex items-center gap-2">
-              <span>📋</span> Baki Peserta Layak Dalam Balang Cabutan
-            </h3>
-            <p class="text-[11px] text-slate-400">Peserta yang telah menang dikeluarkan secara automatik dari senarai ini.</p>
-          </div>
-          <span id="liveRemainingPoolBadge" class="text-xs px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold">0 Baki Layak</span>
-        </div>
-        
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead>
-              <tr class="border-b border-slate-700/80 text-cyan-300 uppercase tracking-wider font-semibold">
-                <th class="py-2.5 px-3">Nama Peserta</th>
-                <th class="py-2.5 px-3">Emel</th>
-                <th class="py-2.5 px-3">Bahagian / Agensi</th>
-                <th class="py-2.5 px-3 text-center">Status Balang</th>
-              </tr>
-            </thead>
-            <tbody id="stageTableBody" class="divide-y divide-slate-800/80 font-mono">
-              <!-- Diisi Senarai Layak Yang Belum Menang -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </section>
 
     <!-- ============================================================== -->
@@ -452,68 +338,55 @@
     <!-- ============================================================== -->
     <section id="viewAdmin" class="hidden space-y-6">
       
-      <!-- A. LOG MASUK ADMIN -->
+      <!-- LOG MASUK ADMIN -->
       <div id="adminLoginBox" class="max-w-md mx-auto glass-card rounded-3xl p-6 sm:p-8 shadow-2xl text-center anim-float">
         <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl border border-amber-500/40">
           🔒
         </div>
         <h2 class="text-xl font-black text-white">Log Masuk Urus Setia (Admin)</h2>
-        <p class="text-xs text-slate-300 mt-1 mb-5">Sila masukkan kelayakan pentadbir untuk menyelia sistem dan data.</p>
-
-        <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-left">
+        <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-left mt-5">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Pengguna (Username)</label>
             <input type="text" id="adminUser" required placeholder="admin"
-              class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
+              class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Kata Laluan (Password)</label>
             <input type="password" id="adminPass" required placeholder="admin1234"
-              class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-cyan-400">
+              class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white">
           </div>
-          <button type="submit" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold rounded-xl text-xs transition shadow-lg">
+          <button type="submit" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-bold rounded-xl text-xs shadow-lg">
             Log Masuk Admin
           </button>
         </form>
       </div>
 
-      <!-- B. PANEL KAWALAN ADMIN (SELEPAS LOG MASUK) -->
+      <!-- PANEL KAWALAN ADMIN (SELEPAS LOG MASUK) -->
       <div id="adminDashboardBox" class="hidden space-y-6">
         
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 glass-card p-4 rounded-2xl">
-          <div>
-            <span class="text-xs text-slate-300">Log Masuk Urus Setia:</span>
-            <span id="currentAdminName" class="text-xs font-bold text-amber-400 font-mono ml-1">admin</span>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="handleAdminLogout()" class="px-3 py-1.5 bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 rounded-lg text-xs font-bold transition">
-              Log Keluar Admin
-            </button>
-          </div>
+        <div class="flex justify-between items-center glass-card p-4 rounded-2xl">
+          <span class="text-xs text-slate-300">Pentadbir Bertugas: <strong id="currentAdminName" class="text-amber-400 font-mono">admin</strong></span>
+          <button onclick="handleAdminLogout()" class="px-3 py-1.5 bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 rounded-lg text-xs font-bold transition">
+            Log Keluar
+          </button>
         </div>
 
-        <!-- Sub-Navigasi Admin Lengkap -->
+        <!-- Sub-Navigasi Admin (Disatukan kepada 5 Tab Utama) -->
         <div class="no-print border-b border-slate-700/80 pb-3 flex flex-wrap gap-2 text-xs">
           <button onclick="switchAdminSub('drawControl')" id="subBtnDraw" class="px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-amber-400">
             🎰 Kawalan Cabutan
           </button>
-          <button onclick="switchAdminSub('goodies')" id="subBtnGoodies" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
-            🎁 Semakan Goodies
-          </button>
-          <button onclick="switchAdminSub('surveyStats')" id="subBtnSurvey" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
-            📝 Statistik Maklum Balas
+          <button onclick="switchAdminSub('participantsHub')" id="subBtnHub" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
+            👥 Pengurusan Peserta, Goodies & Maklum Balas
           </button>
           <button onclick="switchAdminSub('reports')" id="subBtnReports" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
             📊 Pelaporan & Analitik
-          </button>
-          <button onclick="switchAdminSub('data')" id="subBtnData" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
-            👥 Pengurusan Data Peserta
           </button>
           <button onclick="switchAdminSub('qr')" id="subBtnQR" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
             🖨️ Cetakan Kad QR Reruai
           </button>
           <button onclick="switchAdminSub('accounts')" id="subBtnAccounts" class="px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white">
-            🛡️ Urus Akaun Admin
+            🛡️️ Urus Akaun Admin
           </button>
         </div>
 
@@ -522,11 +395,8 @@
           <div class="glass-card border-amber-500/30 rounded-3xl p-6 sm:p-8 text-center shadow-2xl">
             <div class="max-w-md mx-auto">
               <span class="text-xs font-bold tracking-widest text-amber-400 uppercase bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">
-                Pusat Kawalan Cabutan (Admin Trigger)
+                Pusat Kawalan Cabutan Pentas
               </span>
-              <h3 class="text-xl sm:text-2xl font-black text-white mt-3">Mula Putar Cabutan Pentas</h3>
-              <p class="text-xs text-slate-300 mt-1">Pemenang yang terpilih akan disingkirkan secara automatik daripada pool cabutan pusingan seterusnya.</p>
-              
               <div class="bg-slate-950/90 border border-slate-800 rounded-2xl p-5 my-5 shadow-inner">
                 <span id="adminWinnerBadge" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sedia Memilih</span>
                 <h4 id="adminWinnerName" class="text-2xl sm:text-3xl font-black text-amber-400 my-1">---</h4>
@@ -534,411 +404,220 @@
               </div>
 
               <div class="flex flex-col sm:flex-row gap-3">
-                <button id="btnAdminTriggerDraw" onclick="triggerLuckyDraw()" class="flex-1 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-base shadow-xl shadow-amber-500/20 active:scale-95 transition flex items-center justify-center gap-2">
+                <button id="btnAdminTriggerDraw" onclick="triggerLuckyDraw()" class="flex-1 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-2xl text-base shadow-xl active:scale-95 transition flex items-center justify-center gap-2">
                   <span>🎰</span> PUTAR CABUTAN SETERUSNYA
                 </button>
                 <button onclick="resetWinnersList()" title="Set Semula Pemenang" class="px-4 py-4 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-rose-300 rounded-2xl text-xs font-bold transition">
-                  🔄 Reset Pemenang
+                  🔄 Reset
                 </button>
               </div>
-              
-              <div class="mt-4 flex justify-between items-center text-xs text-slate-400 border-t border-slate-800 pt-3">
-                <span>Baki layak belum menang: <strong id="adminRemainingCount" class="text-emerald-400 font-mono">0</strong> orang</span>
-                <span>Telah menang: <strong id="adminWonCount" class="text-amber-400 font-mono">0</strong> orang</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Jadual Rekod Pemenang di Panel Admin -->
-          <div class="glass-card rounded-2xl p-5">
-            <h4 class="font-bold text-amber-300 text-sm mb-3">Rekod Pemenang Terkini (Panel Admin)</h4>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs">
-                <thead>
-                  <tr class="border-b border-slate-700 text-slate-400">
-                    <th class="py-2 px-3">Giliran</th>
-                    <th class="py-2 px-3">Nama</th>
-                    <th class="py-2 px-3">Emel</th>
-                    <th class="py-2 px-3">Bahagian</th>
-                    <th class="py-2 px-3 text-right">Tindakan</th>
-                  </tr>
-                </thead>
-                <tbody id="adminWinnersTableBody" class="divide-y divide-slate-800">
-                  <!-- Diisi Rekod Pemenang -->
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
 
-        <!-- SUB-TAB 1: SEMAKAN GOODIES BAG OLEH URUS SETIA -->
-        <div id="adminGoodiesSection" class="hidden space-y-6">
-          <div class="glass-card rounded-2xl p-5">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-              <div>
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                  <span>🎁</span> Meja Tuntutan Beg Cenderamata (Goodies Bag)
-                </h3>
-                <p class="text-xs text-slate-300">Tandakan checkbox apabila peserta telah menuntut beg cenderamata di kaunter urus setia.</p>
-              </div>
-              <div class="text-xs font-mono bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-                Telah Ditebus: <strong id="goodiesClaimedCount" class="text-emerald-400">0</strong> / <span id="goodiesEligibleCount">0</span> Layak
-              </div>
+        <!-- ============================================================== -->
+        <!-- SUB-TAB DISATUKAN: PENGURUSAN PESERTA, GOODIES & MAKLUM BALAS   -->
+        <!-- ============================================================== -->
+        <div id="adminParticipantsHubSection" class="hidden space-y-6">
+          
+          <!-- Kad Statistik Ringkas & Pendaftaran -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div class="glass-card p-4 rounded-2xl text-center border-slate-700">
+              <span class="text-[10px] text-slate-400 uppercase font-semibold">Jumlah Pendaftar</span>
+              <p id="hubTotalCount" class="text-2xl font-black text-white mt-1">0</p>
             </div>
-
-            <div class="overflow-x-auto max-h-96 overflow-y-auto">
-              <table class="w-full text-left text-xs">
-                <thead class="sticky top-0 bg-slate-900 border-b border-slate-700 text-slate-300 uppercase">
-                  <tr>
-                    <th class="py-2.5 px-3">Status Tuntutan</th>
-                    <th class="py-2.5 px-3">Nama Peserta</th>
-                    <th class="py-2.5 px-3">Emel</th>
-                    <th class="py-2.5 px-3">Bahagian / Agensi</th>
-                    <th class="py-2.5 px-3 text-center">Status Maklum Balas</th>
-                    <th class="py-2.5 px-3 text-right">Tindakan Urus Setia</th>
-                  </tr>
-                </thead>
-                <tbody id="adminGoodiesTableBody" class="divide-y divide-slate-800">
-                  <!-- Diisi Senarai Goodies -->
-                </tbody>
-              </table>
+            <div class="glass-card p-4 rounded-2xl text-center border-cyan-500/40">
+              <span class="text-[10px] text-cyan-300 uppercase font-semibold">Layak 10 Cop</span>
+              <p id="hubEligibleCount" class="text-2xl font-black text-cyan-400 mt-1">0</p>
             </div>
-          </div>
-        </div>
-
-        <!-- SUB-TAB 2: STATISTIK MAKLUM BALAS & GOOGLE SHEETS -->
-        <div id="adminSurveySection" class="hidden space-y-6">
-          <div class="glass-card rounded-2xl p-5">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
-              <div>
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                  <span>📊</span> Statistik Maklum Balas Peserta (5 Soalan Ringkas)
-                </h3>
-                <p class="text-xs text-slate-300">Hasil kaji selidik peserta selepas melengkapkan 10 cop digital.</p>
-              </div>
-              <button onclick="exportFeedbackExcel()" class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-lg">
-                <span>📥</span> Muat Turun Maklum Balas (.xlsx)
-              </button>
+            <div class="glass-card p-4 rounded-2xl text-center border-amber-500/40">
+              <span class="text-[10px] text-amber-300 uppercase font-semibold">Maklum Balas Diterima</span>
+              <p id="hubFeedbackCount" class="text-2xl font-black text-amber-400 mt-1">0</p>
             </div>
-
-            <!-- Konfigurasi Google Sheets Webhook -->
-            <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 mb-6 text-xs">
-              <label class="block font-bold text-cyan-300 mb-1">🔗 URL Google Apps Script Webhook (Untuk Simpan ke Google Sheet Automatik):</label>
-              <div class="flex flex-col sm:flex-row gap-2">
-                <input type="url" id="googleSheetWebhookUrl" placeholder="https://script.google.com/macros/s/AKfycbx.../exec"
-                  class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs focus:ring-1 focus:ring-cyan-400">
-                <button onclick="saveWebhookUrl()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl text-xs transition">
-                  Simpan URL Webhook
-                </button>
-              </div>
-              <p class="text-[10px] text-slate-400 mt-1.5">
-                Setiap kali peserta mendapat cop di booth atau menghantar maklum balas, maklumat akan dihantar serentak secara 'POST' ke Google Sheets anda secara masa nyata.
-              </p>
-            </div>
-
-            <!-- Kad Purata Skor -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-              <div class="glass-card p-4 rounded-xl text-center border-cyan-500/30">
-                <span class="text-[11px] text-slate-300">Kepuasan Acara (S1)</span>
-                <p id="avgS1Score" class="text-3xl font-black text-cyan-300 mt-1">0.0 / 5.0</p>
-              </div>
-              <div class="glass-card p-4 rounded-xl text-center border-amber-500/30">
-                <span class="text-[11px] text-slate-300">Kelancaran Cop Digital (S3)</span>
-                <p id="avgS3Score" class="text-3xl font-black text-amber-300 mt-1">0.0 / 5.0</p>
-              </div>
-              <div class="glass-card p-4 rounded-xl text-center border-emerald-500/30">
-                <span class="text-[11px] text-slate-300">Wajar Diteruskan (S4)</span>
-                <p id="pctS4Yes" class="text-3xl font-black text-emerald-400 mt-1">0%</p>
-              </div>
-            </div>
-
-            <!-- Jadual Komen Cadangan Penambahbaikan (Soalan 5) -->
-            <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2">Cadangan Penambahbaikan Peserta (Soalan 5)</h4>
-            <div class="overflow-x-auto max-h-72 overflow-y-auto">
-              <table class="w-full text-left text-xs">
-                <thead class="bg-slate-900 text-slate-300 uppercase border-b border-slate-700 sticky top-0">
-                  <tr>
-                    <th class="py-2.5 px-3">Nama</th>
-                    <th class="py-2.5 px-3">Bahagian</th>
-                    <th class="py-2.5 px-3">Reruai Paling Menarik (S2)</th>
-                    <th class="py-2.5 px-3">Cadangan / Penambahbaikan (S5)</th>
-                  </tr>
-                </thead>
-                <tbody id="feedbackTableBody" class="divide-y divide-slate-800">
-                  <!-- Diisi Rekod Maklum Balas -->
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- SUB-TAB 3: PELAPORAN & MUAT TURUN STATISTIK ADMIN -->
-        <div id="adminReportsSection" class="hidden space-y-6">
-          <div class="glass-card rounded-3xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-cyan-500/40">
-            <div>
-              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold mb-2">
-                <span>📈</span> Pusat Laporan Rasmi Acara
-              </div>
-              <h3 class="text-xl font-black text-white">Laporan Statistik & Data Penuh Peserta</h3>
-              <p class="text-xs text-slate-300 mt-1 max-w-xl">
-                Jana laporan komprehensif bagi Hari Pendigitalan MOTAC dalam format lembaran kerja Microsoft Excel (.xlsx) atau cetak terus ke dokumen PDF.
-              </p>
-            </div>
-            
-            <div class="flex flex-wrap gap-2 w-full md:w-auto">
-              <button onclick="exportComprehensiveReportExcel()" class="flex-1 md:flex-none px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition">
-                <span>📥</span> Muat Turun Excel Ringkasan (.xlsx)
-              </button>
-              <button onclick="exportStampMatrixExcel()" class="flex-1 md:flex-none px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg transition">
-                <span>📋</span> Muat Turun Matriks Cop Booth (.xlsx)
-              </button>
-              <button onclick="printExecutiveReport()" class="flex-1 md:flex-none px-4 py-3 bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition">
-                <span>🖨️</span> Cetak / Simpan PDF
-              </button>
+            <div class="glass-card p-4 rounded-2xl text-center border-emerald-500/40">
+              <span class="text-[10px] text-emerald-300 uppercase font-semibold">Goodies Ditebus</span>
+              <p id="hubClaimedCount" class="text-2xl font-black text-emerald-400 mt-1">0</p>
             </div>
           </div>
 
-          <!-- Kad Ringkasan Metrik Utama Pelaporan -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="glass-card rounded-2xl p-4 text-center">
-              <span class="text-[11px] text-slate-300 uppercase font-semibold">Jumlah Keseluruhan Pendaftar</span>
-              <p id="repTotalUsers" class="text-3xl font-black text-white mt-1">0</p>
-              <span class="text-[10px] text-slate-400">100% Pangkalan Data</span>
-            </div>
-            <div class="glass-card rounded-2xl p-4 text-center border-cyan-500/40 bg-cyan-950/20">
-              <span class="text-[11px] text-cyan-300 uppercase font-semibold">Layak Cabutan (10/10)</span>
-              <p id="repQualifiedUsers" class="text-3xl font-black text-cyan-300 mt-1">0</p>
-              <span id="repQualifiedPct" class="text-[10px] text-cyan-400 font-mono">0% kadar kejayaan</span>
-            </div>
-            <div class="glass-card rounded-2xl p-4 text-center border-amber-500/30">
-              <span class="text-[11px] text-amber-300 uppercase font-semibold">Sedang Mengumpul (1-9 Cop)</span>
-              <p id="repActiveUsers" class="text-3xl font-black text-amber-300 mt-1">0</p>
-              <span id="repActivePct" class="text-[10px] text-amber-400 font-mono">0% kadar aktif</span>
-            </div>
-            <div class="glass-card rounded-2xl p-4 text-center border-slate-700">
-              <span class="text-[11px] text-slate-400 uppercase font-semibold">Belum Mula (0 Cop)</span>
-              <p id="repZeroUsers" class="text-3xl font-black text-slate-400 mt-1">0</p>
-              <span id="repZeroPct" class="text-[10px] text-slate-400 font-mono">0% belum melawat</span>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Analitik Sambutan Reruai Pempamer (Lot 01 - 10) -->
-            <div class="glass-card rounded-2xl p-5">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="font-bold text-white text-sm flex items-center gap-2">
-                  <span>🏢</span> Prestasi Lawatan Mengikut Reruai Pempamer
-                </h4>
-                <span class="text-[11px] text-cyan-300 font-mono">10 Lot Rasmi</span>
-              </div>
-              <div class="overflow-x-auto max-h-72 overflow-y-auto">
-                <table class="w-full text-left text-xs">
-                  <thead class="sticky top-0 bg-slate-900 border-b border-slate-700 text-slate-400 uppercase">
-                    <tr>
-                      <th class="py-2 px-3">Lot & Pempamer</th>
-                      <th class="py-2 px-3 text-center">Jumlah Pelawat</th>
-                      <th class="py-2 px-3 text-right">Peratusan (%)</th>
-                    </tr>
-                  </thead>
-                  <tbody id="boothPerformanceTableBody" class="divide-y divide-slate-800">
-                    <!-- Diisi Analitik Reruai -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Analitik Mengikut Bahagian / Agensi MOTAC -->
-            <div class="glass-card rounded-2xl p-5">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="font-bold text-white text-sm flex items-center gap-2">
-                  <span>🏛️</span> Taburan Peserta Mengikut Bahagian / Agensi
-                </h4>
-                <span class="text-[11px] text-cyan-300 font-mono">Status Agensi</span>
-              </div>
-              <div class="overflow-x-auto max-h-72 overflow-y-auto">
-                <table class="w-full text-left text-xs">
-                  <thead class="sticky top-0 bg-slate-900 border-b border-slate-700 text-slate-400 uppercase">
-                    <tr>
-                      <th class="py-2 px-3">Bahagian / Agensi</th>
-                      <th class="py-2 px-3 text-center">Pendaftar</th>
-                      <th class="py-2 px-3 text-right">Lengkap 10 Cop</th>
-                    </tr>
-                  </thead>
-                  <tbody id="agencyDistributionTableBody" class="divide-y divide-slate-800">
-                    <!-- Diisi Analitik Bahagian -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SUB-TAB 4: PENGURUSAN DATA PESERTA -->
-        <div id="adminDataSection" class="hidden space-y-6">
+          <!-- Tambah Manual & Muat Naik Excel -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="glass-card rounded-2xl p-5">
-              <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+              <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
                 <span>✍️</span> Tambah Peserta Manual
               </h3>
-              <p class="text-xs text-slate-300 mb-4">Daftar seorang peserta terus ke pangkalan data.</p>
-              
               <form onsubmit="addParticipantManual(event)" class="space-y-3">
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Nama Penuh</label>
-                  <input type="text" id="mName" required placeholder="cth: Ahmad Zaki" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Alamat Emel</label>
-                  <input type="email" id="mEmail" required placeholder="zaki@motac.gov.my" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Bahagian / Agensi</label>
-                  <input type="text" id="mAgency" required placeholder="cth: BTM / Tourism Malaysia" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white rounded-lg text-xs font-bold transition">
-                  + Tambah Peserta
-                </button>
+                <input type="text" id="mName" required placeholder="Nama Penuh" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
+                <input type="email" id="mEmail" required placeholder="nama@motac.gov.my" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
+                <input type="text" id="mAgency" required placeholder="Bahagian / Agensi (cth: BPM)" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
+                <button type="submit" class="w-full py-2 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white rounded-lg text-xs font-bold">+ Tambah Peserta</button>
               </form>
             </div>
 
             <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
               <div>
-                <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
                   <span>📁</span> Import Fail Excel / CSV Peserta
                 </h3>
-                <p class="text-xs text-slate-300 mb-3">Muat naik fail pendaftaran sehingga ratusan peserta.</p>
-
-                <div class="bg-slate-950/70 border border-dashed border-cyan-500/40 rounded-xl p-6 text-center">
+                <div class="bg-slate-950/70 border border-dashed border-cyan-500/40 rounded-xl p-5 text-center">
                   <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" class="hidden" onchange="handleExcelUpload(event)">
                   <label for="excelFileInput" class="cursor-pointer block">
-                    <span class="text-3xl block mb-2">📊</span>
-                    <span class="text-xs font-bold text-cyan-300 hover:underline">Pilih Fail Excel / CSV</span>
-                    <span class="block text-[10px] text-slate-400 mt-1">Format lajur: [Nama, Emel, Bahagian]</span>
+                    <span class="text-2xl block mb-1">📊</span>
+                    <span class="text-xs font-bold text-cyan-300 hover:underline">Pilih Fail Excel Peserta</span>
+                    <span class="block text-[10px] text-slate-400 mt-1">Lajur: [Nama, Emel, Bahagian]</span>
                   </label>
                 </div>
               </div>
-
-              <div class="mt-4 pt-3 border-t border-slate-700/80 flex justify-between items-center text-xs">
+              <div class="mt-3 flex justify-between items-center text-xs">
                 <span id="uploadStatusText" class="text-slate-400 text-[11px]">Sedia menerima fail.</span>
-                <button onclick="downloadSampleExcel()" class="text-xs text-cyan-300 underline hover:text-cyan-200">Muat Turun Templat Excel</button>
+                <button onclick="downloadSampleExcel()" class="text-xs text-cyan-300 underline">Templat Excel</button>
               </div>
             </div>
           </div>
 
-          <!-- JADUAL PESERTA DENGAN BUTANG CARIAN & GANTI WAKIL -->
+          <!-- PUSAT JADUAL BERSEPADU: CARIAN, SEMAKAN GOODIES & MAKLUM BALAS -->
           <div class="glass-card rounded-2xl p-5">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
               <div>
-                <h3 class="font-bold text-white text-sm">Senarai Keseluruhan Peserta Berdaftar</h3>
-                <p class="text-xs text-slate-300">Cari peserta atau tekan butang <strong>"🔄 Ganti Wakil"</strong> untuk terus mengemas kini nama dan emel wakil.</p>
+                <h3 class="font-bold text-white text-base flex items-center gap-2">
+                  <span>📋</span> Pangkalan Data Bersepadu Peserta
+                </h3>
+                <p class="text-xs text-slate-300">Semak status cop, respon maklum balas, dan tandakan serahan cenderamata (Goodies Bag) di sini.</p>
               </div>
-              <button onclick="clearAllData()" class="px-3 py-1.5 bg-rose-500/10 text-rose-300 border border-rose-500/30 hover:bg-rose-500/20 text-xs rounded-lg transition">
-                Padam Semua Rekod
-              </button>
+              <div class="flex gap-2">
+                <button onclick="exportStampMatrixExcel()" class="px-3 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-xs font-bold">
+                  📥 Eksport Matriks Cop (.xlsx)
+                </button>
+                <button onclick="exportFeedbackExcel()" class="px-3 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold">
+                  📥 Eksport Maklum Balas (.xlsx)
+                </button>
+              </div>
             </div>
 
-            <!-- KOTAK & BUTANG CARIAN -->
-            <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3 mb-4 flex flex-col sm:flex-row gap-2.5 items-center">
+            <!-- KOTAK & PENAPIS CARIAN BERSEPADU -->
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5 mb-4 flex flex-col md:flex-row gap-3 items-center">
               <div class="relative flex-1 w-full">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs">🔍</span>
-                <input type="text" id="searchParticipantInput" onkeyup="handleSearchParticipants()" placeholder="Cari nama peserta, emel, atau bahagian..."
-                  class="w-full pl-8 pr-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400">
+                <input type="text" id="hubSearchInput" onkeyup="renderIntegratedParticipantsTable()" placeholder="Cari nama peserta, alamat emel, atau bahagian/agensi..."
+                  class="w-full pl-8 pr-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 font-mono">
               </div>
-              <div class="flex gap-2 w-full sm:w-auto">
-                <button onclick="handleSearchParticipants()" class="flex-1 sm:flex-none px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-bold transition">
-                  Cari Peserta
-                </button>
-                <button onclick="resetParticipantSearch()" class="flex-1 sm:flex-none px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition">
+
+              <!-- Dropdown Penapis Serba Boleh -->
+              <div class="w-full md:w-auto flex gap-2">
+                <select id="hubFilterCategory" onchange="renderIntegratedParticipantsTable()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-cyan-400">
+                  <option value="ALL">Semua Peserta</option>
+                  <option value="QUALIFIED">Layak Goodies & Cabutan (10 Cop)</option>
+                  <option value="GOODIES_UNCLAIMED">Belum Tebus Goodies Sahaja</option>
+                  <option value="GOODIES_CLAIMED">Telah Tebus Goodies Sahaja</option>
+                  <option value="FEEDBACK_DONE">Maklum Balas Selesai</option>
+                  <option value="FEEDBACK_PENDING">Maklum Balas Belum Selesai</option>
+                </select>
+
+                <button onclick="resetHubFilters()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">
                   Set Semula
                 </button>
               </div>
             </div>
 
-            <div class="overflow-x-auto max-h-80 overflow-y-auto">
+            <!-- JADUAL BERSEPADU INDUK -->
+            <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
               <table class="w-full text-left text-xs">
                 <thead class="sticky top-0 bg-slate-900 border-b border-slate-700 text-slate-300 uppercase">
                   <tr>
                     <th class="py-2.5 px-3">Nama Peserta</th>
-                    <th class="py-2.5 px-3">Emel Semasa</th>
-                    <th class="py-2.5 px-3">Bahagian</th>
-                    <th class="py-2.5 px-3 text-center">Status Aktiviti Cop</th>
+                    <th class="py-2.5 px-3">Emel & Bahagian</th>
+                    <th class="py-2.5 px-3 text-center">Bil. Cop</th>
+                    <th class="py-2.5 px-3 text-center">Maklum Balas</th>
+                    <th class="py-2.5 px-3 text-center">Beg Cenderamata (Goodies)</th>
                     <th class="py-2.5 px-3 text-right">Tindakan</th>
                   </tr>
                 </thead>
-                <tbody id="adminUsersTable" class="divide-y divide-slate-800">
-                  <!-- Baris Peserta -->
+                <tbody id="integratedParticipantsTableBody" class="divide-y divide-slate-800">
+                  <!-- Diisi Dinamik -->
                 </tbody>
               </table>
             </div>
-            
-            <div class="mt-2 text-right">
-              <span id="searchResultCount" class="text-[11px] text-slate-400">Menunjukkan 0 peserta</span>
+
+            <div class="mt-2.5 flex justify-between items-center text-[11px] text-slate-400">
+              <span id="hubSearchResultCount">Menunjukkan 0 peserta</span>
+              <button onclick="clearAllData()" class="text-rose-400 hover:underline">Padam Semua Data Peserta</button>
             </div>
           </div>
         </div>
 
-        <!-- SUB-TAB 5: CETAKAN KAD QR RERUAI -->
-        <div id="adminQRSection" class="hidden space-y-6">
-          <div class="no-print glass-card rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <!-- SUB-TAB: PELAPORAN & ANALITIK -->
+        <div id="adminReportsSection" class="hidden space-y-6">
+          <div class="glass-card rounded-3xl p-6 flex justify-between items-center border border-cyan-500/40">
             <div>
-              <h3 class="font-bold text-white text-base">Cetakan Kad QR 10 Reruai Pempamer Rasmi</h3>
-              <p class="text-xs text-slate-300">Format paparan meja bagi Lot 01 hingga Lot 10 Hari Pendigitalan MOTAC.</p>
+              <h3 class="text-lg font-black text-white">Laporan Statistik Rasmi</h3>
+              <p class="text-xs text-slate-300">Muat turun ringkasan eksekutif dan prestasi reruai dalam format Excel atau PDF.</p>
             </div>
-            <button onclick="window.print()" class="px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl text-xs flex items-center gap-2 shadow-lg">
+            <div class="flex gap-2">
+              <button onclick="exportComprehensiveReportExcel()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold">
+                📥 Muat Turun Ringkasan Excel
+              </button>
+              <button onclick="printExecutiveReport()" class="px-4 py-2.5 bg-slate-800 text-cyan-300 border border-cyan-500/30 rounded-xl text-xs font-bold">
+                🖨️️ Cetak / Simpan PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Konfigurasi Webhook Google Sheet -->
+          <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 text-xs">
+            <label class="block font-bold text-cyan-300 mb-1">🔗 URL Google Apps Script Webhook (Untuk Sync Google Sheets):</label>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="url" id="googleSheetWebhookUrl" placeholder="https://script.google.com/macros/s/AKfycbx.../exec"
+                class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs">
+              <button onclick="saveWebhookUrl()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl text-xs">Simpan Webhook</button>
+            </div>
+          </div>
+
+          <!-- Jadual Prestasi Booth -->
+          <div class="glass-card rounded-2xl p-5">
+            <h4 class="font-bold text-white text-sm mb-3">🏢 Prestasi Kunjungan 10 Reruai Pempamer</h4>
+            <div class="overflow-x-auto max-h-72 overflow-y-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="sticky top-0 bg-slate-900 border-b border-slate-700 text-slate-400 uppercase">
+                  <tr>
+                    <th class="py-2 px-3">Lot & Pempamer</th>
+                    <th class="py-2 px-3 text-center">Jumlah Pelawat</th>
+                    <th class="py-2 px-3 text-right">Peratusan (%)</th>
+                  </tr>
+                </thead>
+                <tbody id="boothPerformanceTableBody" class="divide-y divide-slate-800"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-TAB: CETAKAN KAD QR -->
+        <div id="adminQRSection" class="hidden space-y-6">
+          <div class="no-print glass-card rounded-2xl p-5 flex justify-between items-center">
+            <div>
+              <h3 class="font-bold text-white text-base">Cetakan Kad QR 10 Reruai Pempamer</h3>
+              <p class="text-xs text-slate-300">Format paparan meja bagi Lot 01 hingga Lot 10.</p>
+            </div>
+            <button onclick="window.print()" class="px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl text-xs">
               🖨️ Cetak Semua Kad (A5 / A4)
             </button>
           </div>
-
-          <div id="printableQRCards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- 10 Kad Meja Dijana Dinamik -->
-          </div>
+          <div id="printableQRCards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </div>
 
-        <!-- SUB-TAB 6: URUS AKAUN ADMIN -->
+        <!-- SUB-TAB: URUS AKAUN ADMIN -->
         <div id="adminAccountsSection" class="hidden space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass-card rounded-2xl p-5 md:col-span-1">
-              <h3 class="text-sm font-bold text-white mb-1">Tambah Akaun Admin Baharu</h3>
-              <p class="text-xs text-slate-300 mb-4">Cipta akses urus setia tambahan.</p>
-              
-              <form onsubmit="addAdminAccount(event)" class="space-y-3">
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Nama Penuh</label>
-                  <input type="text" id="newAdminName" required placeholder="cth: Urus Setia BTM" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Username</label>
-                  <input type="text" id="newAdminUser" required placeholder="cth: admin2" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <div>
-                  <label class="block text-[11px] text-slate-300 mb-1">Kata Laluan</label>
-                  <input type="password" id="newAdminPass" required placeholder="******" class="w-full bg-slate-950/80 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
-                </div>
-                <button type="submit" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-bold transition">
-                  + Daftar Admin Baharu
-                </button>
-              </form>
-            </div>
-
-            <div class="glass-card rounded-2xl p-5 md:col-span-2">
-              <h3 class="text-sm font-bold text-white mb-1">Senarai Pentadbir Berdaftar</h3>
-              <p class="text-xs text-slate-300 mb-4">Akaun yang mempunyai kuasa menyelia data peserta dan cabutan pentas.</p>
-
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                  <thead class="bg-slate-950/80 border-b border-slate-800 text-slate-300 uppercase">
-                    <tr>
-                      <th class="py-2.5 px-3">Nama Urus Setia</th>
-                      <th class="py-2.5 px-3">Username</th>
-                      <th class="py-2.5 px-3 text-right">Tindakan</th>
-                    </tr>
-                  </thead>
-                  <tbody id="adminAccountsTable" class="divide-y divide-slate-800">
-                    <!-- Senarai Admin -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div class="glass-card rounded-2xl p-5">
+            <h3 class="text-sm font-bold text-white mb-2">Akaun Urus Setia Terdaftar</h3>
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/80 border-b border-slate-800 text-slate-300 uppercase">
+                <tr>
+                  <th class="py-2.5 px-3">Nama Urus Setia</th>
+                  <th class="py-2.5 px-3">Username</th>
+                  <th class="py-2.5 px-3 text-right">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody id="adminAccountsTable" class="divide-y divide-slate-800"></tbody>
+            </table>
           </div>
         </div>
 
@@ -949,63 +628,88 @@
   </main>
 
   <!-- ============================================================== -->
-  <!-- MODAL: GANTI TERUS MAKLUMAT WAKIL PESERTA                      -->
+  <!-- MODAL: PRATONTON JAWAPAN MAKLUM BALAS PESERTA (KHAS ADMIN)      -->
   <!-- ============================================================== -->
+  <div id="adminFeedbackPreviewModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-3xl max-w-lg w-full p-6 text-left relative shadow-2xl border border-cyan-400/50">
+      <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
+        <div>
+          <h4 class="text-sm font-bold text-cyan-300 flex items-center gap-1.5">
+            <span>📝</span> Respon Maklum Balas Peserta
+          </h4>
+          <p id="previewParticipantName" class="text-xs text-white font-semibold mt-0.5">-</p>
+        </div>
+        <button onclick="closeAdminFeedbackPreview()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block font-semibold mb-0.5">1. Tahap Kepuasan Acara (1-5):</span>
+          <span id="prevQ1" class="text-amber-400 font-bold">-</span>
+        </div>
+        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block font-semibold mb-0.5">2. Reruai Paling Menarik:</span>
+          <span id="prevQ2" class="text-cyan-300 font-bold">-</span>
+        </div>
+        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block font-semibold mb-0.5">3. Penilaian Kelancaran Web Cop Digital (1-5):</span>
+          <span id="prevQ3" class="text-amber-400 font-bold">-</span>
+        </div>
+        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block font-semibold mb-0.5">4. Wajar Diteruskan Sebagai Acara Tahunan:</span>
+          <span id="prevQ4" class="text-emerald-400 font-bold">-</span>
+        </div>
+        <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block font-semibold mb-0.5">5. Cadangan / Penambahbaikan:</span>
+          <p id="prevQ5" class="text-slate-200 mt-1 leading-relaxed">-</p>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-slate-800 text-right">
+        <button onclick="closeAdminFeedbackPreview()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GANTI WAKIL PESERTA -->
   <div id="proxyModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl max-w-md w-full p-6 text-left relative shadow-2xl border border-amber-500/40">
       <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
         <div>
-          <h4 class="text-sm font-bold text-amber-300 flex items-center gap-1.5">
-            <span>🔄</span> Ganti Butiran Wakil Peserta
-          </h4>
-          <p class="text-[11px] text-slate-400">Butiran nama dan emel peserta ini akan diganti terus kepada maklumat wakil.</p>
+          <h4 class="text-sm font-bold text-amber-300">🔄 Ganti Butiran Wakil Peserta</h4>
         </div>
-        <button onclick="closeProxyModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+        <button onclick="closeProxyModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
       </div>
 
-      <form onsubmit="handleSaveProxy(event)" class="space-y-3.5">
+      <form onsubmit="handleSaveProxy(event)" class="space-y-3 text-xs">
         <input type="hidden" id="proxyOriginalEmail">
-
         <div>
-          <label class="block text-[11px] text-slate-300 mb-1">Peserta Semasa:</label>
-          <input type="text" id="proxyOriginalNameDisplay" disabled
-            class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-xs text-slate-400 cursor-not-allowed">
+          <label class="block text-slate-400 mb-1">Peserta Semasa:</label>
+          <input type="text" id="proxyOriginalNameDisplay" disabled class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-slate-400 cursor-not-allowed">
         </div>
-
         <div>
-          <label class="block text-[11px] text-amber-300 font-semibold mb-1">Nama Baharu (Wakil):</label>
-          <input type="text" id="proxyNewName" required placeholder="cth: Siti Salmah Binti Razak"
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-400">
+          <label class="block text-amber-300 font-semibold mb-1">Nama Baharu (Wakil):</label>
+          <input type="text" id="proxyNewName" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
         </div>
-
         <div>
-          <label class="block text-[11px] text-amber-300 font-semibold mb-1">Emel Baharu (Wakil - Untuk Log Masuk):</label>
-          <input type="email" id="proxyNewEmail" required placeholder="cth: salmah@motac.gov.my"
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-400">
-          <p class="text-[10px] text-slate-400 mt-1">Sistem akan menggantikan rekod sedia ada secara terus.</p>
+          <label class="block text-amber-300 font-semibold mb-1">Emel Baharu (Untuk Log Masuk):</label>
+          <input type="email" id="proxyNewEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
         </div>
-
         <div>
-          <label class="block text-[11px] text-slate-300 mb-1">Bahagian / Agensi:</label>
-          <input type="text" id="proxyAgencyDisplay" required
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
+          <label class="block text-slate-400 mb-1">Bahagian / Agensi:</label>
+          <input type="text" id="proxyAgencyDisplay" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
         </div>
-
-        <div class="mt-5 pt-3 border-t border-slate-800 flex gap-2">
-          <button type="submit" class="flex-1 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl text-xs transition">
-            Ganti Maklumat Peserta
-          </button>
-          <button type="button" onclick="closeProxyModal()" class="px-4 py-2.5 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">
-            Batal
-          </button>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex gap-2">
+          <button type="submit" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl text-xs">Simpan Perubahan</button>
+          <button type="button" onclick="closeProxyModal()" class="px-4 py-2.5 bg-slate-800 text-slate-300 rounded-xl text-xs">Batal</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: BORANG 5 SOALAN MAKLUM BALAS RINGKAS                    -->
-  <!-- ============================================================== -->
+  <!-- MODAL: BORANG 5 SOALAN MAKLUM BALAS -->
   <div id="feedbackModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="glass-card rounded-3xl max-w-lg w-full p-6 text-left relative shadow-2xl border border-cyan-400/50 my-8">
       <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
@@ -1013,42 +717,32 @@
           <h4 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-indigo-200">
             📝 Borang Maklum Balas Hari Pendigitalan MOTAC
           </h4>
-          <p class="text-[11px] text-slate-400">Lengkapkan 5 soalan ringkas ini untuk membuka e-Sijil & menebus cenderamata.</p>
+          <p class="text-[11px] text-slate-400">Lengkapkan maklum balas di bawah untuk membuka e-Sijil.</p>
         </div>
         <button onclick="closeFeedbackModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
       </div>
 
-      <form onsubmit="handleSurveySubmit(event)" class="space-y-4 text-xs">
-        <!-- Soalan 1 -->
+      <form id="feedbackForm" onsubmit="handleSurveySubmit(event)" class="space-y-4 text-xs">
         <div>
-          <label class="block font-semibold text-slate-200 mb-1">
-            1. Tahap kepuasan keseluruhan terhadap penganjuran Hari Pendigitalan MOTAC 2026:
-          </label>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-200">1. Tahap kepuasan keseluruhan program:</label>
+            <span class="text-[10px] text-rose-400 font-bold">*Wajib</span>
+          </div>
           <div class="grid grid-cols-5 gap-2 text-center">
-            <label class="cursor-pointer p-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-cyan-400">
-              <input type="radio" name="q1" value="1" required class="block mx-auto mb-1"> 1 <span class="block text-[9px] text-slate-400">Lemah</span>
-            </label>
-            <label class="cursor-pointer p-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-cyan-400">
-              <input type="radio" name="q1" value="2" class="block mx-auto mb-1"> 2 <span class="block text-[9px] text-slate-400">Sederhana</span>
-            </label>
-            <label class="cursor-pointer p-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-cyan-400">
-              <input type="radio" name="q1" value="3" class="block mx-auto mb-1"> 3 <span class="block text-[9px] text-slate-400">Baik</span>
-            </label>
-            <label class="cursor-pointer p-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-cyan-400">
-              <input type="radio" name="q1" value="4" class="block mx-auto mb-1"> 4 <span class="block text-[9px] text-slate-400">Sangat Baik</span>
-            </label>
-            <label class="cursor-pointer p-2 bg-slate-900 border border-slate-700 rounded-lg hover:border-cyan-400">
-              <input type="radio" name="q1" value="5" class="block mx-auto mb-1"> 5 <span class="block text-[9px] text-slate-400">Cemerlang</span>
-            </label>
+            <label class="p-2 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer"><input type="radio" name="q1" value="1" required class="block mx-auto mb-1"> 1</label>
+            <label class="p-2 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer"><input type="radio" name="q1" value="2" class="block mx-auto mb-1"> 2</label>
+            <label class="p-2 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer"><input type="radio" name="q1" value="3" class="block mx-auto mb-1"> 3</label>
+            <label class="p-2 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer"><input type="radio" name="q1" value="4" class="block mx-auto mb-1"> 4</label>
+            <label class="p-2 bg-slate-900 border border-slate-700 rounded-lg cursor-pointer"><input type="radio" name="q1" value="5" class="block mx-auto mb-1"> 5</label>
           </div>
         </div>
 
-        <!-- Soalan 2 -->
         <div>
-          <label class="block font-semibold text-slate-200 mb-1">
-            2. Pempamer / Reruai yang paling bermanfaat & menarik minat anda:
-          </label>
-          <select id="surveyQ2" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-cyan-400">
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-200">2. Reruai paling bermanfaat & menarik minat anda:</label>
+            <span class="text-[10px] text-rose-400 font-bold">*Wajib</span>
+          </div>
+          <select id="surveyQ2" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white">
             <option value="">-- Sila Pilih Reruai --</option>
             <option value="LOT 01 - MyDigitalID">LOT 01 - MyDigitalID</option>
             <option value="LOT 02 - Microsoft AI Copilot">LOT 02 - Microsoft AI Copilot</option>
@@ -1063,11 +757,11 @@
           </select>
         </div>
 
-        <!-- Soalan 3 -->
         <div>
-          <label class="block font-semibold text-slate-200 mb-1">
-            3. Penilaian kelancaran aplikasi web Cop Digital & Live Draw ini:
-          </label>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-200">3. Penilaian kelancaran web Cop Digital (1-5):</label>
+            <span class="text-[10px] text-rose-400 font-bold">*Wajib</span>
+          </div>
           <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-lg border border-slate-700">
             <span class="text-[11px] text-slate-400">Sukar</span>
             <div class="flex gap-4">
@@ -1081,28 +775,23 @@
           </div>
         </div>
 
-        <!-- Soalan 4 -->
         <div>
-          <label class="block font-semibold text-slate-200 mb-1">
-            4. Adakah anda bersetuju program Hari Pendigitalan dijadikan acara tahunan MOTAC?
-          </label>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-200">4. Wajar dijadikan acara tahunan MOTAC?</label>
+            <span class="text-[10px] text-rose-400 font-bold">*Wajib</span>
+          </div>
           <div class="flex gap-6 mt-1">
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input type="radio" name="q4" value="Ya" required> Ya, Sangat Setuju
-            </label>
-            <label class="flex items-center gap-2 cursor-pointer">
-              <input type="radio" name="q4" value="Tidak"> Tidak Pasti / Tidak
-            </label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q4" value="Ya" required> Ya, Sangat Setuju</label>
+            <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="q4" value="Tidak"> Tidak Pasti / Tidak</label>
           </div>
         </div>
 
-        <!-- Soalan 5 -->
         <div>
-          <label class="block font-semibold text-slate-200 mb-1">
-            5. Cadangan penambahbaikan untuk inisiatif pendigitalan kementerian pada masa depan:
-          </label>
-          <textarea id="surveyQ5" required rows="3" placeholder="Kongsi idea, kursus/bengkel teknologi yang diperlukan, atau penambahbaikan penganjuran..."
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:ring-1 focus:ring-cyan-400"></textarea>
+          <div class="flex justify-between items-center mb-1">
+            <label class="block font-semibold text-slate-200">5. Cadangan penambahbaikan:</label>
+            <span class="text-[10px] text-slate-400 font-normal">(Pilihan / Opsional)</span>
+          </div>
+          <textarea id="surveyQ5" rows="3" placeholder="Kongsi cadangan anda (jika ada)..." class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white"></textarea>
         </div>
 
         <div class="pt-3 border-t border-slate-800 flex gap-2">
@@ -1114,12 +803,10 @@
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: E-SIJIL PENYERTAAN RASMI (LANGKAH 3)                    -->
-  <!-- ============================================================== -->
+  <!-- MODAL: E-SIJIL PENYERTAAN RASMI -->
   <div id="certificateModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4 overflow-y-auto">
     <div class="max-w-4xl w-full flex justify-between items-center mb-3 no-print">
-      <span class="text-xs text-cyan-300 font-bold">🎓 Pratonton e-Sijil Penyertaan Rasmi MOTAC</span>
+      <span class="text-xs text-cyan-300 font-bold">🎓 Pratonton e-Sijil Penyertaan Rasmi</span>
       <div class="flex gap-2">
         <button onclick="printCertificate()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 shadow-lg">
           🖨️ Muat Turun Format PDF / Cetak
@@ -1130,33 +817,20 @@
       </div>
     </div>
 
-    <!-- Templat Reka Bentuk Sijil -->
+    <!-- Sijil Template -->
     <div id="printableCertificateArea" class="bg-white text-slate-900 w-full max-w-4xl p-8 sm:p-12 rounded-2xl shadow-2xl border-[10px] border-double border-amber-600/70 relative overflow-hidden font-serif text-center">
-      <!-- Corak Penjuru Emas -->
-      <div class="absolute top-2 left-2 w-12 h-12 border-t-2 border-l-2 border-amber-600"></div>
-      <div class="absolute top-2 right-2 w-12 h-12 border-t-2 border-r-2 border-amber-600"></div>
-      <div class="absolute bottom-2 left-2 w-12 h-12 border-b-2 border-l-2 border-amber-600"></div>
-      <div class="absolute bottom-2 right-2 w-12 h-12 border-b-2 border-r-2 border-amber-600"></div>
-
       <div class="flex justify-center mb-4">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" 
-             alt="Jata Negara" class="h-20 w-auto object-contain">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" alt="Jata Negara" class="h-20 w-auto object-contain">
       </div>
-
       <h4 class="text-xs uppercase tracking-[0.3em] font-sans font-bold text-slate-600">KEMENTERIAN PELANCONGAN, SENI DAN BUDAYA MALAYSIA</h4>
       <h1 class="text-3xl sm:text-4xl font-black text-amber-800 mt-2 tracking-wide font-serif">SIJIL PENYERTAAN</h1>
       <p class="text-xs font-sans text-slate-500 mt-1 uppercase tracking-widest">Dengan ini diperakui bahawa</p>
 
       <div class="my-5 py-2 border-b-2 border-slate-300 inline-block min-w-[60%]">
-        <h2 id="certRecipientName" class="text-2xl sm:text-3xl font-black text-slate-900 uppercase font-sans tracking-wider">
-          NAMA PESERTA
-        </h2>
+        <h2 id="certRecipientName" class="text-2xl sm:text-3xl font-black text-slate-900 uppercase font-sans tracking-wider">NAMA PESERTA</h2>
       </div>
 
-      <p id="certRecipientAgency" class="text-xs sm:text-sm font-sans font-semibold text-slate-700">
-        BAHAGIAN PENGURUSAN MAKLUMAT (BPM)
-      </p>
-
+      <p id="certRecipientAgency" class="text-xs sm:text-sm font-sans font-semibold text-slate-700">BAHAGIAN PENGURUSAN MAKLUMAT (BPM)</p>
       <p class="text-xs sm:text-sm font-sans text-slate-600 max-w-2xl mx-auto mt-4 leading-relaxed">
         Telah berjaya menyertai serta melengkapkan lawatan interaktif 10 reruai pempamer sempena program
         <strong class="text-slate-900 block mt-1 font-bold">HARI PENDIGITALAN MOTAC 2026</strong>
@@ -1173,26 +847,20 @@
           <p class="text-[10px] text-slate-500">Bahagian Pengurusan Maklumat (BPM)</p>
         </div>
       </div>
-
       <div class="mt-5 text-[9px] font-mono text-slate-400">
         No. Siri Pengesahan: <span id="certSerialNo">MOTAC-DIGI-2026-0001</span>
       </div>
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- MODAL: POP-UP NOTIS CLAIM GOODIES BAG (LANGKAH TERAKHIR)       -->
-  <!-- ============================================================== -->
+  <!-- MODAL: NOTIS CLAIM GOODIES BAG -->
   <div id="goodiesModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl max-w-md w-full p-6 text-center relative shadow-2xl border-2 border-amber-400/80">
-      <div class="w-16 h-16 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg mb-3">
-        🎁
-      </div>
+      <div class="w-16 h-16 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg mb-3">🎁</div>
       <h3 class="text-xl font-black text-amber-300">Penebusan Beg Cenderamata</h3>
       <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-        Tahniah, anda telah melengkapkan 10 cop digital, menghantar maklum balas serta membuka e-Sijil! Sila hadir ke <strong>Meja Kaunter Urus Setia</strong> untuk langkah terakhir anda: menebus beg cenderamata (Goodies Bag).
+        Sila hadir ke <strong>Meja Kaunter Urus Setia</strong> untuk mengambil beg cenderamata (Goodies Bag) rasmi Hari Pendigitalan MOTAC 2026.
       </p>
-
       <div class="bg-slate-950/90 border border-amber-400/40 rounded-2xl p-4 my-4 text-left font-mono">
         <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-800">
           <span class="text-slate-400">Nama Penerima:</span>
@@ -1203,13 +871,8 @@
           <span id="goodiesModalClaimText" class="font-bold text-amber-400">Belum Ditebus ⏳</span>
         </div>
       </div>
-
-      <p class="text-[11px] text-cyan-300">Tunjukkan skrin ini kepada petugas urus setia di kaunter untuk disahkan.</p>
-
-      <div class="mt-5 flex gap-2">
-        <button onclick="closeGoodiesModal()" class="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold">
-          Tutup Notis
-        </button>
+      <div class="mt-4 flex gap-2">
+        <button onclick="closeGoodiesModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold">Tutup Notis</button>
       </div>
     </div>
   </div>
@@ -1219,22 +882,10 @@
     <div class="glass-card rounded-3xl max-w-sm w-full p-5 text-center relative shadow-2xl">
       <div class="flex justify-between items-center mb-3">
         <h4 class="text-sm font-bold text-cyan-300">📷 Pengimbas Cop Digital</h4>
-        <button onclick="stopQRScanner()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+        <button onclick="stopQRScanner()" class="text-slate-400 hover:text-white font-bold">✕</button>
       </div>
-
       <div id="readerBox" class="w-full h-64 bg-black rounded-2xl overflow-hidden border border-cyan-500/40"></div>
-
-      <p class="text-[11px] text-slate-300 mt-3">Arahkan kamera telefon ke kad QR di atas meja pempamer untuk menerima cop digital.</p>
-
-      <div class="mt-4 pt-3 border-t border-slate-700/80">
-        <details class="text-[11px] text-slate-300 text-left">
-          <summary class="cursor-pointer text-cyan-300 hover:underline">Kamera bermasalah? Masukkan kod token reruai</summary>
-          <div class="flex gap-2 mt-2">
-            <input type="text" id="manualTokenInput" placeholder="cth: DID101" class="bg-slate-950/90 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white uppercase w-full">
-            <button onclick="submitManualToken()" class="px-3.5 py-1.5 bg-cyan-600 text-white rounded-lg text-xs font-bold">Sahkan</button>
-          </div>
-        </details>
-      </div>
+      <p class="text-[11px] text-slate-300 mt-3">Arahkan kamera ke kad QR di atas meja pempamer.</p>
     </div>
   </div>
 
@@ -1247,19 +898,18 @@
     // 1. DATA MASTER 10 PEMPAMER
     // ==============================================================
     const MOTAC_BOOTHS = [
-      { id: 1, lot: "LOT 01", name: "MyDigitalID", desc: "Identiti Digital Nasional sektor awam, pengesahan tanpa kata laluan dan keselamatan transaksi rakyat.", slot: "Slot 1 • 9.00 Pagi", token: "DID101", icon: "🛡️" },
-      { id: 2, lot: "LOT 02", name: "Microsoft", desc: "Ekosistem AI Copilot, produktiviti pejabat pintar, automasi pentadbiran dan kolaborasi moden.", slot: "Slot 2 • 11.10 Pagi", token: "MSF202", icon: "🪟" },
-      { id: 3, lot: "LOT 03", name: "AWS (Amazon Web Services)", desc: "Infrastruktur pengkomputeran awan berprestasi tinggi, analitik data pelancongan dan keselamatan AI awan.", slot: "Slot 3 • 11.40 Pagi", token: "AWS303", icon: "☁️" },
-      { id: 4, lot: "LOT 04", name: "HP Malaysia", desc: "Perkakasan hibrid pejabat masa depan, sekuriti peranti endpoint dan teknologi percetakan mampan.", slot: "Slot 4 • 12.10 Tgh Hari", token: "HPM404", icon: "💻" },
-      { id: 5, lot: "LOT 05", name: "Canon Malaysia", desc: "Penyelesaian pengimejan resolusi tinggi, arkib digital seni warisan serta sistem imbasan pintar.", slot: "Slot 5 • 2.30 Petang", token: "CAN505", icon: "📷" },
-      { id: 6, lot: "LOT 06", name: "Ace Team", desc: "Integrasi sistem ICT komprehensif, penyelesaian rangkaian korporat dan infrastruktur rangkaian pintar.", slot: "Slot 6 • 3.00 Petang", token: "ACE606", icon: "🌐" },
-      { id: 7, lot: "LOT 07", name: "OrenG", desc: "Aplikasi inovatif dan perisian interaktif memperkasa pengurusan pengalaman digital pengunjung pelancongan.", slot: "Slot 7 • 3.30 Petang", token: "ORG707", icon: "📱" },
-      { id: 8, lot: "LOT 08", name: "NGO — Robotik", desc: "Inovasi robotik automasi, pemerkasaan STEM dan pendedahan teknologi robotik untuk kebudayaan moden.", slot: "Slot 8 • 4.00 Petang", token: "ROB808", icon: "🤖" },
-      { id: 9, lot: "LOT 09", name: "Rakan Inovasi Digital MOTAC", desc: "Pameran projek inovasi ICT terpilih dari bahagian, jabatan dan agensi di bawah naungan kementerian.", slot: "Pameran Seharian", token: "RID909", icon: "✨" },
-      { id: 10, lot: "LOT 10", name: "Kaunter Servis BPM MOTAC", desc: "Klinik ICT, khidmat bantuan teknikal, pendaftaran emel MyGovUC serta rundingan sistem kementerian.", slot: "Kaunter Terus BPM", token: "BPM110", icon: "⚙️" }
+      { id: 1, lot: "LOT 01", name: "MyDigitalID", desc: "Identiti Digital Nasional sektor awam, pengesahan tanpa kata laluan.", slot: "Slot 1 • 9.00 Pagi", token: "DID101" },
+      { id: 2, lot: "LOT 02", name: "Microsoft", desc: "Ekosistem AI Copilot, produktiviti pintar dan automasi pejabat.", slot: "Slot 2 • 11.10 Pagi", token: "MSF202" },
+      { id: 3, lot: "LOT 03", name: "AWS (Amazon Web Services)", desc: "Infrastruktur awan dan analitik data pelancongan.", slot: "Slot 3 • 11.40 Pagi", token: "AWS303" },
+      { id: 4, lot: "LOT 04", name: "HP Malaysia", desc: "Perkakasan hibrid pejabat dan sekuriti peranti endpoint.", slot: "Slot 4 • 12.10 Tgh Hari", token: "HPM404" },
+      { id: 5, lot: "LOT 05", name: "Canon Malaysia", desc: "Penyelesaian pengimejan resolusi tinggi dan arkib digital seni.", slot: "Slot 5 • 2.30 Petang", token: "CAN505" },
+      { id: 6, lot: "LOT 06", name: "Ace Team", desc: "Integrasi sistem ICT komprehensif dan rangkaian pintar.", slot: "Slot 6 • 3.00 Petang", token: "ACE606" },
+      { id: 7, lot: "LOT 07", name: "OrenG", desc: "Aplikasi interaktif pengurusan pengalaman pelawat.", slot: "Slot 7 • 3.30 Petang", token: "ORG707" },
+      { id: 8, lot: "LOT 08", name: "NGO — Robotik", desc: "Inovasi robotik automasi dan pemerkasaan STEM kebudayaan.", slot: "Slot 8 • 4.00 Petang", token: "ROB808" },
+      { id: 9, lot: "LOT 09", name: "Rakan Inovasi Digital MOTAC", desc: "Pameran projek inovasi ICT terpilih agensi MOTAC.", slot: "Pameran Seharian", token: "RID909" },
+      { id: 10, lot: "LOT 10", name: "Kaunter Servis BPM MOTAC", desc: "Klinik ICT, khidmat MyGovUC dan konsultasi sistem kementerian.", slot: "Kaunter Terus BPM", token: "BPM110" }
     ];
 
-    // Senarai Peserta Sedia Ada (14 Orang)
     const defaultParticipants = [
       { name: "Nurfateenizati", email: "fatini@motac.gov.my", agency: "Bahagian Pengurusan Maklumat (BPM)", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
       { name: "Ahmad Faris", email: "faris@tourism.gov.my", agency: "Tourism Malaysia", stamps: [1, 2, 3], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
@@ -1268,32 +918,24 @@
       { name: "Siti Khadijah Binti Ismail", email: "khadijah@motac.gov.my", agency: "Bahagian Dasar Pelancongan", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], feedbackDone: true, certDownloaded: true, goodiesClaimed: false },
       { name: "Muhammad Zharif Bin Roslan", email: "zharif@motac.gov.my", agency: "Bahagian Pengurusan Maklumat (BPM)", stamps: [1, 2, 3, 4, 5, 6, 7, 8], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
       { name: "Ainul Mardhiah Binti Yusof", email: "ainul@tourism.gov.my", agency: "Tourism Malaysia", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Mohd Danish Haikal", email: "danish@kraftangan.gov.my", agency: "Perbadanan Kemajuan Kraftangan", stamps: [1, 2, 3, 4, 5], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Nur Syakirah Binti Ramli", email: "syakirah@heritage.gov.my", agency: "Jabatan Warisan Negara", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Wan Muhammad Haziq", email: "haziq@istanabudaya.gov.my", agency: "Istana Budaya", stamps: [1, 2, 3, 4, 5, 6, 7], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Farah Diana Binti Mansor", email: "farah@motac.gov.my", agency: "Bahagian Perhubungan Antarabangsa", stamps: [1, 2, 3], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Zulkifli Bin Abdul Rahman", email: "zulkifli@jkkn.gov.my", agency: "Jabatan Kebudayaan & Kesenian Negara (JKKN)", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Norazlina Binti Hashim", email: "azlina@motac.gov.my", agency: "Bahagian Kewangan", stamps: [1, 2, 3, 4, 5, 6], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
-      { name: "Amirul Syafiq Bin Halim", email: "amirul@muzium.gov.my", agency: "Jabatan Muzium Malaysia", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9], feedbackDone: false, certDownloaded: false, goodiesClaimed: false }
+      { name: "Mohd Danish Haikal", email: "danish@kraftangan.gov.my", agency: "Perbadanan Kemajuan Kraftangan", stamps: [1, 2, 3, 4, 5], feedbackDone: false, certDownloaded: false, goodiesClaimed: false }
     ];
 
     const defaultAdmins = [
       { name: "Pentadbir Utama BPM", user: "admin", pass: "admin1234" }
     ];
 
-    // Simpanan Data (v19)
-    let participants = JSON.parse(localStorage.getItem('motac_p_v19')) || defaultParticipants;
-    let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v19')) || defaultAdmins;
-    let winnersList = JSON.parse(localStorage.getItem('motac_winners_v19')) || [];
-    let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v19')) || [];
-    let googleSheetWebhookUrl = localStorage.getItem('motac_gsheet_url_v19') || "";
+    let participants = JSON.parse(localStorage.getItem('motac_p_v22')) || defaultParticipants;
+    let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v22')) || defaultAdmins;
+    let winnersList = JSON.parse(localStorage.getItem('motac_winners_v22')) || [];
+    let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v22')) || [];
+    let googleSheetWebhookUrl = localStorage.getItem('motac_gsheet_url_v22') || "";
     let currentParticipantEmail = localStorage.getItem('motac_logged_email') || null;
     let activeAdminUser = sessionStorage.getItem('motac_active_admin') || null;
     let html5ScannerInstance = null;
-    let currentSearchTerm = "";
 
-    // Sync merentas tab pelayar
-    const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v19') : null;
+    // Cross-Tab Sync
+    const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v22') : null;
     if (syncChannel) {
       syncChannel.onmessage = (event) => {
         if (event.data && event.data.type === 'STATE_UPDATED') {
@@ -1303,18 +945,11 @@
       };
     }
 
-    window.addEventListener('storage', (e) => {
-      if (['motac_p_v19', 'motac_winners_v19', 'motac_admins_v19', 'motac_feedbacks_v19'].includes(e.key)) {
-        reloadLocalState();
-        refreshViews();
-      }
-    });
-
     function reloadLocalState() {
-      participants = JSON.parse(localStorage.getItem('motac_p_v19')) || defaultParticipants;
-      adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v19')) || defaultAdmins;
-      winnersList = JSON.parse(localStorage.getItem('motac_winners_v19')) || [];
-      feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v19')) || [];
+      participants = JSON.parse(localStorage.getItem('motac_p_v22')) || defaultParticipants;
+      adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v22')) || defaultAdmins;
+      winnersList = JSON.parse(localStorage.getItem('motac_winners_v22')) || [];
+      feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v22')) || [];
     }
 
     function refreshViews() {
@@ -1324,19 +959,16 @@
     }
 
     function saveState() {
-      localStorage.setItem('motac_p_v19', JSON.stringify(participants));
-      localStorage.setItem('motac_admins_v19', JSON.stringify(adminAccounts));
-      localStorage.setItem('motac_winners_v19', JSON.stringify(winnersList));
-      localStorage.setItem('motac_feedbacks_v19', JSON.stringify(feedbackResponses));
+      localStorage.setItem('motac_p_v22', JSON.stringify(participants));
+      localStorage.setItem('motac_admins_v22', JSON.stringify(adminAccounts));
+      localStorage.setItem('motac_winners_v22', JSON.stringify(winnersList));
+      localStorage.setItem('motac_feedbacks_v22', JSON.stringify(feedbackResponses));
       if (currentParticipantEmail) {
         localStorage.setItem('motac_logged_email', currentParticipantEmail);
       } else {
         localStorage.removeItem('motac_logged_email');
       }
-
-      if (syncChannel) {
-        syncChannel.postMessage({ type: 'STATE_UPDATED' });
-      }
+      if (syncChannel) syncChannel.postMessage({ type: 'STATE_UPDATED' });
     }
 
     function sendToGoogleSheets(payload) {
@@ -1348,24 +980,20 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-      } catch (err) {
-        console.warn("Ralat hantar ke Google Sheets:", err);
-      }
+      } catch (err) {}
     }
 
     // ==============================================================
-    // 2. LOGIK KEMAJUAN TINDAKAN (ACTION PROGRESS BAR PIPELINE)
+    // 2. LOGIK KEMAJUAN TINDAKAN PESERTA (4-STEP PROGRESS BAR)
     // ==============================================================
     function handleUserLogin(e) {
       e.preventDefault();
       const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
-      
       const user = participants.find(p => p.email.toLowerCase() === emailInput);
       if (!user) {
-        alert("Emel ini tidak dijumpai dalam senarai pendaftaran MOTAC. Sila ke meja urus setia untuk didaftarkan.");
+        alert("Emel ini tidak dijumpai dalam senarai pendaftaran MOTAC. Sila hubungi meja urus setia.");
         return;
       }
-
       currentParticipantEmail = user.email;
       saveState();
       renderUserView();
@@ -1377,7 +1005,6 @@
       renderUserView();
     }
 
-    // FUNGSI UTAMA KEMASKINI PROGRESS BAR & ROADMAP 4 LANGKAH
     function updateParticipantActionRoadmap(user) {
       const count = user.stamps.length;
       const isStampsDone = count === 10;
@@ -1385,7 +1012,6 @@
       const isCertDone = !!user.certDownloaded;
       const isGoodiesDone = !!user.goodiesClaimed;
 
-      // Unsur-unsur DOM
       const titleText = document.getElementById('journeyTitleText');
       const stepBadge = document.getElementById('journeyStepBadge');
       const progressBar = document.getElementById('timelineProgressBar');
@@ -1404,7 +1030,6 @@
       const alertText = document.getElementById('actionBannerText');
       const alertBtn = document.getElementById('actionBannerBtn');
 
-      // Reset Gaya Asas Nod
       const defaultNode = "w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-700 text-slate-500 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-md";
       const completedNode = "w-8 h-8 rounded-full bg-emerald-500 border-2 border-emerald-400 text-slate-950 font-black text-xs flex items-center justify-center transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]";
       const activeNode = "w-8 h-8 rounded-full bg-cyan-500 border-2 border-cyan-300 text-slate-950 font-black text-xs flex items-center justify-center transition-all duration-500 animate-pulse shadow-[0_0_15px_rgba(34,211,238,0.7)]";
@@ -1422,51 +1047,22 @@
 
       let progressPct = 0;
 
-      // 1. Logik Langkah 1: 10 Cop
-      if (isStampsDone) {
-        node1.className = completedNode;
-        node1.innerText = "✓";
-      } else {
-        node1.className = activeNode;
-        node1.innerText = "1";
-      }
+      if (isStampsDone) { node1.className = completedNode; node1.innerText = "✓"; }
+      else { node1.className = activeNode; node1.innerText = "1"; }
 
-      // 2. Logik Langkah 2: Maklum Balas
-      if (isFeedbackDone) {
-        node2.className = completedNode;
-        node2.innerText = "✓";
-      } else if (isStampsDone) {
-        node2.className = activeAmberNode;
-        node2.innerText = "2";
-      } else {
-        node2.innerText = "2";
-      }
+      if (isFeedbackDone) { node2.className = completedNode; node2.innerText = "✓"; }
+      else if (isStampsDone) { node2.className = activeAmberNode; node2.innerText = "2"; }
+      else { node2.innerText = "2"; }
 
-      // 3. Logik Langkah 3: e-Sijil
-      if (isCertDone) {
-        node3.className = completedNode;
-        node3.innerText = "✓";
-      } else if (isStampsDone && isFeedbackDone) {
-        node3.className = activeAmberNode;
-        node3.innerText = "3";
-      } else {
-        node3.innerText = "3";
-      }
+      if (isCertDone) { node3.className = completedNode; node3.innerText = "✓"; }
+      else if (isStampsDone && isFeedbackDone) { node3.className = activeAmberNode; node3.innerText = "3"; }
+      else { node3.innerText = "3"; }
 
-      // 4. Logik Langkah 4: Tebus Goodies (Terakhir)
-      if (isGoodiesDone) {
-        node4.className = completedNode;
-        node4.innerText = "✓";
-      } else if (isStampsDone && isFeedbackDone && isCertDone) {
-        node4.className = activeAmberNode;
-        node4.innerText = "4";
-      } else {
-        node4.innerText = "4";
-      }
+      if (isGoodiesDone) { node4.className = completedNode; node4.innerText = "✓"; }
+      else if (isStampsDone && isFeedbackDone && isCertDone) { node4.className = activeAmberNode; node4.innerText = "4"; }
+      else { node4.innerText = "4"; }
 
-      // PENENTUAN STATUS TINDAKAN SEMASA & LEBAR PROGRESS BAR
       if (!isStampsDone) {
-        // Fasa 1: Kumpul Cop (0% - 25%)
         progressPct = Math.round((count / 10) * 25);
         progressBar.style.width = `${progressPct}%`;
         titleText.innerHTML = `<span>🚀</span> Kumpul Cop: ${progressPct}% Selesai`;
@@ -1477,26 +1073,22 @@
         alertIcon.innerText = "📷";
         alertText.innerText = `Sila lengkapkan baki ${10 - count} cop lagi di meja reruai pempamer.`;
         alertBtn.innerText = "Imbas Kod QR Booth";
-        alertBtn.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 text-white font-black rounded-xl text-xs whitespace-nowrap shadow-md";
         window.currentRoadmapTarget = "SCAN";
 
       } else if (!isFeedbackDone) {
-        // Fasa 2: Maklum Balas (25% - 50%)
-        progressBar.style.width = "40%";
+        progressBar.style.width = "45%";
         titleText.innerHTML = `<span>📝</span> Maklum Balas: Sedia Dijawab`;
-        stepBadge.innerText = `Langkah 2: Isi 5 Maklum Balas`;
+        stepBadge.innerText = `Langkah 2: Isi Maklum Balas`;
         stepBadge.className = "text-[11px] font-mono px-3 py-1 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40 animate-pulse";
 
         alertBox.className = "p-3.5 bg-gradient-to-r from-amber-950/80 via-slate-950 to-slate-950 rounded-2xl border border-amber-400/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner";
         alertIcon.innerText = "📝";
-        alertText.innerText = "10 Cop Lengkap! Sila jawab 5 maklum balas ringkas untuk membuka e-Sijil.";
+        alertText.innerText = "10 Cop Lengkap! Sila jawab maklum balas ringkas untuk membuka e-Sijil.";
         alertBtn.innerText = "Jawab Maklum Balas Sekarang";
-        alertBtn.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black rounded-xl text-xs whitespace-nowrap shadow-lg shadow-amber-500/30 animate-bounce";
         window.currentRoadmapTarget = "SURVEY";
 
       } else if (!isCertDone) {
-        // Fasa 3: e-Sijil (50% - 75%)
-        progressBar.style.width = "70%";
+        progressBar.style.width = "72%";
         titleText.innerHTML = `<span>🎓</span> e-Sijil: Sedia Dimuat Turun`;
         stepBadge.innerText = `Langkah 3: Buka & Simpan e-Sijil`;
         stepBadge.className = "text-[11px] font-mono px-3 py-1 rounded-full font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 animate-pulse";
@@ -1505,12 +1097,10 @@
         alertIcon.innerText = "🎓";
         alertText.innerText = "Maklum balas diterima! Sila buka & muat turun e-Sijil anda sebelum menebus hadiah.";
         alertBtn.innerText = "Buka & Simpan e-Sijil PDF";
-        alertBtn.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 text-white font-black rounded-xl text-xs whitespace-nowrap shadow-md";
         window.currentRoadmapTarget = "CERT";
 
       } else if (!isGoodiesDone) {
-        // Fasa 4 (TERAKHIR): Tebus Goodies (75% - 95%)
-        progressBar.style.width = "88%";
+        progressBar.style.width = "90%";
         titleText.innerHTML = `<span>🎁</span> Goodies Bag: Sedia Ditebus di Meja Urus Setia`;
         stepBadge.innerText = `Langkah 4 (Akhir): Tebus Beg Cenderamata`;
         stepBadge.className = "text-[11px] font-mono px-3 py-1 rounded-full font-bold bg-amber-500/30 text-amber-300 border border-amber-400/50 animate-pulse";
@@ -1519,11 +1109,9 @@
         alertIcon.innerText = "🎁";
         alertText.innerText = "Langkah Terakhir! Sila ke Kaunter Urus Setia untuk mengambil Beg Cenderamata anda.";
         alertBtn.innerText = "Papar Skrin Penebusan Hadiah";
-        alertBtn.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black rounded-xl text-xs whitespace-nowrap shadow-lg shadow-amber-500/30";
         window.currentRoadmapTarget = "GOODIES";
 
       } else {
-        // Fasa Selesai Sepenuhnya (100%)
         progressBar.style.width = "100%";
         titleText.innerHTML = `<span>🎉</span> Tahniah! Misi Selesai 100%`;
         stepBadge.innerText = `Semua 4 Langkah Lengkap!`;
@@ -1531,23 +1119,17 @@
 
         alertBox.className = "p-3.5 bg-slate-950/90 rounded-2xl border border-emerald-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-inner";
         alertIcon.innerText = "🏆";
-        alertText.innerText = "Semua langkah telah berjaya disempurnakan. Beg cenderamata ditebus & anda tersenarai untuk cabutan!";
+        alertText.innerText = "Semua langkah telah selesai. Beg cenderamata ditebus & anda tersenarai untuk cabutan bertuah!";
         alertBtn.innerText = "Lihat Semula e-Sijil";
-        alertBtn.className = "w-full sm:w-auto px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs whitespace-nowrap";
         window.currentRoadmapTarget = "CERT";
       }
     }
 
     function handleRoadmapActionClick() {
-      if (window.currentRoadmapTarget === "SCAN") {
-        startQRScanner();
-      } else if (window.currentRoadmapTarget === "SURVEY") {
-        openFeedbackModal();
-      } else if (window.currentRoadmapTarget === "CERT") {
-        openCertificateModal();
-      } else if (window.currentRoadmapTarget === "GOODIES") {
-        showGoodiesModal();
-      }
+      if (window.currentRoadmapTarget === "SCAN") startQRScanner();
+      else if (window.currentRoadmapTarget === "SURVEY") openFeedbackModal();
+      else if (window.currentRoadmapTarget === "CERT") openCertificateModal();
+      else if (window.currentRoadmapTarget === "GOODIES") showGoodiesModal();
     }
 
     function renderUserView() {
@@ -1561,10 +1143,7 @@
       }
 
       const user = participants.find(p => p.email.toLowerCase() === currentParticipantEmail.toLowerCase());
-      if (!user) {
-        handleUserLogout();
-        return;
-      }
+      if (!user) { handleUserLogout(); return; }
 
       loginBox.classList.add('hidden');
       passportBox.classList.remove('hidden');
@@ -1577,51 +1156,27 @@
       document.getElementById('pStampRatio').innerText = `${count} / 10`;
       document.getElementById('pProgressBar').style.width = `${(count / 10) * 100}%`;
 
-      // Kemaskini Progress Bar & Roadmap Bertingkat
       updateParticipantActionRoadmap(user);
-
-      const bigRemark = document.getElementById('bigRemarkQualified');
-      const winStatusText = document.getElementById('userWinStatusText');
-      const isAlreadyWinner = winnersList.some(w => w.email.toLowerCase() === user.email.toLowerCase());
-
-      if (count === 10) {
-        bigRemark.classList.remove('hidden');
-        if (isAlreadyWinner) {
-          winStatusText.innerHTML = `🏆 <span class="text-amber-400 font-black">TAHNIAH! ANDA TELAH MEMENANGI CABUTAN BERTUAH</span>`;
-        } else {
-          winStatusText.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> AKTIF DALAM SENARAI CABUTAN`;
-        }
-      } else {
-        bigRemark.classList.add('hidden');
-      }
 
       const container = document.getElementById('boothsContainer');
       container.innerHTML = '';
-
       MOTAC_BOOTHS.forEach(b => {
         const hasStamp = user.stamps.includes(b.id);
         const card = document.createElement('div');
-        card.className = `p-3.5 rounded-2xl border text-left flex flex-col justify-between transition-all duration-300 ${
-          hasStamp 
-            ? 'bg-emerald-950/50 border-emerald-400/60 text-emerald-200 shadow-[0_0_15px_rgba(16,185,129,0.2)]' 
-            : 'bg-slate-900/60 border-slate-700/60 text-slate-300 hover:border-cyan-500/40'
+        card.className = `p-3.5 rounded-2xl border text-left flex flex-col justify-between transition-all ${
+          hasStamp ? 'bg-emerald-950/50 border-emerald-400/60 text-emerald-200' : 'bg-slate-900/60 border-slate-700/60 text-slate-300'
         }`;
         card.innerHTML = `
           <div>
             <div class="flex justify-between items-center mb-1">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded font-black tracking-wider ${
-                hasStamp ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-amber-400'
-              }">${b.lot}</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded font-black ${hasStamp ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-amber-400'}">${b.lot}</span>
               <span class="text-sm">${hasStamp ? '✅' : '⚪'}</span>
             </div>
             <p class="text-xs font-bold text-white leading-tight mt-1">${b.name}</p>
-            <p class="text-[10px] text-slate-300 mt-1 line-clamp-2 leading-relaxed">${b.desc}</p>
+            <p class="text-[10px] text-slate-300 mt-1 line-clamp-2">${b.desc}</p>
           </div>
-          <div class="mt-3 pt-2 border-t border-slate-800/80 flex justify-between items-center">
-            <span class="text-[9px] text-cyan-300 font-medium">${b.slot}</span>
-            <span class="text-[10px] font-bold ${hasStamp ? 'text-emerald-400' : 'text-slate-400'}">
-              ${hasStamp ? 'Cop Diperoleh' : 'Belum Dicop'}
-            </span>
+          <div class="mt-3 pt-2 border-t border-slate-800 text-[10px] font-bold ${hasStamp ? 'text-emerald-400' : 'text-slate-400'}">
+            ${hasStamp ? 'Cop Diperoleh' : 'Belum Dicop'}
           </div>
         `;
         container.appendChild(card);
@@ -1629,25 +1184,18 @@
     }
 
     // ==============================================================
-    // 3. PENGIMBAS QR KAMERA & PENGESAHAN TOKEN
+    // 3. IMBAS QR & PENERIMAAN COP
     // ==============================================================
     function startQRScanner() {
       document.getElementById('scannerModal').classList.remove('hidden');
-      if (html5ScannerInstance) {
-        try { html5ScannerInstance.clear(); } catch(e) {}
-      }
+      if (html5ScannerInstance) { try { html5ScannerInstance.clear(); } catch(e) {} }
       html5ScannerInstance = new Html5Qrcode("readerBox");
-      
       html5ScannerInstance.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: { width: 220, height: 220 } },
-        (decodedText) => {
-          verifyScannedPayload(decodedText);
-        },
+        (decodedText) => verifyScannedPayload(decodedText),
         () => {}
-      ).catch(() => {
-        alert("Sila benarkan akses kamera pelayar untuk mengimbas kod QR pempamer.");
-      });
+      ).catch(() => alert("Sila benarkan akses kamera."));
     }
 
     function stopQRScanner() {
@@ -1656,10 +1204,7 @@
         html5ScannerInstance.stop().then(() => {
           html5ScannerInstance.clear();
           modal.classList.add('hidden');
-        }).catch(() => {
-          try { html5ScannerInstance.clear(); } catch(e) {}
-          modal.classList.add('hidden');
-        });
+        }).catch(() => modal.classList.add('hidden'));
       } else {
         modal.classList.add('hidden');
       }
@@ -1667,51 +1212,21 @@
 
     function verifyScannedPayload(payload) {
       const parts = payload.split(':');
-      let boothId = null;
-      let token = null;
-
+      let boothId = null, token = null;
       if (parts.length === 3 && parts[0] === 'MOTAC_STAMP') {
         boothId = parseInt(parts[1]);
         token = parts[2];
-      } else {
-        try {
-          const url = new URL(payload);
-          boothId = parseInt(url.searchParams.get("booth"));
-          token = url.searchParams.get("token");
-        } catch(e) {}
       }
+      if (!boothId || !token) { alert("Kod QR tidak sah."); return; }
 
-      if (!boothId || !token) {
-        alert("Kod QR tidak sah untuk acara ini.");
-        return;
-      }
-
-      applyBoothStamp(boothId, token);
-    }
-
-    function submitManualToken() {
-      const input = document.getElementById('manualTokenInput').value.trim().toUpperCase();
-      const booth = MOTAC_BOOTHS.find(b => b.token === input);
-      if (!booth) {
-        alert("Kod token reruai tidak sah!");
-        return;
-      }
-      applyBoothStamp(booth.id, booth.token);
-      document.getElementById('manualTokenInput').value = '';
-    }
-
-    function applyBoothStamp(boothId, token) {
       const targetBooth = MOTAC_BOOTHS.find(b => b.id === boothId && b.token === token);
-      if (!targetBooth) {
-        alert("Token reruai tidak sah atau tidak sepadan.");
-        return;
-      }
+      if (!targetBooth) { alert("Token reruai tidak sah."); return; }
 
       const user = participants.find(p => p.email.toLowerCase() === currentParticipantEmail.toLowerCase());
       if (!user) return;
 
       if (user.stamps.includes(boothId)) {
-        alert(`Anda telah pun menerima cop bagi ${targetBooth.lot}: ${targetBooth.name}!`);
+        alert("Anda telah pun menerima cop ini!");
         stopQRScanner();
         return;
       }
@@ -1736,17 +1251,19 @@
 
       if (user.stamps.length === 10) {
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
-        alert(`🎉 TAHNIAH! Anda telah melengkapkan kesemua 10 cop reruai. Tindakan seterusnya: Sila jawab 5 soalan maklum balas ringkas untuk membuka e-Sijil.`);
+        alert("🎉 TAHNIAH! Anda lengkap 10 cop reruai. Sila jawab 5 maklum balas ringkas untuk membuka e-Sijil.");
         openFeedbackModal();
       } else {
-        alert(`Berjaya! Anda telah menerima cop digital bagi ${targetBooth.lot} - ${targetBooth.name}`);
+        alert(`Berjaya! Anda telah menerima cop bagi ${targetBooth.lot}`);
       }
     }
 
     // ==============================================================
-    // 4. MAKLUM BALAS, E-SIJIL & GOODIES BAG
+    // 4. MAKLUM BALAS, E-SIJIL & GOODIES
     // ==============================================================
     function openFeedbackModal() {
+      const form = document.getElementById('feedbackForm');
+      if (form) form.reset();
       document.getElementById('feedbackModal').classList.remove('hidden');
     }
 
@@ -1759,11 +1276,16 @@
       const user = participants.find(p => p.email.toLowerCase() === currentParticipantEmail.toLowerCase());
       if (!user) return;
 
-      const q1 = document.querySelector('input[name="q1"]:checked')?.value || "5";
+      const q1El = document.querySelector('input[name="q1"]:checked');
       const q2 = document.getElementById('surveyQ2').value;
-      const q3 = document.querySelector('input[name="q3"]:checked')?.value || "5";
-      const q4 = document.querySelector('input[name="q4"]:checked')?.value || "Ya";
+      const q3El = document.querySelector('input[name="q3"]:checked');
+      const q4El = document.querySelector('input[name="q4"]:checked');
       const q5 = document.getElementById('surveyQ5').value.trim();
+
+      if (!q1El || !q2 || !q3El || !q4El) {
+        alert("Sila pastikan Soalan 1 hingga 4 telah dijawab.");
+        return;
+      }
 
       const payload = {
         action: "FEEDBACK",
@@ -1771,32 +1293,35 @@
         name: user.name,
         email: user.email,
         agency: user.agency,
-        q1_satisfaction: parseInt(q1),
+        q1_satisfaction: parseInt(q1El.value),
         q2_favorite_booth: q2,
-        q3_app_ease: parseInt(q3),
-        q4_continue_yearly: q4,
-        q5_suggestions: q5
+        q3_app_ease: parseInt(q3El.value),
+        q4_continue_yearly: q4El.value,
+        q5_suggestions: q5 || "-"
       };
 
-      feedbackResponses.push(payload);
+      // Simpan Maklum Balas
+      const fbIdx = feedbackResponses.findIndex(f => f.email.toLowerCase() === user.email.toLowerCase());
+      if (fbIdx !== -1) feedbackResponses[fbIdx] = payload;
+      else feedbackResponses.push(payload);
+
       user.feedbackDone = true;
       saveState();
-
       sendToGoogleSheets(payload);
 
       closeFeedbackModal();
       renderUserView();
       if (activeAdminUser) renderAdminView();
 
-      alert("Terima kasih! Maklum balas diterima. Langkah 3 dibuka: Sila semak & simpan e-Sijil anda.");
+      alert("Maklum balas diterima! e-Sijil anda sedia dimuat turun.");
       openCertificateModal();
     }
 
     function saveWebhookUrl() {
       const url = document.getElementById('googleSheetWebhookUrl').value.trim();
       googleSheetWebhookUrl = url;
-      localStorage.setItem('motac_gsheet_url_v19', url);
-      alert("URL Webhook Google Apps Script telah berjaya disimpan!");
+      localStorage.setItem('motac_gsheet_url_v22', url);
+      alert("URL Webhook disimpan!");
     }
 
     function openCertificateModal() {
@@ -1827,7 +1352,7 @@
       window.print();
       setTimeout(() => {
         document.body.classList.remove('printing-cert');
-        showGoodiesModal(); // Membuka pop-up tebus goodies sebagai langkah akhir selepas cetak sijil
+        showGoodiesModal();
       }, 1000);
     }
 
@@ -1847,210 +1372,14 @@
     }
 
     // ==============================================================
-    // 5. SKRIN PENTAS LIVE (METRIK TERKINI & CABUTAN BERTUAH)
-    // ==============================================================
-    function renderStageView() {
-      const total = participants.length;
-      
-      const zeroStampsCount = participants.filter(p => p.stamps.length === 0).length;
-      const inProgressCount = participants.filter(p => p.stamps.length >= 1 && p.stamps.length < 10).length;
-      const allQualified = participants.filter(p => p.stamps.length === 10);
-      const remainingPool = allQualified.filter(p => !winnersList.some(w => w.email.toLowerCase() === p.email.toLowerCase()));
-
-      document.getElementById('statTotal').innerText = total;
-      document.getElementById('statZeroStamps').innerText = zeroStampsCount;
-      document.getElementById('statActive').innerText = inProgressCount;
-      document.getElementById('statQualified').innerText = allQualified.length;
-      document.getElementById('statWinnersCount').innerText = winnersList.length;
-
-      document.getElementById('liveRemainingPoolBadge').innerText = `${remainingPool.length} Baki Layak`;
-      document.getElementById('liveWinnerPill').innerText = `${winnersList.length} Pemenang`;
-
-      const adminRemainingEl = document.getElementById('adminRemainingCount');
-      if (adminRemainingEl) adminRemainingEl.innerText = remainingPool.length;
-
-      const adminWonEl = document.getElementById('adminWonCount');
-      if (adminWonEl) adminWonEl.innerText = winnersList.length;
-
-      // Jadual Pemenang Sah Pentas
-      const stageWinnersTbody = document.getElementById('stageWinnersTableBody');
-      stageWinnersTbody.innerHTML = '';
-      if (winnersList.length === 0) {
-        stageWinnersTbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-500">Belum ada cabutan dijalankan.</td></tr>`;
-      } else {
-        winnersList.forEach((w, index) => {
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-slate-800/40 text-amber-200";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3 font-bold text-amber-400">#${index + 1}</td>
-            <td class="py-2.5 px-3 font-semibold text-white">${w.name}</td>
-            <td class="py-2.5 px-3 text-slate-300">${w.agency}</td>
-            <td class="py-2.5 px-3 text-cyan-300">${w.email}</td>
-            <td class="py-2.5 px-3 text-right"><span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">PEMENANG SAH</span></td>
-          `;
-          stageWinnersTbody.appendChild(tr);
-        });
-      }
-
-      // Jadual Baki Balang
-      const tbody = document.getElementById('stageTableBody');
-      tbody.innerHTML = '';
-
-      if (remainingPool.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-400">Tiada baki peserta yang belum menang di dalam balang.</td></tr>`;
-      } else {
-        remainingPool.forEach(p => {
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-slate-800/50 transition";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3 font-semibold text-white">${p.name}</td>
-            <td class="py-2.5 px-3 text-cyan-300 font-mono">${p.email}</td>
-            <td class="py-2.5 px-3 text-slate-300">${p.agency}</td>
-            <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">10/10 COP (DALAM BALANG)</span></td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-
-      renderAdminWinnersTable();
-      renderAdminTable();
-      renderAdminReportsView();
-      renderAdminGoodiesTable();
-      renderAdminSurveyStats();
-    }
-
-    function renderAdminWinnersTable() {
-      const tbody = document.getElementById('adminWinnersTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      if (winnersList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-3 text-slate-500">Tiada rekod pemenang lagi.</td></tr>`;
-        return;
-      }
-
-      winnersList.forEach((w, idx) => {
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-800/40";
-        tr.innerHTML = `
-          <td class="py-2 px-3 font-bold text-amber-400">Cabutan #${idx + 1}</td>
-          <td class="py-2 px-3 font-semibold text-white">${w.name}</td>
-          <td class="py-2 px-3 text-slate-400">${w.email}</td>
-          <td class="py-2 px-3 text-slate-300">${w.agency}</td>
-          <td class="py-2 px-3 text-right">
-            <button onclick="removeWinner('${w.email}')" class="text-rose-400 hover:text-rose-300 text-[11px] underline">Batal Kemenangan</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function triggerLuckyDraw() {
-      if (!activeAdminUser) {
-        alert("Akses dinafikan. Hanya admin urus setia yang sah boleh memulakan cabutan bertuah!");
-        return;
-      }
-
-      const allQualified = participants.filter(p => p.stamps.length === 10);
-      const remainingPool = allQualified.filter(p => !winnersList.some(w => w.email.toLowerCase() === p.email.toLowerCase()));
-
-      const btn = document.getElementById('btnAdminTriggerDraw');
-      const adminName = document.getElementById('adminWinnerName');
-      const adminAgency = document.getElementById('adminWinnerAgency');
-      const adminBadge = document.getElementById('adminWinnerBadge');
-
-      const stageName = document.getElementById('stageWinnerName');
-      const stageAgency = document.getElementById('stageWinnerAgency');
-      const stageBadge = document.getElementById('stageWinnerBadge');
-
-      if (remainingPool.length === 0) {
-        alert("Tiada lagi baki peserta layak di dalam balang. Semua peserta lengkap 10 cop telah pun memenangi cabutan bertuah!");
-        return;
-      }
-
-      btn.disabled = true;
-      btn.classList.add('opacity-50', 'cursor-not-allowed');
-
-      const msgRunning = `SEDANG MENCABUT PEMENANG #${winnersList.length + 1}...`;
-      adminBadge.innerText = msgRunning;
-      stageBadge.innerText = msgRunning;
-      stageBadge.className = "text-xs font-bold text-amber-400 uppercase tracking-widest animate-pulse";
-
-      let rollCount = 0;
-      const interval = setInterval(() => {
-        const randomItem = remainingPool[Math.floor(Math.random() * remainingPool.length)];
-        
-        adminName.innerText = randomItem.name;
-        adminAgency.innerText = `${randomItem.agency} (${randomItem.email})`;
-
-        stageName.innerText = randomItem.name;
-        stageAgency.innerText = `${randomItem.agency} • ${randomItem.email}`;
-
-        rollCount++;
-
-        if (rollCount > 25) {
-          clearInterval(interval);
-          
-          const finalWinner = remainingPool[Math.floor(Math.random() * remainingPool.length)];
-          
-          winnersList.push({
-            name: finalWinner.name,
-            email: finalWinner.email,
-            agency: finalWinner.agency,
-            wonAt: new Date().toLocaleTimeString('ms-MY')
-          });
-          saveState();
-
-          const winTitle = `🎉 TAHNIAH PEMENANG CABUTAN #${winnersList.length} 🎉`;
-          
-          adminBadge.innerText = winTitle;
-          adminName.innerText = finalWinner.name;
-          adminAgency.innerText = `${finalWinner.agency} • ${finalWinner.email}`;
-
-          stageBadge.innerText = winTitle;
-          stageBadge.className = "text-xs sm:text-sm font-black text-emerald-400 uppercase tracking-widest animate-bounce";
-          stageName.innerText = finalWinner.name;
-          stageName.className = "text-3xl sm:text-5xl font-black text-amber-300 my-3 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]";
-          stageAgency.innerText = `${finalWinner.agency} • ${finalWinner.email}`;
-
-          confetti({ particleCount: 170, spread: 90, origin: { y: 0.6 } });
-
-          btn.disabled = false;
-          btn.classList.remove('opacity-50', 'cursor-not-allowed');
-
-          renderStageView();
-        }
-      }, 90);
-    }
-
-    function removeWinner(email) {
-      if (!confirm(`Batalkan kemenangan untuk ${email} dan kembalikan peserta ke dalam balang cabutan?`)) return;
-      winnersList = winnersList.filter(w => w.email.toLowerCase() !== email.toLowerCase());
-      saveState();
-      renderStageView();
-    }
-
-    function resetWinnersList() {
-      if (winnersList.length === 0) {
-        alert("Senarai pemenang masih kosong.");
-        return;
-      }
-      if (!confirm("AMARAN: Anda pasti mahu mengosongkan semula semua rekod pemenang dan memasukkan semua peserta layak ke dalam balang semula?")) return;
-      winnersList = [];
-      saveState();
-      renderStageView();
-      alert("Senarai pemenang telah diset semula!");
-    }
-
-    // ==============================================================
-    // 6. URUS SETIA: TICK PENGESAHAN GOODIES BAG
+    // 5. PUSAT PENGURUSAN BERSEPADU PESERTA (ADMIN HUB)
     // ==============================================================
     function toggleClaimGoodies(email) {
       const user = participants.find(p => p.email.toLowerCase() === email.toLowerCase());
       if (!user) return;
       user.goodiesClaimed = !user.goodiesClaimed;
       saveState();
-      renderAdminGoodiesTable();
+      renderIntegratedParticipantsTable();
       renderUserView();
 
       sendToGoogleSheets({
@@ -2063,460 +1392,127 @@
       });
     }
 
-    function renderAdminGoodiesTable() {
-      const tbody = document.getElementById('adminGoodiesTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      const qualifiedUsers = participants.filter(p => p.stamps.length === 10);
-      const claimedUsers = qualifiedUsers.filter(p => p.goodiesClaimed);
-
-      const elEligible = document.getElementById('goodiesEligibleCount');
-      const elClaimed = document.getElementById('goodiesClaimedCount');
-      if (elEligible) elEligible.innerText = qualifiedUsers.length;
-      if (elClaimed) elClaimed.innerText = claimedUsers.length;
-
-      if (qualifiedUsers.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada peserta yang layak (10 cop).</td></tr>`;
-        return;
-      }
-
-      qualifiedUsers.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-800/40";
-        tr.innerHTML = `
-          <td class="py-2.5 px-3">
-            <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-              p.goodiesClaimed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-            }">
-              ${p.goodiesClaimed ? 'TELAH CLAIM ✅' : 'BELUM CLAIM ⏳'}
-            </span>
-          </td>
-          <td class="py-2.5 px-3 font-semibold text-white">${p.name}</td>
-          <td class="py-2.5 px-3 text-cyan-300 font-mono">${p.email}</td>
-          <td class="py-2.5 px-3 text-slate-300">${p.agency}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="text-[10px] ${p.feedbackDone ? 'text-emerald-400 font-bold' : 'text-slate-500'}">
-              ${p.feedbackDone ? 'Maklum Balas ✅' : 'Maklum Balas ❌'}
-            </span>
-          </td>
-          <td class="py-2.5 px-3 text-right">
-            <label class="inline-flex items-center gap-2 cursor-pointer bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl hover:border-cyan-400 transition">
-              <input type="checkbox" ${p.goodiesClaimed ? 'checked' : ''} onchange="toggleClaimGoodies('${p.email}')" class="rounded text-cyan-500 focus:ring-0">
-              <span class="text-[11px] font-bold ${p.goodiesClaimed ? 'text-emerald-400' : 'text-slate-300'}">
-                ${p.goodiesClaimed ? 'Selesai Serah' : 'Tandakan Serahan'}
-              </span>
-            </label>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+    function resetHubFilters() {
+      document.getElementById('hubSearchInput').value = "";
+      document.getElementById('hubFilterCategory').value = "ALL";
+      renderIntegratedParticipantsTable();
     }
 
-    // ==============================================================
-    // 7. STATISTIK MAKLUM BALAS ADMIN & EKSPORT
-    // ==============================================================
-    function renderAdminSurveyStats() {
-      const total = feedbackResponses.length;
-      const elS1 = document.getElementById('avgS1Score');
-      const elS3 = document.getElementById('avgS3Score');
-      const elS4 = document.getElementById('pctS4Yes');
-
-      if (!elS1) return;
-
-      if (total === 0) {
-        elS1.innerText = "0.0 / 5.0";
-        elS3.innerText = "0.0 / 5.0";
-        elS4.innerText = "0%";
-      } else {
-        const sum1 = feedbackResponses.reduce((acc, f) => acc + (f.q1_satisfaction || 0), 0);
-        const sum3 = feedbackResponses.reduce((acc, f) => acc + (f.q3_app_ease || 0), 0);
-        const yes4 = feedbackResponses.filter(f => f.q4_continue_yearly === 'Ya').length;
-
-        elS1.innerText = `${(sum1 / total).toFixed(1)} / 5.0`;
-        elS3.innerText = `${(sum3 / total).toFixed(1)} / 5.0`;
-        elS4.innerText = `${((yes4 / total) * 100).toFixed(0)}%`;
-      }
-
-      const tbody = document.getElementById('feedbackTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      if (total === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-500">Belum ada respon maklum balas diterima.</td></tr>`;
-      } else {
-        feedbackResponses.forEach(fb => {
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-slate-800/40";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3 font-semibold text-white">${fb.name}</td>
-            <td class="py-2.5 px-3 text-slate-300">${fb.agency}</td>
-            <td class="py-2.5 px-3 text-cyan-300 font-medium">${fb.q2_favorite_booth || '-'}</td>
-            <td class="py-2.5 px-3 text-slate-200">${fb.q5_suggestions || '-'}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
-    }
-
-    function exportFeedbackExcel() {
-      if (feedbackResponses.length === 0) {
-        alert("Tiada data maklum balas untuk dieksport.");
-        return;
-      }
-      const data = [
-        ["Tarikh & Masa", "Nama Peserta", "Alamat Emel", "Bahagian / Agensi", "Kepuasan Program (1-5)", "Reruai Paling Menarik", "Kelancaran Aplikasi (1-5)", "Setuju Diteruskan Tahunan", "Cadangan Penambahbaikan"]
-      ];
-      feedbackResponses.forEach(r => {
-        data.push([
-          r.timestamp, r.name, r.email, r.agency, r.q1_satisfaction, r.q2_favorite_booth, r.q3_app_ease, r.q4_continue_yearly, r.q5_suggestions
-        ]);
-      });
-      const ws = XLSX.utils.aoa_to_sheet(data);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Maklum_Balas_MOTAC");
-      XLSX.writeFile(wb, `Maklum_Balas_Hari_Pendigitalan_${new Date().toISOString().slice(0,10)}.xlsx`);
-    }
-
-    function exportStampMatrixExcel() {
-      if (participants.length === 0) {
-        alert("Tiada rekod data peserta untuk dieksport.");
-        return;
-      }
-
-      const headers = [
-        "Bil", "Nama Peserta", "Alamat Emel", "Bahagian / Agensi",
-        "Lot 01 MyDigitalID", "Lot 02 Microsoft", "Lot 03 AWS", "Lot 04 HP", "Lot 05 Canon",
-        "Lot 06 Ace Team", "Lot 07 OrenG", "Lot 08 Robotik", "Lot 09 Inovasi", "Lot 10 BPM",
-        "Jumlah Cop", "Status Misi", "Status Goodies"
-      ];
-
-      const rows = [headers];
-
-      participants.forEach((p, idx) => {
-        const stampChecks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(id => p.stamps.includes(id) ? "✓" : "-");
-        const count = p.stamps.length;
-        const statusMisi = count === 10 ? "Lengkap (10/10)" : count > 0 ? `Sedang Mengumpul (${count}/10)` : "Belum Mula";
-        const statusGoodies = p.goodiesClaimed ? "Telah Ditebus" : "Belum Ditebus";
-
-        rows.push([
-          idx + 1, p.name, p.email, p.agency,
-          ...stampChecks,
-          count, statusMisi, statusGoodies
-        ]);
-      });
-
-      const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.aoa_to_sheet(rows);
-      XLSX.utils.book_append_sheet(wb, ws, "Rekod_Cop_Peserta");
-      XLSX.writeFile(wb, `Kutipan_Cop_Digital_MOTAC_${new Date().toISOString().slice(0,10)}.xlsx`);
-    }
-
-    // ==============================================================
-    // 8. PELAPORAN, PRESTASI BOOTH & EKSPORT EXCEL BESAR
-    // ==============================================================
-    function renderAdminReportsView() {
-      const total = participants.length;
-      const zeroCount = participants.filter(p => p.stamps.length === 0).length;
-      const activeCount = participants.filter(p => p.stamps.length >= 1 && p.stamps.length < 10).length;
-      const qualCount = participants.filter(p => p.stamps.length === 10).length;
-
-      const qPct = total > 0 ? ((qualCount / total) * 100).toFixed(1) : 0;
-      const aPct = total > 0 ? ((activeCount / total) * 100).toFixed(1) : 0;
-      const zPct = total > 0 ? ((zeroCount / total) * 100).toFixed(1) : 0;
-
-      const elTotal = document.getElementById('repTotalUsers');
-      if (elTotal) {
-        elTotal.innerText = total;
-        document.getElementById('repQualifiedUsers').innerText = qualCount;
-        document.getElementById('repQualifiedPct').innerText = `${qPct}% kadar layak`;
-        document.getElementById('repActiveUsers').innerText = activeCount;
-        document.getElementById('repActivePct').innerText = `${aPct}% kadar aktif`;
-        document.getElementById('repZeroUsers').innerText = zeroCount;
-        document.getElementById('repZeroPct').innerText = `${zPct}% belum melawat`;
-      }
-
-      // Analitik Reruai Pempamer (10 Booth)
-      const boothTbody = document.getElementById('boothPerformanceTableBody');
-      if (boothTbody) {
-        boothTbody.innerHTML = '';
-        MOTAC_BOOTHS.forEach(b => {
-          const visitedCount = participants.filter(p => p.stamps.includes(b.id)).length;
-          const pct = total > 0 ? ((visitedCount / total) * 100).toFixed(1) : 0;
-
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-slate-800/40";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3">
-              <span class="font-bold text-white">${b.lot} — ${b.name}</span>
-              <p class="text-[10px] text-slate-400">${b.slot}</p>
-            </td>
-            <td class="py-2.5 px-3 text-center font-mono font-bold text-cyan-300">${visitedCount}</td>
-            <td class="py-2.5 px-3 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <div class="w-16 bg-slate-900 rounded-full h-1.5 border border-slate-700 hidden sm:block">
-                  <div class="bg-cyan-400 h-1.5 rounded-full" style="width: ${pct}%"></div>
-                </div>
-                <span class="font-mono text-emerald-400 font-bold">${pct}%</span>
-              </div>
-            </td>
-          `;
-          boothTbody.appendChild(tr);
-        });
-      }
-
-      // Analitik Mengikut Bahagian / Agensi
-      const agencyTbody = document.getElementById('agencyDistributionTableBody');
-      if (agencyTbody) {
-        agencyTbody.innerHTML = '';
-        const agencyMap = {};
-        participants.forEach(p => {
-          const ag = p.agency || "Lain-lain Bahagian";
-          if (!agencyMap[ag]) {
-            agencyMap[ag] = { total: 0, qualified: 0 };
-          }
-          agencyMap[ag].total++;
-          if (p.stamps.length === 10) agencyMap[ag].qualified++;
-        });
-
-        Object.keys(agencyMap).forEach(agName => {
-          const data = agencyMap[agName];
-          const tr = document.createElement('tr');
-          tr.className = "hover:bg-slate-800/40";
-          tr.innerHTML = `
-            <td class="py-2.5 px-3 font-semibold text-white">${agName}</td>
-            <td class="py-2.5 px-3 text-center font-mono text-slate-300">${data.total}</td>
-            <td class="py-2.5 px-3 text-right font-mono text-emerald-400 font-bold">${data.qualified}</td>
-          `;
-          agencyTbody.appendChild(tr);
-        });
-      }
-    }
-
-    function exportComprehensiveReportExcel() {
-      if (participants.length === 0) {
-        alert("Tiada rekod data peserta untuk dieksport.");
-        return;
-      }
-
-      const wb = XLSX.utils.book_new();
-
-      const total = participants.length;
-      const zeroCount = participants.filter(p => p.stamps.length === 0).length;
-      const activeCount = participants.filter(p => p.stamps.length >= 1 && p.stamps.length < 10).length;
-      const qualCount = participants.filter(p => p.stamps.length === 10).length;
-
-      const summaryData = [
-        ["LAPORAN STATISTIK HARI PENDIGITALAN MOTAC 2026"],
-        ["Tarikh & Masa Jana", new Date().toLocaleString('ms-MY')],
-        [],
-        ["METRIK UTAMA", "BILANGAN PESERTA", "PERATUSAN (%)"],
-        ["Jumlah Pendaftar", total, "100.0%"],
-        ["Layak Cabutan Bertuah (10/10 Cop)", qualCount, `${total > 0 ? ((qualCount/total)*100).toFixed(1) : 0}%`],
-        ["Sedang Mengumpul Cop (1-9 Cop)", activeCount, `${total > 0 ? ((activeCount/total)*100).toFixed(1) : 0}%`],
-        ["Belum Mula Melawat (0 Cop)", zeroCount, `${total > 0 ? ((zeroCount/total)*100).toFixed(1) : 0}%`],
-        ["Jumlah Pemenang Dicabut", winnersList.length, "-"],
-        [],
-        ["PRESTASI KUNJUNGAN MENGIKUT RERUAI PEMPAMER (10 LOT)", "PELAWAT HADIR", "PERATUSAN SAMBUTAN (%)"]
-      ];
-
-      MOTAC_BOOTHS.forEach(b => {
-        const vCount = participants.filter(p => p.stamps.includes(b.id)).length;
-        const vPct = total > 0 ? ((vCount/total)*100).toFixed(1) : 0;
-        summaryData.push([`${b.lot} - ${b.name} (${b.slot})`, vCount, `${vPct}%`]);
-      });
-
-      const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
-      XLSX.utils.book_append_sheet(wb, wsSummary, "Ringkasan_Statistik");
-
-      const participantsData = [
-        ["Bil", "Nama Peserta / Wakil", "Alamat Emel", "Bahagian / Agensi", "Bilangan Cop", "Status Kelayakan", "Status Goodies", "Senarai Lot Booth Dilawati"]
-      ];
-
-      participants.forEach((p, idx) => {
-        let status = "Belum Mula";
-        if (p.stamps.length === 10) status = "Layak Cabutan Bertuah (10/10)";
-        else if (p.stamps.length > 0) status = `Sedang Mengumpul (${p.stamps.length}/10)`;
-
-        const visitedBooths = p.stamps.map(id => {
-          const b = MOTAC_BOOTHS.find(item => item.id === id);
-          return b ? b.lot : `#${id}`;
-        }).join(", ");
-
-        participantsData.push([
-          idx + 1,
-          p.name,
-          p.email,
-          p.agency,
-          p.stamps.length,
-          status,
-          p.goodiesClaimed ? "Telah Ditebus" : "Belum Ditebus",
-          visitedBooths || "Tiada"
-        ]);
-      });
-
-      const wsParticipants = XLSX.utils.aoa_to_sheet(participantsData);
-      XLSX.utils.book_append_sheet(wb, wsParticipants, "Senarai_Peserta_Penuh");
-
-      const winnersData = [
-        ["Giliran Cabutan", "Nama Pemenang", "Alamat Emel", "Bahagian / Agensi", "Masa Dicabut"]
-      ];
-
-      winnersList.forEach((w, idx) => {
-        winnersData.push([
-          `Cabutan #${idx + 1}`,
-          w.name,
-          w.email,
-          w.agency,
-          w.wonAt || "Selesai"
-        ]);
-      });
-
-      const wsWinners = XLSX.utils.aoa_to_sheet(winnersData);
-      XLSX.utils.book_append_sheet(wb, wsWinners, "Senarai_Pemenang_Cabutan");
-
-      const dateStr = new Date().toISOString().slice(0,10);
-      XLSX.writeFile(wb, `Laporan_Statistik_MOTAC_${dateStr}.xlsx`);
-    }
-
-    function printExecutiveReport() {
-      switchAdminSub('reports');
-      window.print();
-    }
-
-    // ==============================================================
-    // 9. CARIAN, GANTI WAKIL & PENGURUSAN DATA PESERTA
-    // ==============================================================
-    function openProxyModal(email) {
+    function openAdminFeedbackPreview(email) {
       const user = participants.find(p => p.email.toLowerCase() === email.toLowerCase());
+      const fb = feedbackResponses.find(f => f.email.toLowerCase() === email.toLowerCase());
       if (!user) return;
 
-      document.getElementById('proxyOriginalEmail').value = user.email;
-      document.getElementById('proxyOriginalNameDisplay').value = user.name;
-      document.getElementById('proxyNewName').value = user.name;
-      document.getElementById('proxyNewEmail').value = user.email;
-      document.getElementById('proxyAgencyDisplay').value = user.agency;
-
-      document.getElementById('proxyModal').classList.remove('hidden');
-    }
-
-    function closeProxyModal() {
-      document.getElementById('proxyModal').classList.add('hidden');
-    }
-
-    function handleSaveProxy(e) {
-      e.preventDefault();
-      const origEmail = document.getElementById('proxyOriginalEmail').value;
-      const newName = document.getElementById('proxyNewName').value.trim();
-      const newEmail = document.getElementById('proxyNewEmail').value.trim().toLowerCase();
-      const newAgency = document.getElementById('proxyAgencyDisplay').value.trim();
-
-      const userIndex = participants.findIndex(p => p.email.toLowerCase() === origEmail.toLowerCase());
-      if (userIndex === -1) return;
-
-      if (newEmail !== origEmail.toLowerCase() && participants.some((p, i) => i !== userIndex && p.email.toLowerCase() === newEmail)) {
-        alert("Emel ini telah digunakan oleh peserta lain. Sila masukkan emel yang unik.");
-        return;
+      document.getElementById('previewParticipantName').innerText = `${user.name} (${user.email} - ${user.agency})`;
+      if (fb) {
+        document.getElementById('prevQ1').innerText = `${fb.q1_satisfaction} / 5 Bintang`;
+        document.getElementById('prevQ2').innerText = fb.q2_favorite_booth;
+        document.getElementById('prevQ3').innerText = `${fb.q3_app_ease} / 5`;
+        document.getElementById('prevQ4').innerText = fb.q4_continue_yearly;
+        document.getElementById('prevQ5').innerText = fb.q5_suggestions || "-";
+      } else {
+        document.getElementById('prevQ1').innerText = "-";
+        document.getElementById('prevQ2').innerText = "-";
+        document.getElementById('prevQ3').innerText = "-";
+        document.getElementById('prevQ4').innerText = "-";
+        document.getElementById('prevQ5').innerText = "Peserta belum menghantar borang maklum balas.";
       }
 
-      const oldName = participants[userIndex].name;
-
-      participants[userIndex].name = newName;
-      participants[userIndex].email = newEmail;
-      participants[userIndex].agency = newAgency;
-
-      if (currentParticipantEmail && currentParticipantEmail.toLowerCase() === origEmail.toLowerCase()) {
-        currentParticipantEmail = newEmail;
-      }
-
-      const winIndex = winnersList.findIndex(w => w.email.toLowerCase() === origEmail.toLowerCase());
-      if (winIndex !== -1) {
-        winnersList[winIndex].name = newName;
-        winnersList[winIndex].email = newEmail;
-        winnersList[winIndex].agency = newAgency;
-      }
-
-      saveState();
-      closeProxyModal();
-      renderAdminTable();
-      renderStageView();
-      renderUserView();
-
-      alert(`Maklumat peserta ${oldName} telah berjaya digantikan secara terus kepada ${newName}!`);
+      document.getElementById('adminFeedbackPreviewModal').classList.remove('hidden');
     }
 
-    function handleSearchParticipants() {
-      const input = document.getElementById('searchParticipantInput');
-      currentSearchTerm = input.value.trim().toLowerCase();
-      renderAdminTable();
+    function closeAdminFeedbackPreview() {
+      document.getElementById('adminFeedbackPreviewModal').classList.add('hidden');
     }
 
-    function resetParticipantSearch() {
-      document.getElementById('searchParticipantInput').value = '';
-      currentSearchTerm = '';
-      renderAdminTable();
-    }
-
-    function renderAdminTable() {
-      const tbody = document.getElementById('adminUsersTable');
+    function renderIntegratedParticipantsTable() {
+      const tbody = document.getElementById('integratedParticipantsTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      if (participants.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-slate-400">Tiada peserta berdaftar lagi.</td></tr>`;
-        document.getElementById('searchResultCount').innerText = "Menunjukkan 0 peserta";
-        return;
-      }
+      const searchVal = document.getElementById('hubSearchInput')?.value.trim().toLowerCase() || "";
+      const filterCat = document.getElementById('hubFilterCategory')?.value || "ALL";
 
-      let filtered = participants;
-      if (currentSearchTerm) {
-        filtered = participants.filter(p => 
-          p.name.toLowerCase().includes(currentSearchTerm) ||
-          p.email.toLowerCase().includes(currentSearchTerm) ||
-          p.agency.toLowerCase().includes(currentSearchTerm)
+      // Statistik Kad
+      const total = participants.length;
+      const eligible = participants.filter(p => p.stamps.length === 10).length;
+      const fbCount = participants.filter(p => p.feedbackDone).length;
+      const claimed = participants.filter(p => p.goodiesClaimed).length;
+
+      document.getElementById('hubTotalCount').innerText = total;
+      document.getElementById('hubEligibleCount').innerText = eligible;
+      document.getElementById('hubFeedbackCount').innerText = fbCount;
+      document.getElementById('hubClaimedCount').innerText = claimed;
+
+      let list = participants;
+
+      // Filter Kategori
+      if (filterCat === "QUALIFIED") list = list.filter(p => p.stamps.length === 10);
+      else if (filterCat === "GOODIES_UNCLAIMED") list = list.filter(p => p.stamps.length === 10 && !p.goodiesClaimed);
+      else if (filterCat === "GOODIES_CLAIMED") list = list.filter(p => p.goodiesClaimed);
+      else if (filterCat === "FEEDBACK_DONE") list = list.filter(p => p.feedbackDone);
+      else if (filterCat === "FEEDBACK_PENDING") list = list.filter(p => !p.feedbackDone);
+
+      // Filter Carian
+      if (searchVal) {
+        list = list.filter(p => 
+          p.name.toLowerCase().includes(searchVal) ||
+          p.email.toLowerCase().includes(searchVal) ||
+          p.agency.toLowerCase().includes(searchVal)
         );
       }
 
-      document.getElementById('searchResultCount').innerText = `Menunjukkan ${filtered.length} daripada ${participants.length} peserta berdaftar`;
+      document.getElementById('hubSearchResultCount').innerText = `Menunjukkan ${list.length} daripada ${participants.length} peserta berdaftar`;
 
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-amber-400">Tiada rekod peserta yang sepadan dengan carian "${currentSearchTerm}".</td></tr>`;
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-amber-400">Tiada rekod peserta yang sepadan dengan kriteria carian.</td></tr>`;
         return;
       }
 
-      filtered.forEach(p => {
-        const isWinner = winnersList.some(w => w.email.toLowerCase() === p.email.toLowerCase());
+      list.forEach(p => {
         const count = p.stamps.length;
-
-        let statusBadge = '';
-        if (count === 10) {
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-950 text-emerald-300 font-bold border border-emerald-500/40">10/10 • Layak Cabutan</span>`;
-        } else if (count >= 1 && count <= 9) {
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-amber-950 text-amber-300 font-bold border border-amber-500/40">${count}/10 • Sedang Mengumpul</span>`;
-        } else {
-          statusBadge = `<span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900 text-slate-400 border border-slate-700">0/10 • Belum Mula</span>`;
-        }
-
+        const isEligible = count === 10;
         const tr = document.createElement('tr');
         tr.className = "hover:bg-slate-800/40 transition";
         tr.innerHTML = `
           <td class="py-2.5 px-3 font-semibold text-white">
             <div class="flex items-center gap-1.5 flex-wrap">
               <span>${p.name}</span>
-              ${isWinner ? '<span class="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold border border-emerald-500/30">PEMENANG</span>' : ''}
-              ${p.goodiesClaimed ? '<span class="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold border border-amber-500/30">GOODIES ✅</span>' : ''}
+              ${p.goodiesClaimed ? '<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold border border-emerald-500/30">DITEBUS</span>' : ''}
             </div>
           </td>
-          <td class="py-2.5 px-3 text-cyan-300 font-mono">${p.email}</td>
-          <td class="py-2.5 px-3 text-slate-300">${p.agency}</td>
+          <td class="py-2.5 px-3">
+            <p class="text-cyan-300 font-mono text-[11px]">${p.email}</p>
+            <p class="text-slate-400 text-[10px]">${p.agency}</p>
+          </td>
           <td class="py-2.5 px-3 text-center">
-            ${statusBadge}
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${isEligible ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/40' : 'bg-slate-900 text-amber-400 border border-slate-700'}">
+              ${count}/10 ${isEligible ? '✅' : ''}
+            </span>
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            ${p.feedbackDone 
+              ? `<button onclick="openAdminFeedbackPreview('${p.email}')" class="px-2 py-0.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-400/40 rounded text-[10px] font-bold">👁️ Respon Selesai</button>` 
+              : `<span class="text-[10px] text-slate-500">Belum Jawab ⏳</span>`
+            }
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            ${isEligible 
+              ? `<label class="inline-flex items-center gap-1.5 cursor-pointer bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-xl hover:border-cyan-400">
+                  <input type="checkbox" ${p.goodiesClaimed ? 'checked' : ''} onchange="toggleClaimGoodies('${p.email}')" class="rounded text-cyan-500 focus:ring-0">
+                  <span class="text-[10px] font-bold ${p.goodiesClaimed ? 'text-emerald-400' : 'text-amber-400'}">
+                    ${p.goodiesClaimed ? 'Telah Serah ✅' : 'Tandakan Serah 🎁'}
+                  </span>
+                </label>` 
+              : `<span class="text-[10px] text-slate-500 italic">Belum Layak</span>`
+            }
           </td>
           <td class="py-2.5 px-3 text-right">
             <div class="flex justify-end items-center gap-2">
-              <button onclick="openProxyModal('${p.email}')" class="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 rounded text-[10px] font-bold flex items-center gap-1">
-                <span>🔄</span> Ganti Wakil
+              <button onclick="openProxyModal('${p.email}')" class="px-2 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 rounded text-[10px] font-bold">
+                🔄 Ganti
               </button>
-              <button onclick="deleteParticipant('${p.email}')" class="text-rose-400 hover:text-rose-300 text-[11px]">Padam</button>
+              <button onclick="deleteParticipant('${p.email}')" class="text-rose-400 hover:text-rose-300 text-[10px]">Padam</button>
             </div>
           </td>
         `;
@@ -2524,6 +1520,121 @@
       });
     }
 
+    // ==============================================================
+    // 6. FUNGSI PENTADBIRAN, EKSPORT & CABUTAN BERTUAH
+    // ==============================================================
+    function triggerLuckyDraw() {
+      const eligible = participants.filter(p => p.stamps.length === 10 && !winnersList.some(w => w.email.toLowerCase() === p.email.toLowerCase()));
+      if (eligible.length === 0) {
+        alert("Tiada baki peserta layak yang belum menang.");
+        return;
+      }
+
+      const btn = document.getElementById('btnAdminTriggerDraw');
+      btn.disabled = true;
+
+      let count = 0;
+      const timer = setInterval(() => {
+        const rand = eligible[Math.floor(Math.random() * eligible.length)];
+        document.getElementById('adminWinnerName').innerText = rand.name;
+        document.getElementById('adminWinnerAgency').innerText = `${rand.agency} • ${rand.email}`;
+        document.getElementById('stageWinnerName').innerText = rand.name;
+        document.getElementById('stageWinnerAgency').innerText = `${rand.agency} • ${rand.email}`;
+        count++;
+
+        if (count > 25) {
+          clearInterval(timer);
+          const winner = eligible[Math.floor(Math.random() * eligible.length)];
+          winnersList.push(winner);
+          saveState();
+
+          document.getElementById('adminWinnerName').innerText = winner.name;
+          document.getElementById('stageWinnerName').innerText = winner.name;
+          confetti({ particleCount: 180, spread: 90, origin: { y: 0.6 } });
+          btn.disabled = false;
+          renderStageView();
+        }
+      }, 90);
+    }
+
+    function resetWinnersList() {
+      if (!confirm("Padam semua senarai pemenang bertuah?")) return;
+      winnersList = [];
+      saveState();
+      renderStageView();
+    }
+
+    function renderStageView() {
+      const total = participants.length;
+      const zero = participants.filter(p => p.stamps.length === 0).length;
+      const active = participants.filter(p => p.stamps.length >= 1 && p.stamps.length < 10).length;
+      const qualified = participants.filter(p => p.stamps.length === 10);
+
+      document.getElementById('statTotal').innerText = total;
+      document.getElementById('statZeroStamps').innerText = zero;
+      document.getElementById('statActive').innerText = active;
+      document.getElementById('statQualified').innerText = qualified.length;
+      document.getElementById('statWinnersCount').innerText = winnersList.length;
+
+      const tbody = document.getElementById('stageWinnersTableBody');
+      tbody.innerHTML = '';
+      winnersList.forEach((w, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 text-amber-200";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 font-bold text-amber-400">#${idx + 1}</td>
+          <td class="py-2.5 px-3 font-semibold text-white">${w.name}</td>
+          <td class="py-2.5 px-3 text-slate-300">${w.agency}</td>
+          <td class="py-2.5 px-3 text-cyan-300 font-mono">${w.email}</td>
+          <td class="py-2.5 px-3 text-right"><span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">PEMENANG SAH</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Eksport Excel
+    function exportStampMatrixExcel() {
+      if (participants.length === 0) { alert("Tiada data peserta."); return; }
+      const headers = ["Bil", "Nama Peserta", "Emel", "Bahagian", "Lot 1", "Lot 2", "Lot 3", "Lot 4", "Lot 5", "Lot 6", "Lot 7", "Lot 8", "Lot 9", "Lot 10", "Jumlah Cop", "Maklum Balas", "Status Goodies"];
+      const rows = [headers];
+      participants.forEach((p, idx) => {
+        const checks = [1,2,3,4,5,6,7,8,9,10].map(id => p.stamps.includes(id) ? "✓" : "-");
+        rows.push([idx + 1, p.name, p.email, p.agency, ...checks, p.stamps.length, p.feedbackDone ? "Selesai" : "Belum", p.goodiesClaimed ? "Telah Ditebus" : "Belum"]);
+      });
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "Matriks_Cop");
+      XLSX.writeFile(wb, `Matriks_Cop_MOTAC_${new Date().toISOString().slice(0,10)}.xlsx`);
+    }
+
+    function exportFeedbackExcel() {
+      if (feedbackResponses.length === 0) { alert("Tiada data maklum balas."); return; }
+      const data = [["Tarikh/Masa", "Nama", "Emel", "Bahagian", "S1: Kepuasan", "S2: Reruai Pilihan", "S3: Kelancaran", "S4: Setuju Tahunan", "S5: Cadangan"]];
+      feedbackResponses.forEach(r => {
+        data.push([r.timestamp, r.name, r.email, r.agency, r.q1_satisfaction, r.q2_favorite_booth, r.q3_app_ease, r.q4_continue_yearly, r.q5_suggestions]);
+      });
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(data), "Maklum_Balas");
+      XLSX.writeFile(wb, `Maklum_Balas_MOTAC_${new Date().toISOString().slice(0,10)}.xlsx`);
+    }
+
+    function exportComprehensiveReportExcel() {
+      const wb = XLSX.utils.book_new();
+      const summary = [
+        ["LAPORAN HARI PENDIGITALAN MOTAC 2026"],
+        ["Jumlah Pendaftar", participants.length],
+        ["Layak Cabutan & Goodies (10 Cop)", participants.filter(p => p.stamps.length === 10).length],
+        ["Maklum Balas Selesai", participants.filter(p => p.feedbackDone).length],
+        ["Goodies Ditebus", participants.filter(p => p.goodiesClaimed).length]
+      ];
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summary), "Ringkasan");
+      XLSX.writeFile(wb, `Laporan_Eksekutif_MOTAC_${new Date().toISOString().slice(0,10)}.xlsx`);
+    }
+
+    function printExecutiveReport() {
+      window.print();
+    }
+
+    // Urus Data Manual
     function addParticipantManual(e) {
       e.preventDefault();
       const name = document.getElementById('mName').value.trim();
@@ -2531,13 +1642,12 @@
       const agency = document.getElementById('mAgency').value.trim();
 
       if (participants.some(p => p.email.toLowerCase() === email)) {
-        alert("Emel ini telah pun wujud dalam pangkalan data.");
+        alert("Emel ini telah berdaftar.");
         return;
       }
-
       participants.push({ name, email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false });
       saveState();
-      renderAdminTable();
+      renderIntegratedParticipantsTable();
       renderStageView();
 
       document.getElementById('mName').value = '';
@@ -2549,62 +1659,49 @@
     function handleExcelUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
       reader.onload = function(evt) {
         try {
-          const data = new Uint8Array(evt.target.result);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-          const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-          let addedCount = 0;
+          const workbook = XLSX.read(new Uint8Array(evt.target.result), { type: 'array' });
+          const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+          let count = 0;
           for (let i = 1; i < rows.length; i++) {
             const r = rows[i];
             if (!r || r.length < 2) continue;
-
             const name = String(r[0] || '').trim();
             const email = String(r[1] || '').trim().toLowerCase();
             const agency = String(r[2] || 'MOTAC').trim();
-
             if (email && !participants.some(p => p.email.toLowerCase() === email)) {
               participants.push({ name: name || 'Peserta', email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false });
-              addedCount++;
+              count++;
             }
           }
-
           saveState();
-          renderAdminTable();
+          renderIntegratedParticipantsTable();
           renderStageView();
-          document.getElementById('uploadStatusText').innerText = `Berjaya import ${addedCount} peserta baharu!`;
-          alert(`Selesai! Sebanyak ${addedCount} peserta baharu telah dimasukkan ke pangkalan data.`);
+          alert(`Berjaya memuat naik ${count} peserta baharu!`);
         } catch(err) {
-          alert("Gagal membaca fail Excel. Sila pastikan format lajur adalah: Nama, Emel, Bahagian.");
+          alert("Format fail Excel tidak sah.");
         }
       };
       reader.readAsArrayBuffer(file);
     }
 
     function downloadSampleExcel() {
-      const sample = [
-        ["Nama", "Emel", "Bahagian"],
-        ["Siti Khadijah", "khadijah@motac.gov.my", "Bahagian Dasar Kebudayaan"],
-        ["Zainal Abidin", "zainal@tourism.gov.my", "Tourism Malaysia"],
-        ["Mohd Azlan", "azlan@kraftangan.gov.my", "Perbadanan Kemajuan Kraftangan"]
-      ];
-      const ws = XLSX.utils.aoa_to_sheet(sample);
+      const sample = [["Nama", "Emel", "Bahagian"], ["Ali bin Ahmad", "ali@motac.gov.my", "BPM"]];
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Peserta");
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sample), "Templat");
       XLSX.writeFile(wb, "Templat_Pendaftaran_MOTAC.xlsx");
     }
 
     function deleteParticipant(email) {
-      if (!confirm(`Padam rekod peserta ${email}?`)) return;
+      if (!confirm(`Padam rekod ${email}?`)) return;
       participants = participants.filter(p => p.email.toLowerCase() !== email.toLowerCase());
       winnersList = winnersList.filter(w => w.email.toLowerCase() !== email.toLowerCase());
+      feedbackResponses = feedbackResponses.filter(f => f.email.toLowerCase() !== email.toLowerCase());
       if (currentParticipantEmail === email) handleUserLogout();
       saveState();
-      renderAdminTable();
+      renderIntegratedParticipantsTable();
       renderStageView();
     }
 
@@ -2615,62 +1712,69 @@
       feedbackResponses = [];
       handleUserLogout();
       saveState();
-      renderAdminTable();
+      renderIntegratedParticipantsTable();
       renderStageView();
     }
 
-    // ==============================================================
-    // 10. CETAKAN KAD QR RERUAI & URUS AKAUN ADMIN
-    // ==============================================================
+    // Modal Proxy Ganti Wakil
+    function openProxyModal(email) {
+      const user = participants.find(p => p.email.toLowerCase() === email.toLowerCase());
+      if (!user) return;
+      document.getElementById('proxyOriginalEmail').value = user.email;
+      document.getElementById('proxyOriginalNameDisplay').value = user.name;
+      document.getElementById('proxyNewName').value = user.name;
+      document.getElementById('proxyNewEmail').value = user.email;
+      document.getElementById('proxyAgencyDisplay').value = user.agency;
+      document.getElementById('proxyModal').classList.remove('hidden');
+    }
+
+    function closeProxyModal() {
+      document.getElementById('proxyModal').classList.add('hidden');
+    }
+
+    function handleSaveProxy(e) {
+      e.preventDefault();
+      const orig = document.getElementById('proxyOriginalEmail').value;
+      const nName = document.getElementById('proxyNewName').value.trim();
+      const nEmail = document.getElementById('proxyNewEmail').value.trim().toLowerCase();
+      const nAgency = document.getElementById('proxyAgencyDisplay').value.trim();
+
+      const user = participants.find(p => p.email.toLowerCase() === orig.toLowerCase());
+      if (!user) return;
+
+      user.name = nName;
+      user.email = nEmail;
+      user.agency = nAgency;
+      if (currentParticipantEmail && currentParticipantEmail.toLowerCase() === orig.toLowerCase()) currentParticipantEmail = nEmail;
+
+      saveState();
+      closeProxyModal();
+      renderIntegratedParticipantsTable();
+      renderUserView();
+      alert("Maklumat wakil berjaya dikemas kini!");
+    }
+
+    // QR Cards & Booth Analytics
     function renderAdminQRCards() {
       const container = document.getElementById('printableQRCards');
       container.innerHTML = '';
-
       MOTAC_BOOTHS.forEach(b => {
-        const qrPayload = `MOTAC_STAMP:${b.id}:${b.token}`;
-
         const card = document.createElement('div');
         card.className = "qr-card-print bg-white text-slate-900 border-2 border-slate-900 rounded-3xl p-6 text-center flex flex-col items-center justify-between shadow-md";
         card.innerHTML = `
-          <div class="w-full border-b-2 border-slate-900 pb-3 mb-3">
-            <div class="flex items-center justify-between mb-2">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" 
-                   alt="Jata Negara" 
-                   class="h-7 w-auto object-contain"
-                   onerror="this.onerror=null; this.src='https://www.motac.gov.my/images/jata_negara.png';">
-              <span class="text-xs font-mono font-black bg-slate-900 text-white px-2 py-0.5 rounded">${b.lot}</span>
-            </div>
-            <p class="text-[10px] font-black uppercase tracking-widest text-slate-500">HARI PENDIGITALAN MOTAC</p>
+          <div class="w-full border-b-2 border-slate-900 pb-2 mb-3">
+            <span class="text-xs font-mono font-black bg-slate-900 text-white px-2 py-0.5 rounded">${b.lot}</span>
             <h3 class="text-xl font-black text-slate-900 mt-1">${b.name}</h3>
-            <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">${b.desc}</p>
+            <p class="text-[10px] text-slate-600">${b.slot}</p>
           </div>
-
-          <div class="mb-2">
-            <span class="px-3 py-1 bg-indigo-50 text-indigo-900 border border-indigo-200 rounded-full text-xs font-bold">
-              ${b.slot}
-            </span>
-          </div>
-
-          <div class="p-3 bg-white border border-slate-300 rounded-2xl shadow-inner mb-3">
-            <div id="admin-qr-${b.id}" class="flex justify-center items-center"></div>
-          </div>
-
-          <div class="w-full">
-            <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-2.5 mb-2">
-              <p class="text-xs font-black text-indigo-950">📲 IMBAS KOD INI UNTUK COP DIGITAL</p>
-              <p class="text-[10px] text-indigo-800">Kumpul 10 cop reruai untuk layak cabutan bertuah</p>
-            </div>
-            <p class="text-[10px] font-mono text-slate-500">Kod Keselamatan Meja: <strong>${b.token}</strong></p>
-          </div>
+          <div id="admin-qr-${b.id}" class="my-2 p-2 bg-white border border-slate-300 rounded-xl"></div>
+          <p class="text-[10px] font-mono text-slate-500">Kod Keselamatan: <strong>${b.token}</strong></p>
         `;
         container.appendChild(card);
-
-        const qrContainer = document.getElementById(`admin-qr-${b.id}`);
-        qrContainer.innerHTML = '';
-        new QRCode(qrContainer, {
-          text: qrPayload,
-          width: 160,
-          height: 160,
+        new QRCode(document.getElementById(`admin-qr-${b.id}`), {
+          text: `MOTAC_STAMP:${b.id}:${b.token}`,
+          width: 140,
+          height: 140,
           colorDark: "#0f172a",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.H
@@ -2678,18 +1782,33 @@
       });
     }
 
+    function renderBoothAnalytics() {
+      const tbody = document.getElementById('boothPerformanceTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const total = participants.length;
+      MOTAC_BOOTHS.forEach(b => {
+        const visited = participants.filter(p => p.stamps.includes(b.id)).length;
+        const pct = total > 0 ? ((visited / total) * 100).toFixed(1) : 0;
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 font-bold text-white">${b.lot} — ${b.name}</td>
+          <td class="py-2.5 px-3 text-center font-mono text-cyan-300 font-bold">${visited}</td>
+          <td class="py-2.5 px-3 text-right font-mono text-emerald-400 font-bold">${pct}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Urus Akaun Admin
     function handleAdminLogin(e) {
       e.preventDefault();
       const u = document.getElementById('adminUser').value.trim();
       const p = document.getElementById('adminPass').value.trim();
-
-      const matched = adminAccounts.find(acc => acc.user === u && acc.pass === p);
-      if (!matched) {
-        alert("Nama pengguna atau kata laluan admin salah!");
-        return;
-      }
-
-      activeAdminUser = matched.user;
+      const match = adminAccounts.find(a => a.user === u && a.pass === p);
+      if (!match) { alert("Nama pengguna atau kata laluan salah!"); return; }
+      activeAdminUser = match.user;
       sessionStorage.setItem('motac_active_admin', activeAdminUser);
       renderAdminView();
     }
@@ -2702,148 +1821,80 @@
 
     function renderAdminView() {
       const loginBox = document.getElementById('adminLoginBox');
-      const dashboardBox = document.getElementById('adminDashboardBox');
-
+      const dashBox = document.getElementById('adminDashboardBox');
       if (!activeAdminUser) {
         loginBox.classList.remove('hidden');
-        dashboardBox.classList.add('hidden');
+        dashBox.classList.add('hidden');
         return;
       }
-
       loginBox.classList.add('hidden');
-      dashboardBox.classList.remove('hidden');
+      dashBox.classList.remove('hidden');
       document.getElementById('currentAdminName').innerText = activeAdminUser;
 
-      const inputWebhook = document.getElementById('googleSheetWebhookUrl');
-      if (inputWebhook) inputWebhook.value = googleSheetWebhookUrl;
-
-      renderAdminTable();
-      renderAdminAccounts();
+      renderIntegratedParticipantsTable();
+      renderBoothAnalytics();
       renderAdminQRCards();
-      renderAdminGoodiesTable();
-      renderAdminSurveyStats();
+      renderAdminAccounts();
       renderStageView();
-    }
-
-    function addAdminAccount(e) {
-      e.preventDefault();
-      const name = document.getElementById('newAdminName').value.trim();
-      const user = document.getElementById('newAdminUser').value.trim();
-      const pass = document.getElementById('newAdminPass').value.trim();
-
-      if (adminAccounts.some(a => a.user.toLowerCase() === user.toLowerCase())) {
-        alert("Username admin ini telah wujud.");
-        return;
-      }
-
-      adminAccounts.push({ name, user, pass });
-      saveState();
-      renderAdminAccounts();
-      document.getElementById('newAdminName').value = '';
-      document.getElementById('newAdminUser').value = '';
-      document.getElementById('newAdminPass').value = '';
-      alert(`Akaun admin untuk ${name} berjaya dicipta!`);
-    }
-
-    function deleteAdminAccount(username) {
-      if (adminAccounts.length <= 1) {
-        alert("Sistem memerlukan sekurang-kurangnya satu akaun admin!");
-        return;
-      }
-      if (username === activeAdminUser) {
-        alert("Anda tidak boleh memadam akaun yang sedang anda gunakan!");
-        return;
-      }
-      if (!confirm(`Padam akaun admin ${username}?`)) return;
-
-      adminAccounts = adminAccounts.filter(a => a.user !== username);
-      saveState();
-      renderAdminAccounts();
     }
 
     function renderAdminAccounts() {
       const tbody = document.getElementById('adminAccountsTable');
       if (!tbody) return;
       tbody.innerHTML = '';
-
       adminAccounts.forEach(a => {
         const tr = document.createElement('tr');
         tr.className = "hover:bg-slate-800/40";
         tr.innerHTML = `
           <td class="py-2.5 px-3 font-semibold text-white">${a.name}</td>
           <td class="py-2.5 px-3 font-mono text-cyan-300">${a.user}</td>
-          <td class="py-2.5 px-3 text-right">
-            ${a.user === activeAdminUser ? '<span class="text-xs text-slate-400 font-mono">Aktif</span>' : `<button onclick="deleteAdminAccount('${a.user}')" class="text-rose-400 hover:text-rose-300">Padam</button>`}
-          </td>
+          <td class="py-2.5 px-3 text-right"><span class="text-xs text-slate-400 font-mono">Aktif</span></td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    // ==============================================================
-    // 11. PENUKARAN TAB UTAMA & SUB-PANEL ADMIN
-    // ==============================================================
+    // Switch Tab Navigasi
     function switchTab(tab) {
-      document.getElementById('viewUser').classList.add('hidden');
-      document.getElementById('viewStage').classList.add('hidden');
-      document.getElementById('viewAdmin').classList.add('hidden');
-
-      document.getElementById('navUser').className = "px-3.5 py-1.5 rounded-xl font-bold text-slate-300 hover:text-white transition-all duration-300";
-      document.getElementById('navStage').className = "px-3.5 py-1.5 rounded-xl font-bold text-slate-300 hover:text-white transition-all duration-300";
-      document.getElementById('navAdmin').className = "px-3.5 py-1.5 rounded-xl font-bold text-slate-300 hover:text-white transition-all duration-300";
+      ['viewUser', 'viewStage', 'viewAdmin'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      ['navUser', 'navStage', 'navAdmin'].forEach(id => document.getElementById(id).className = "px-3.5 py-1.5 rounded-xl font-bold text-slate-300 hover:text-white transition-all");
 
       if (tab === 'user') {
         document.getElementById('viewUser').classList.remove('hidden');
-        document.getElementById('navUser').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow transition-all duration-300";
+        document.getElementById('navUser').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow";
         renderUserView();
       } else if (tab === 'stage') {
         document.getElementById('viewStage').classList.remove('hidden');
-        document.getElementById('navStage').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow transition-all duration-300";
+        document.getElementById('navStage').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow";
         renderStageView();
       } else if (tab === 'admin') {
         document.getElementById('viewAdmin').classList.remove('hidden');
-        document.getElementById('navAdmin').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow transition-all duration-300";
+        document.getElementById('navAdmin').className = "px-3.5 py-1.5 rounded-xl font-bold bg-gradient-to-r from-cyan-600 to-indigo-600 text-white shadow";
         renderAdminView();
       }
     }
 
     function switchAdminSub(sub) {
-      document.getElementById('adminDrawSection').classList.add('hidden');
-      document.getElementById('adminGoodiesSection').classList.add('hidden');
-      document.getElementById('adminSurveySection').classList.add('hidden');
-      document.getElementById('adminReportsSection').classList.add('hidden');
-      document.getElementById('adminDataSection').classList.add('hidden');
-      document.getElementById('adminQRSection').classList.add('hidden');
-      document.getElementById('adminAccountsSection').classList.add('hidden');
-
-      document.getElementById('subBtnDraw').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnGoodies').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnSurvey').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnReports').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnData').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnQR').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
-      document.getElementById('subBtnAccounts').className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
+      ['adminDrawSection', 'adminParticipantsHubSection', 'adminReportsSection', 'adminQRSection', 'adminAccountsSection'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      ['subBtnDraw', 'subBtnHub', 'subBtnReports', 'subBtnQR', 'subBtnAccounts'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = "px-3.5 py-2 rounded-lg font-bold text-slate-400 hover:text-white";
+      });
 
       if (sub === 'drawControl') {
         document.getElementById('adminDrawSection').classList.remove('hidden');
         document.getElementById('subBtnDraw').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-amber-400";
-        renderStageView();
-      } else if (sub === 'goodies') {
-        document.getElementById('adminGoodiesSection').classList.remove('hidden');
-        document.getElementById('subBtnGoodies').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-amber-400";
-        renderAdminGoodiesTable();
-      } else if (sub === 'surveyStats') {
-        document.getElementById('adminSurveySection').classList.remove('hidden');
-        document.getElementById('subBtnSurvey').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-cyan-300";
-        renderAdminSurveyStats();
+      } else if (sub === 'participantsHub') {
+        document.getElementById('adminParticipantsHubSection').classList.remove('hidden');
+        document.getElementById('subBtnHub').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-cyan-300";
+        renderIntegratedParticipantsTable();
       } else if (sub === 'reports') {
         document.getElementById('adminReportsSection').classList.remove('hidden');
         document.getElementById('subBtnReports').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-cyan-300";
-        renderAdminReportsView();
-      } else if (sub === 'data') {
-        document.getElementById('adminDataSection').classList.remove('hidden');
-        document.getElementById('subBtnData').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-cyan-300";
-        renderAdminTable();
+        renderBoothAnalytics();
       } else if (sub === 'qr') {
         document.getElementById('adminQRSection').classList.remove('hidden');
         document.getElementById('subBtnQR').className = "px-3.5 py-2 rounded-lg font-bold bg-slate-800 text-cyan-300";
@@ -2855,7 +1906,6 @@
       }
     }
 
-    // Inisialisasi Mula
     window.onload = function() {
       renderUserView();
       renderStageView();
