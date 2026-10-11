@@ -17,14 +17,13 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    /* Latar Belakang Rasmi */
+    /* Latar Belakang Rasmi Aplikasi */
     body {
       background-color: #030712;
       background-image: 
         radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.45) 0%, transparent 40%),
         radial-gradient(circle at 20% 80%, rgba(147, 51, 234, 0.35) 0%, transparent 40%),
-        linear-gradient(to bottom, rgba(3, 7, 18, 0.78), rgba(3, 7, 18, 0.88)),
-        url('TEMPLET_Backdrop.png');
+        linear-gradient(to bottom, rgba(3, 7, 18, 0.85), rgba(3, 7, 18, 0.92));
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -71,33 +70,103 @@
       animation: floatSoft 4s ease-in-out infinite;
     }
 
-    /* Mod Cetak */
+    /* Gaya Bekas e-Sijil */
+    .cert-backdrop-container {
+      background-color: #030a21;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ============================================================== */
+    /* TETAPAN CETAKAN TEPAT (WYSIWYG: PERSIS SKRIN PRATONTON)        */
+    /* ============================================================== */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
     @media print {
-      body.printing-cert * { visibility: hidden !important; }
-      body.printing-cert #printableCertificateArea, 
-      body.printing-cert #printableCertificateArea * { 
-        visibility: visible !important; 
-      }
-      body.printing-cert #printableCertificateArea {
-        position: fixed !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
+      /* 1. Mod Cetak e-Sijil Rasmi A4 Landscape */
+      body.printing-cert {
+        display: block !important;
+        background: #030a21 !important;
         margin: 0 !important;
-        padding: 40px !important;
-        background: white !important;
-        color: #0f172a !important;
+        padding: 0 !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        overflow: hidden !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body.printing-cert > :not(#certificateModal) {
+        display: none !important;
+      }
+
+      body.printing-cert #certificateModal {
+        display: block !important;
+        position: fixed !important;
+        inset: 0 !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        overflow: hidden !important;
+      }
+
+      body.printing-cert #certificateModal > :not(#printableCertificateArea) {
+        display: none !important;
+      }
+
+      body.printing-cert #printableCertificateArea {
         display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 237.6mm !important;
+        height: 168mm !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 2.5rem !important;
         box-sizing: border-box !important;
+        border: none !important;
+        border-radius: 0 !important;
+        transform: scale(1.25) !important;
+        transform-origin: top left !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid-page !important;
       }
-      @page {
-        size: A4 landscape;
-        margin: 8mm;
+
+      /* Kekalkan latar belakang templat sijil */
+      body.printing-cert #printableCertificateArea img.cert-bg-img {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
-      
+
+      body.printing-cert #printableCertificateArea * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        visibility: visible !important;
+      }
+
+      body.printing-cert #certRecipientName {
+        color: #fde047 !important;
+        -webkit-text-fill-color: #fde047 !important;
+      }
+
+      /* 2. Mod Cetak Biasa (Bukan Sijil) */
       body:not(.printing-cert) .no-print { display: none !important; }
       body:not(.printing-cert) { background: white !important; color: black !important; padding: 0 !important; background-image: none !important; }
       body:not(.printing-cert) .qr-card-print { border: 2px solid #0f172a !important; page-break-inside: avoid; background: white !important; color: black !important; }
@@ -118,9 +187,9 @@
              onerror="this.onerror=null; this.src='https://www.motac.gov.my/images/jata_negara.png';">
         <div>
           <h1 class="text-sm md:text-base font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300">
-            HARI PENDIGITALAN MOTAC
+            HARI PENDIGITALAN MOTAC TAHUN 2026
           </h1>
-          <p class="text-[10px] text-cyan-200/80 font-mono tracking-wider">Sistem Cop Digital, e-Sijil & Cabutan Bertuah 11 Reruai</p>
+          <p class="text-[10px] text-cyan-200/80 font-mono tracking-wider">Memacu Transformasi Digital MOTAC • 11 Reruai</p>
         </div>
       </div>
       
@@ -231,19 +300,16 @@
           </div>
         </div>
 
-        <!-- ============================================================== -->
-        <!-- KAD KHAS E-SIJIL PADA DASHBOARD PESERTA (LIHAT BILA-BILA MASA) -->
-        <!-- ============================================================== -->
-        <div id="dashboardCertCard" class="glass-card rounded-3xl p-5 border border-amber-500/40 relative overflow-hidden shadow-xl">
+        <!-- KAD KHAS E-SIJIL PADA DASHBOARD PESERTA -->
+        <div id="dashboardCertCard" class="glass-card rounded-3xl p-5 border border-cyan-500/40 relative overflow-hidden shadow-xl">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex items-center gap-3.5">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center text-2xl font-black shadow-md shadow-amber-500/20">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center text-2xl font-black shadow-md shadow-cyan-500/20 border border-cyan-300/40">
                 🎓
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <h3 class="text-sm font-black text-white">e-Sijil Penyertaan Rasmi MOTAC</h3>
-                  <!-- Lencana Terkunci: Hanya dipaparkan jika misi belum lengkap, disorok automatik jika sudah siap -->
+                  <h3 class="text-sm font-black text-white">e-Sijil Penyertaan Rasmi MOTAC 2026</h3>
                   <span id="certDashboardPill" class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-800 text-slate-400 border border-slate-700">Terkunci 🔒</span>
                 </div>
                 <p id="certDashboardDesc" class="text-xs text-slate-300 mt-0.5">Lengkapkan 11 cop & 5 maklum balas untuk membuka e-sijil anda.</p>
@@ -251,10 +317,10 @@
             </div>
 
             <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-2">
-              <button id="btnViewCertDashboard" onclick="openCertificateModal()" disabled class="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 opacity-50 cursor-not-allowed transition">
+              <button id="btnViewCertDashboard" onclick="openCertificateModal()" disabled class="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 opacity-50 cursor-not-allowed transition">
                 <span>👁️</span> Buka e-Sijil
               </button>
-              <button id="btnDownloadCertPdf" onclick="downloadCertificateDirect()" disabled class="w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-amber-400/40 hover:bg-slate-800 text-amber-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 opacity-50 cursor-not-allowed transition">
+              <button id="btnDownloadCertPdf" onclick="downloadCertificateDirect()" disabled class="w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-cyan-400/40 hover:bg-slate-800 text-cyan-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 opacity-50 cursor-not-allowed transition">
                 <span>📥</span> Simpan PDF
               </button>
             </div>
@@ -550,6 +616,14 @@
                     <span class="block text-[10px] text-slate-400 mt-1">Format lajur: [Nama, Emel, Bahagian]</span>
                   </label>
                 </div>
+                <div class="mt-3 bg-slate-950/70 border border-dashed border-amber-500/40 rounded-xl p-4 text-center">
+                  <input type="file" id="bulkUpdateFileInput" accept=".xlsx, .xls, .csv" class="hidden" onchange="handleBulkParticipantUpdateUpload(event)">
+                  <label for="bulkUpdateFileInput" class="cursor-pointer block">
+                    <span class="text-xl block mb-1">📝</span>
+                    <span class="text-xs font-bold text-amber-300 hover:underline">Kemaskini Peserta Secara Pukal</span>
+                    <span class="block text-[10px] text-slate-400 mt-1">Jika emel wujud, maklumat akan dikemas kini. Jika tiada, peserta baru akan ditambah.</span>
+                  </label>
+                </div>
               </div>
               <div class="mt-3 flex justify-between items-center text-xs">
                 <span id="uploadStatusText" class="text-slate-400 text-[11px]">Sedia menerima fail.</span>
@@ -576,6 +650,7 @@
               </div>
             </div>
 
+            <!-- Kotak & Penapis Carian -->
             <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5 mb-4 flex flex-col md:flex-row gap-3 items-center">
               <div class="relative flex-1 w-full">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400 text-xs">🔍</span>
@@ -622,7 +697,7 @@
           </div>
         </div>
 
-        <!-- SUB-TAB 2: PELAPORAN, STATISTIK & ANALITIK (FUNGSI ASAL) -->
+        <!-- SUB-TAB 2: PELAPORAN, STATISTIK & ANALITIK -->
         <div id="adminReportsSection" class="hidden space-y-6">
           <div class="glass-card rounded-3xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-cyan-500/40">
             <div>
@@ -645,13 +720,9 @@
             </div>
           </div>
 
-          <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 text-xs">
-            <label class="block font-bold text-cyan-300 mb-1">🔗 URL Google Apps Script Webhook (Untuk Sync Google Sheets):</label>
-            <div class="flex flex-col sm:flex-row gap-2">
-              <input type="url" id="googleSheetWebhookUrl" placeholder="https://script.google.com/macros/s/AKfycbx.../exec"
-                class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs">
-              <button onclick="saveWebhookUrl()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-xl text-xs">Simpan Webhook</button>
-            </div>
+          <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 text-xs text-cyan-200/80">
+            <span class="font-bold text-cyan-300">🔗 Sync Google Sheets aktif</span>
+            <p class="mt-1 text-[11px] text-slate-300">Webhook Google Apps Script telah ditetapkan secara automatik dalam kod aplikasi.</p>
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -663,7 +734,7 @@
             <div class="glass-card rounded-2xl p-4 text-center border-cyan-500/40 bg-cyan-950/20">
               <span class="text-[11px] text-cyan-300 uppercase font-semibold">Layak Cabutan (11/11)</span>
               <p id="repQualifiedUsers" class="text-3xl font-black text-cyan-300 mt-1">0</p>
-              <span id="repQualifiedPct" class="text-[10px] text-cyan-400 font-mono">0% kadar kejayaan</span>
+              <span id="repQualifiedPct" class="text-[10px] text-cyan-400 font-mono">0% kadar layak</span>
             </div>
             <div class="glass-card rounded-2xl p-4 text-center border-amber-500/30">
               <span class="text-[11px] text-amber-300 uppercase font-semibold">Sedang Mengumpul (1-10 Cop)</span>
@@ -801,12 +872,12 @@
     </div>
   </div>
 
-  <!-- MODAL: GANTI WAKIL PESERTA -->
+  <!-- MODAL: KEMASKINI MAKLUMAT PESERTA -->
   <div id="proxyModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="glass-card rounded-3xl max-w-md w-full p-6 text-left relative shadow-2xl border border-amber-500/40">
       <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-800">
         <div>
-          <h4 class="text-sm font-bold text-amber-300">🔄 Ganti Butiran Wakil Peserta</h4>
+          <h4 class="text-sm font-bold text-amber-300">✏️ Kemaskini Maklumat Peserta</h4>
         </div>
         <button onclick="closeProxyModal()" class="text-slate-400 hover:text-white font-bold">✕</button>
       </div>
@@ -818,11 +889,11 @@
           <input type="text" id="proxyOriginalNameDisplay" disabled class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-slate-400 cursor-not-allowed">
         </div>
         <div>
-          <label class="block text-amber-300 font-semibold mb-1">Nama Baharu (Wakil):</label>
+          <label class="block text-amber-300 font-semibold mb-1">Nama Baharu Peserta:</label>
           <input type="text" id="proxyNewName" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
         </div>
         <div>
-          <label class="block text-amber-300 font-semibold mb-1">Emel Baharu (Untuk Log Masuk):</label>
+          <label class="block text-amber-300 font-semibold mb-1">Emel Baharu:</label>
           <input type="email" id="proxyNewEmail" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
         </div>
         <div>
@@ -932,50 +1003,79 @@
     </div>
   </div>
 
-  <!-- MODAL: E-SIJIL PENYERTAAN RASMI -->
-  <div id="certificateModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4 overflow-y-auto">
+  <!-- ============================================================== -->
+  <!-- MODAL: E-SIJIL PENYERTAAN RASMI (A4 LANDSCAPE)                 -->
+  <!-- ============================================================== -->
+  <div id="certificateModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    
+    <!-- Bar Navigasi Atas Modal e-Sijil -->
     <div class="max-w-4xl w-full flex justify-between items-center mb-3 no-print">
-      <span class="text-xs text-cyan-300 font-bold">🎓 Pratonton e-Sijil Penyertaan Rasmi</span>
+      <span class="text-xs text-cyan-300 font-bold flex items-center gap-1.5">
+        <span>🎓</span> Pratonton e-Sijil Penyertaan Rasmi MOTAC 2026
+      </span>
       <div class="flex gap-2">
-        <button onclick="printCertificate()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 shadow-lg">
-          🖨️ Muat Turun Format PDF / Cetak
+        <button onclick="printCertificate()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 text-white font-black rounded-xl text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/25 transition">
+          🖨️ Cetak / Simpan Format PDF
         </button>
-        <button onclick="closeCertificateModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">Tutup</button>
+        <button onclick="closeCertificateModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition">
+          Tutup
+        </button>
       </div>
     </div>
 
-    <div id="printableCertificateArea" class="bg-white text-slate-900 w-full max-w-4xl p-8 sm:p-12 rounded-2xl shadow-2xl border-[10px] border-double border-amber-600/70 relative overflow-hidden font-serif text-center">
-      <div class="flex justify-center mb-4">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" alt="Jata Negara" class="h-20 w-auto object-contain">
+    <!-- Kawasan Sijil Landscape (Nisbah A4: 1.414 / 1) -->
+    <div id="printableCertificateArea" class="cert-backdrop-container w-full max-w-4xl aspect-[1.414/1] rounded-3xl p-6 sm:p-10 shadow-[0_0_50px_rgba(14,165,233,0.35)] border-2 border-cyan-400/40 relative flex flex-col justify-center overflow-hidden text-center text-white">
+      
+      <!-- Gambar Latar Belakang Templat Sijil -->
+      <img src="Landscape Sijil Penghargaan (1).png" alt="Latar Belakang Sijil" class="cert-bg-img absolute inset-0 h-full w-full object-cover pointer-events-none" onerror="this.style.display='none'">
+      
+      <!-- Hiasan Garis Bingkai Cahaya Cyber -->
+      <div class="absolute inset-3 sm:inset-4 rounded-2xl border border-cyan-400/30 pointer-events-none z-10"></div>
+      <div class="absolute inset-4 sm:inset-5 rounded-2xl border border-indigo-500/20 pointer-events-none z-10"></div>
+
+      <!-- Bahagian Atas: Jata Negara & Tajuk SIJIL PENYERTAAN -->
+      <div class="relative z-20 pt-2 sm:pt-4">
+        <p class="relative -translate-y-6 sm:-translate-y-10 text-[9px] sm:text-[11px] font-sans font-bold tracking-[0.25em] text-cyan-200 uppercase">
+          KEMENTERIAN PELANCONGAN, SENI DAN BUDAYA
+        </p>
+
+        <!-- Tajuk SIJIL PENYERTAAN -->
+        <h1 class="relative -translate-y-1 sm:-translate-y-2 text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-100 to-indigo-200 tracking-wider font-sans mt-2 drop-shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+          SIJIL PENYERTAAN
+        </h1>
       </div>
-      <h4 class="text-xs uppercase tracking-[0.3em] font-sans font-bold text-slate-600">KEMENTERIAN PELANCONGAN, SENI DAN BUDAYA MALAYSIA</h4>
-      <h1 class="text-3xl sm:text-4xl font-black text-amber-800 mt-2 tracking-wide font-serif">SIJIL PENYERTAAN</h1>
-      <p class="text-xs font-sans text-slate-500 mt-1 uppercase tracking-widest">Dengan ini diperakui bahawa</p>
 
-      <div class="my-5 py-2 border-b-2 border-slate-300 inline-block min-w-[60%]">
-        <h2 id="certRecipientName" class="text-2xl sm:text-3xl font-black text-slate-900 uppercase font-sans tracking-wider">NAMA PESERTA</h2>
-      </div>
+      <!-- Bahagian Tengah: Maklumat Pengakuan & Nama Peserta -->
+      <div class="relative z-20 px-6 sm:px-10 max-w-2xl mx-auto w-full">
+        <p class="text-[11px] sm:text-xs font-sans text-slate-300 uppercase tracking-widest font-semibold">
+          DENGAN INI DIPERAKUI BAHAWA
+        </p>
 
-      <p id="certRecipientAgency" class="text-xs sm:text-sm font-sans font-semibold text-slate-700">BAHAGIAN PENGURUSAN MAKLUMAT (BPM)</p>
-      <p class="text-xs sm:text-sm font-sans text-slate-600 max-w-2xl mx-auto mt-4 leading-relaxed">
-        Telah berjaya menyertai serta melengkapkan lawatan interaktif 11 reruai pempamer sempena program
-        <strong class="text-slate-900 block mt-1 font-bold">HARI PENDIGITALAN MOTAC 2026</strong>
-      </p>
-
-      <div class="mt-8 pt-6 flex justify-between items-end max-w-2xl mx-auto font-sans text-xs">
-        <div class="text-center">
-          <p class="font-mono text-[10px] text-slate-500">Tarikh Program</p>
-          <p class="font-bold text-slate-800">5 Oktober 2026</p>
+        <!-- Nama Penuh Peserta (HURUF BESAR) Sahaja -->
+        <div class="my-2 sm:my-3 border-b-2 border-cyan-400/60 inline-block min-w-[75%] pb-1">
+          <h2 id="certRecipientName" class="text-xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-200 uppercase font-sans tracking-wider">
+            NAMA PESERTA
+          </h2>
         </div>
-        <div class="text-center">
-          <div class="w-36 border-b border-slate-400 mb-1 mx-auto"></div>
-          <p class="font-bold text-slate-800">Urus Setia Hari Pendigitalan</p>
-          <p class="text-[10px] text-slate-500">Bahagian Pengurusan Maklumat (BPM)</p>
+
+        <!-- Teks Kandungan Sijil yang Ditetapkan -->
+        <div class="text-sm sm:text-base font-sans text-slate-200 max-w-xl mx-auto mt-2 leading-relaxed space-y-1">
+          <p class="text-slate-300">telah menyertai</p>
+          <p class="text-base sm:text-xl font-black text-white tracking-wide">Hari Pendigitalan MOTAC 2026</p>
+          <p class="text-cyan-200 italic font-medium">"Memacu Transformasi Digital MOTAC"</p>
+          <p class="text-slate-300 pt-1">pada <span class="text-white font-bold">28 Oktober 2026</span></p>
+          <p class="text-slate-300">Bertempat di <span class="text-white font-bold">Dewan Sanggar Pujangga, MOTAC</span></p>
         </div>
       </div>
-      <div class="mt-5 text-[9px] font-mono text-slate-400">
-        No. Siri Pengesahan: <span id="certSerialNo">MOTAC-DIGI-2026-0001</span>
+
+      <!-- Bahagian Bawah: Pengesahan & No Siri Digital -->
+      <div class="absolute z-20 bottom-2 sm:bottom-3 right-4 sm:right-8 px-4 sm:px-8">
+        <div class="flex justify-between text-[8px] sm:text-[9px] font-mono text-slate-400">
+          <span></span>
+          <span>No. Siri: <strong id="certSerialNo" class="text-cyan-300 font-bold">MOTAC-DIGI-2026-0001</strong></span>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -1052,17 +1152,17 @@
       { name: "Pentadbir Utama BPM", user: "admin", pass: "admin1234" }
     ];
 
-    let participants = JSON.parse(localStorage.getItem('motac_p_v26')) || defaultParticipants;
-    let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v26')) || defaultAdmins;
-    let winnersList = JSON.parse(localStorage.getItem('motac_winners_v26')) || [];
-    let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v26')) || [];
-    let googleSheetWebhookUrl = localStorage.getItem('motac_gsheet_url_v26') || "";
+    let participants = JSON.parse(localStorage.getItem('motac_p_v28')) || defaultParticipants;
+    let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v28')) || defaultAdmins;
+    let winnersList = JSON.parse(localStorage.getItem('motac_winners_v28')) || [];
+    let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v28')) || [];
+    let googleSheetWebhookUrl = "https://script.google.com/macros/s/AKfycbxRkCIiSR0ZBb5QlFnIn8e7-IMn1BX3diIP8n2TfEQpCOACL2BEpadnapeX63sI1beR/exec";
     let currentParticipantEmail = localStorage.getItem('motac_logged_email') || null;
     let activeAdminUser = sessionStorage.getItem('motac_active_admin') || null;
     let html5ScannerInstance = null;
 
     // Cross-Tab Sync
-    const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v26') : null;
+    const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v28') : null;
     if (syncChannel) {
       syncChannel.onmessage = (event) => {
         if (event.data && event.data.type === 'STATE_UPDATED') {
@@ -1073,10 +1173,10 @@
     }
 
     function reloadLocalState() {
-      participants = JSON.parse(localStorage.getItem('motac_p_v26')) || defaultParticipants;
-      adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v26')) || defaultAdmins;
-      winnersList = JSON.parse(localStorage.getItem('motac_winners_v26')) || [];
-      feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v26')) || [];
+      participants = JSON.parse(localStorage.getItem('motac_p_v28')) || defaultParticipants;
+      adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v28')) || defaultAdmins;
+      winnersList = JSON.parse(localStorage.getItem('motac_winners_v28')) || [];
+      feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v28')) || [];
     }
 
     function refreshViews() {
@@ -1086,10 +1186,10 @@
     }
 
     function saveState() {
-      localStorage.setItem('motac_p_v26', JSON.stringify(participants));
-      localStorage.setItem('motac_admins_v26', JSON.stringify(adminAccounts));
-      localStorage.setItem('motac_winners_v26', JSON.stringify(winnersList));
-      localStorage.setItem('motac_feedbacks_v26', JSON.stringify(feedbackResponses));
+      localStorage.setItem('motac_p_v28', JSON.stringify(participants));
+      localStorage.setItem('motac_admins_v28', JSON.stringify(adminAccounts));
+      localStorage.setItem('motac_winners_v28', JSON.stringify(winnersList));
+      localStorage.setItem('motac_feedbacks_v28', JSON.stringify(feedbackResponses));
       if (currentParticipantEmail) {
         localStorage.setItem('motac_logged_email', currentParticipantEmail);
       } else {
@@ -1103,11 +1203,66 @@
       try {
         fetch(googleSheetWebhookUrl, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
           body: JSON.stringify(payload)
+        })
+        .then(async (response) => {
+          const text = await response.text();
+          console.log('[Google Sync]', payload.action, 'status=', response.status, 'response=', text || '(empty response)');
+        })
+        .catch((err) => {
+          console.error('[Google Sync ERROR]', payload.action, err);
         });
-      } catch (err) {}
+      } catch (err) {
+        console.error('[Google Sync Catch ERROR]', payload.action, err);
+      }
+    }
+
+    function saveParticipantToGoogleSheet(user) {
+      if (!user || !user.email) return;
+      sendToGoogleSheets({
+        action: 'ADD_PARTICIPANT',
+        timestamp: new Date().toISOString(),
+        name: user.name || '',
+        email: user.email,
+        agency: user.agency || '',
+        stamps: Array.isArray(user.stamps) ? user.stamps : [],
+        feedbackDone: !!user.feedbackDone,
+        goodiesClaimed: !!user.goodiesClaimed,
+        certDownloaded: !!user.certDownloaded
+      });
+    }
+
+    function updateParticipantToGoogleSheet(originalEmail, user) {
+      if (!originalEmail || !user || !user.email) return;
+      sendToGoogleSheets({
+        action: 'UPDATE_PARTICIPANT',
+        timestamp: new Date().toISOString(),
+        originalEmail,
+        name: user.name || '',
+        email: user.email,
+        agency: user.agency || '',
+        stamps: Array.isArray(user.stamps) ? user.stamps : [],
+        feedbackDone: !!user.feedbackDone,
+        goodiesClaimed: !!user.goodiesClaimed,
+        certDownloaded: !!user.certDownloaded
+      });
+    }
+
+    function sendCertificateEmailToGoogle(email, name, serialNo) {
+      if (!email || !googleSheetWebhookUrl) return;
+      sendToGoogleSheets({
+        action: 'SEND_CERT_EMAIL',
+        timestamp: new Date().toISOString(),
+        email,
+        name: name || '',
+        serialNo: serialNo || '',
+        certificateUrl: window.location.href || 'https://example.com/certificate'
+      });
     }
 
     // ==============================================================
@@ -1191,37 +1346,37 @@
       else { node3.innerText = "3"; }
 
       if (isGoodiesDone) { node4.className = completedNode; node4.innerText = "✓"; }
-      else if (isStampsDone && isFeedbackDone) { node4.className = activeAmberNode; node4.innerText = "4"; }
+      else if (isStampsDone && isFeedbackDone && isCertDone) { node4.className = activeAmberNode; node4.innerText = "4"; }
       else { node4.innerText = "4"; }
 
-      // KAWALAN KAD E-SIJIL PADA DASHBOARD: Lencana 'Terkunci' disorokkan terus jika misi lengkap
+      // Kawalan Kad e-Sijil pada Dashboard
       if (isFeedbackDone) {
         if (certPill) {
-          certPill.classList.add('hidden'); // PADAM / SOROK BUTTON TERKUNCI JIKA LENGKAP
+          certPill.classList.add('hidden');
         }
         certDesc.innerText = "Tahniah! e-Sijil rasmi anda telah sedia. Anda boleh melihat atau memuat turun PDF pada bila-bila masa.";
         
         btnViewCert.disabled = false;
-        btnViewCert.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition cursor-pointer";
+        btnViewCert.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-95 transition cursor-pointer";
 
         btnDownCert.disabled = false;
-        btnDownCert.className = "w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-amber-400/50 hover:bg-slate-800 text-amber-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 active:scale-95 transition cursor-pointer";
+        btnDownCert.className = "w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-cyan-400/50 hover:bg-slate-800 text-cyan-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 active:scale-95 transition cursor-pointer";
       } else {
         if (certPill) {
-          certPill.classList.remove('hidden'); // PAPAR HANYA JIKA BELUM LENGKAP
+          certPill.classList.remove('hidden');
           certPill.innerText = "Terkunci 🔒";
           certPill.className = "text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-800 text-slate-400 border border-slate-700";
         }
         certDesc.innerText = "Sila lengkapkan 11 cop reruai & hantar 5 maklum balas ringkas untuk membuka e-sijil anda.";
 
         btnViewCert.disabled = true;
-        btnViewCert.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 opacity-40 cursor-not-allowed";
+        btnViewCert.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 opacity-40 cursor-not-allowed";
 
         btnDownCert.disabled = true;
-        btnDownCert.className = "w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-amber-400/40 text-amber-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 opacity-40 cursor-not-allowed";
+        btnDownCert.className = "w-full sm:w-auto px-4 py-2.5 bg-slate-900 border border-cyan-400/40 text-cyan-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 opacity-40 cursor-not-allowed";
       }
 
-      // KAWALAN ALERT TINDAKAN KINI
+      // Kawalan Kotak Tindakan
       if (!isStampsDone) {
         progressPct = Math.round((count / 11) * 25);
         progressBar.style.width = `${progressPct}%`;
@@ -1484,6 +1639,9 @@
       saveState();
       sendToGoogleSheets(payload);
 
+      const certSerial = `MOTAC-DIGI-2026-${String(participants.findIndex(p => p.email.toLowerCase() === user.email.toLowerCase()) + 1).padStart(4, '0')}`;
+      sendCertificateEmailToGoogle(user.email, user.name, certSerial);
+
       closeFeedbackModal();
       renderUserView();
       if (activeAdminUser) renderAdminView();
@@ -1495,7 +1653,7 @@
     function saveWebhookUrl() {
       const url = document.getElementById('googleSheetWebhookUrl').value.trim();
       googleSheetWebhookUrl = url;
-      localStorage.setItem('motac_gsheet_url_v26', url);
+      localStorage.setItem('motac_gsheet_url_v28', url);
       alert("URL Webhook disimpan!");
     }
 
@@ -1503,8 +1661,9 @@
       const user = participants.find(p => p.email.toLowerCase() === currentParticipantEmail?.toLowerCase());
       if (!user) return;
 
-      document.getElementById('certRecipientName').innerText = user.name;
-      document.getElementById('certRecipientAgency').innerText = user.agency;
+      // Nama Penuh Peserta dalam HURUF BESAR sepenuhnya
+      document.getElementById('certRecipientName').innerText = (user.name || '').toUpperCase();
+      
       const idx = participants.findIndex(p => p.email.toLowerCase() === user.email.toLowerCase()) + 1;
       document.getElementById('certSerialNo').innerText = `MOTAC-DIGI-2026-${String(idx).padStart(4, '0')}`;
 
@@ -1523,14 +1682,24 @@
         renderUserView();
       }
 
+      if (user && currentParticipantEmail) {
+        const serialNo = document.getElementById('certSerialNo')?.innerText || 'MOTAC-DIGI-2026-0001';
+        sendCertificateEmailToGoogle(user.email, user.name, serialNo);
+      }
+
       document.body.classList.add('printing-cert');
-      window.print();
-      setTimeout(() => {
-        document.body.classList.remove('printing-cert');
-        if (!user.goodiesClaimed) {
-          showGoodiesModal();
-        }
-      }, 1000);
+
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          window.print();
+          setTimeout(() => {
+            document.body.classList.remove('printing-cert');
+            if (user && !user.goodiesClaimed) {
+              showGoodiesModal();
+            }
+          }, 180);
+        }, 30);
+      });
     }
 
     function showGoodiesModal() {
@@ -1596,6 +1765,17 @@
       }
 
       document.getElementById('adminFeedbackPreviewModal').classList.remove('hidden');
+    }
+
+    function openAdminCertificatePreview(email) {
+      const user = participants.find(p => p.email.toLowerCase() === email.toLowerCase());
+      if (!user) return;
+
+      currentParticipantEmail = user.email;
+      document.getElementById('certRecipientName').innerText = (user.name || '').toUpperCase();
+      const idx = participants.findIndex(p => p.email.toLowerCase() === user.email.toLowerCase()) + 1;
+      document.getElementById('certSerialNo').innerText = `MOTAC-DIGI-2026-${String(idx).padStart(4, '0')}`;
+      document.getElementById('certificateModal').classList.remove('hidden');
     }
 
     function closeAdminFeedbackPreview() {
@@ -1682,9 +1862,12 @@
             }
           </td>
           <td class="py-2.5 px-3 text-right">
-            <div class="flex justify-end items-center gap-2">
+            <div class="flex justify-end items-center gap-2 flex-wrap">
+              <button onclick="openAdminCertificatePreview('${p.email}')" class="px-2 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 rounded text-[10px] font-bold">
+                👁️ Sijil
+              </button>
               <button onclick="openProxyModal('${p.email}')" class="px-2 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 rounded text-[10px] font-bold">
-                🔄 Ganti
+                ✏️ Edit
               </button>
               <button onclick="deleteParticipant('${p.email}')" class="text-rose-400 hover:text-rose-300 text-[10px]">Padam</button>
             </div>
@@ -1950,7 +2133,7 @@
       const qualCount = participants.filter(p => p.stamps.length === 11).length;
 
       const summaryData = [
-        ["LAPORAN STATISTIK HARI PENDIGITALAN MOTAC 2026"],
+        ["LAPORAN STATISTIK HARI PENDIGITALAN MOTAC TAHUN 2026"],
         ["Tarikh & Masa Jana", new Date().toLocaleString('ms-MY')],
         [],
         ["METRIK UTAMA", "BILANGAN PESERTA", "PERATUSAN (%)"],
@@ -2060,8 +2243,11 @@
         alert("Emel ini telah berdaftar.");
         return;
       }
-      participants.push({ name, email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false });
+
+      const newUser = { name, email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false };
+      participants.push(newUser);
       saveState();
+      saveParticipantToGoogleSheet(newUser);
       renderIntegratedParticipantsTable();
       renderStageView();
 
@@ -2087,7 +2273,9 @@
             const email = String(r[1] || '').trim().toLowerCase();
             const agency = String(r[2] || 'MOTAC').trim();
             if (email && !participants.some(p => p.email.toLowerCase() === email)) {
-              participants.push({ name: name || 'Peserta', email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false });
+              const newUser = { name: name || 'Peserta', email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false };
+              participants.push(newUser);
+              saveParticipantToGoogleSheet(newUser);
               count++;
             }
           }
@@ -2097,6 +2285,63 @@
           alert(`Berjaya memuat naik ${count} peserta baharu!`);
         } catch(err) {
           alert("Format fail Excel tidak sah.");
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function handleBulkParticipantUpdateUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const workbook = XLSX.read(new Uint8Array(evt.target.result), { type: 'array' });
+          const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
+          let updated = 0;
+          let added = 0;
+
+          for (let i = 1; i < rows.length; i++) {
+            const r = rows[i];
+            if (!r || r.length < 3) continue;
+
+            const name = String(r[0] || '').trim();
+            const email = String(r[1] || '').trim().toLowerCase();
+            const agency = String(r[2] || '').trim();
+
+            if (!email) continue;
+
+            const existing = participants.find(p => p.email.toLowerCase() === email);
+            if (existing) {
+              existing.name = name || existing.name;
+              existing.agency = agency || existing.agency;
+              updateParticipantToGoogleSheet(email, existing);
+              updated++;
+            } else {
+              const newUser = {
+                name: name || 'Peserta',
+                email,
+                agency: agency || 'MOTAC',
+                stamps: [],
+                feedbackDone: false,
+                certDownloaded: false,
+                goodiesClaimed: false
+              };
+              participants.push(newUser);
+              saveParticipantToGoogleSheet(newUser);
+              added++;
+            }
+          }
+
+          saveState();
+          renderIntegratedParticipantsTable();
+          renderStageView();
+          renderUserView();
+          if (activeAdminUser) renderAdminView();
+
+          alert(`Kemas kini pukal selesai: ${updated} rekod dikemaskini, ${added} peserta baru ditambah.`);
+        } catch(err) {
+          alert("Format fail Excel tidak sah untuk kemaskini pukal.");
         }
       };
       reader.readAsArrayBuffer(file);
@@ -2156,12 +2401,14 @@
       const user = participants.find(p => p.email.toLowerCase() === orig.toLowerCase());
       if (!user) return;
 
+      const oldEmail = user.email;
       user.name = nName;
       user.email = nEmail;
       user.agency = nAgency;
       if (currentParticipantEmail && currentParticipantEmail.toLowerCase() === orig.toLowerCase()) currentParticipantEmail = nEmail;
 
       saveState();
+      updateParticipantToGoogleSheet(oldEmail, user);
       closeProxyModal();
       renderIntegratedParticipantsTable();
       renderUserView();
@@ -2266,6 +2513,7 @@
       });
     }
 
+    // Switch Tab Navigasi
     function switchTab(tab) {
       ['viewUser', 'viewStage', 'viewAdmin'].forEach(id => document.getElementById(id).classList.add('hidden'));
       ['navUser', 'navStage', 'navAdmin'].forEach(id => document.getElementById(id).className = "px-3.5 py-1.5 rounded-xl font-bold text-slate-300 hover:text-white transition-all");
