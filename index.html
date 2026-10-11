@@ -722,7 +722,11 @@
 
           <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 text-xs text-cyan-200/80">
             <span class="font-bold text-cyan-300">🔗 Sync Google Sheets aktif</span>
-            <p class="mt-1 text-[11px] text-slate-300">Webhook Google Apps Script telah ditetapkan secara automatik dalam kod aplikasi.</p>
+            <p class="mt-1 text-[11px] text-slate-300">Masukkan URL Web App Apps Script untuk simpan pendaftaran manual dan pukal dalam tab Peserta.</p>
+            <div class="mt-3 flex flex-col sm:flex-row gap-2">
+              <input id="registrationSheetUrl" type="url" placeholder="https://script.google.com/macros/s/AKfycbxNhUXxe-QkOrYQN1WlgQK_eZggqAIeBcM44600VP6_CKWvIRpPyoLxwtAdFFcqbPX0/exec" class="min-w-0 flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white">
+              <button onclick="saveRegistrationSheetUrl()" class="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-xs font-bold">Simpan URL Pendaftaran</button>
+            </div>
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1146,7 +1150,7 @@
       { name: "Muhammad Zharif Bin Roslan", email: "zharif@motac.gov.my", agency: "Bahagian Pengurusan Maklumat (BPM)", stamps: [1, 2, 3, 4, 5, 6, 7, 8], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
       { name: "Ainul Mardhiah Binti Yusof", email: "ainul@tourism.gov.my", agency: "Tourism Malaysia", stamps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], feedbackDone: false, certDownloaded: false, goodiesClaimed: false },
       { name: "Mohd Danish Haikal", email: "danish@kraftangan.gov.my", agency: "Perbadanan Kemajuan Kraftangan", stamps: [1, 2, 3, 4, 5], feedbackDone: false, certDownloaded: false, goodiesClaimed: false }
-    ];
+    ]; 
 
     const defaultAdmins = [
       { name: "Pentadbir Utama BPM", user: "admin", pass: "admin1234" }
@@ -1156,10 +1160,14 @@
     let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v28')) || defaultAdmins;
     let winnersList = JSON.parse(localStorage.getItem('motac_winners_v28')) || [];
     let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v28')) || [];
-    let googleSheetWebhookUrl = "https://script.google.com/macros/s/AKfycbxRkCIiSR0ZBb5QlFnIn8e7-IMn1BX3diIP8n2TfEQpCOACL2BEpadnapeX63sI1beR/exec";
+    let googleSheetWebhookUrl = "https://script.google.com/macros/s/AKfycbxNhUXxe-QkOrYQN1WlgQK_eZggqAIeBcM44600VP6_CKWvIRpPyoLxwtAdFFcqbPX0/exec";
+    let googleSheetRegistrationUrl = localStorage.getItem('motac_registration_sheet_url') || '';
     let currentParticipantEmail = localStorage.getItem('motac_logged_email') || null;
     let activeAdminUser = sessionStorage.getItem('motac_active_admin') || null;
     let html5ScannerInstance = null;
+
+    const registrationSheetUrlInput = document.getElementById('registrationSheetUrl');
+    if (registrationSheetUrlInput) registrationSheetUrlInput.value = googleSheetRegistrationUrl;
 
     // Cross-Tab Sync
     const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v28') : null;
@@ -1235,6 +1243,33 @@
         goodiesClaimed: !!user.goodiesClaimed,
         certDownloaded: !!user.certDownloaded
       });
+    }
+
+    function sendParticipantsToRegistrationSheet(users) {
+      if (!googleSheetRegistrationUrl || !users.length) return;
+      const participantsToSave = users.map(user => ({
+        name: user.name || '',
+        email: user.email || '',
+        agency: user.agency || ''
+      }));
+      fetch(googleSheetRegistrationUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'UPSERT_PARTICIPANTS', participants: participantsToSave })
+      }).catch(error => console.error('[Registration Sheet ERROR]', error));
+    }
+
+    function saveRegistrationSheetUrl() {
+      const url = document.getElementById('registrationSheetUrl').value.trim();
+      if (!url.startsWith('https://script.google.com/macros/s/') || !url.endsWith('/exec')) {
+        alert('Sila masukkan URL Web App Apps Script yang berakhir dengan /exec.');
+        return;
+      }
+      googleSheetRegistrationUrl = url;
+      localStorage.setItem('motac_registration_sheet_url', url);
+      sendParticipantsToRegistrationSheet(participants);
+      alert(`URL disimpan. ${participants.length} rekod peserta sedang dihantar ke Google Sheet. Refresh tab Peserta sebentar lagi untuk semak.`);
     }
 
     function updateParticipantToGoogleSheet(originalEmail, user) {
@@ -2247,7 +2282,7 @@
       const newUser = { name, email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false };
       participants.push(newUser);
       saveState();
-      saveParticipantToGoogleSheet(newUser);
+      sendParticipantsToRegistrationSheet([newUser]);
       renderIntegratedParticipantsTable();
       renderStageView();
 
@@ -2266,6 +2301,7 @@
           const workbook = XLSX.read(new Uint8Array(evt.target.result), { type: 'array' });
           const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
           let count = 0;
+          const importedParticipants = [];
           for (let i = 1; i < rows.length; i++) {
             const r = rows[i];
             if (!r || r.length < 2) continue;
@@ -2275,10 +2311,11 @@
             if (email && !participants.some(p => p.email.toLowerCase() === email)) {
               const newUser = { name: name || 'Peserta', email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false };
               participants.push(newUser);
-              saveParticipantToGoogleSheet(newUser);
+              importedParticipants.push(newUser);
               count++;
             }
           }
+          sendParticipantsToRegistrationSheet(importedParticipants);
           saveState();
           renderIntegratedParticipantsTable();
           renderStageView();
@@ -2300,6 +2337,7 @@
           const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
           let updated = 0;
           let added = 0;
+          const changedParticipants = [];
 
           for (let i = 1; i < rows.length; i++) {
             const r = rows[i];
@@ -2315,7 +2353,7 @@
             if (existing) {
               existing.name = name || existing.name;
               existing.agency = agency || existing.agency;
-              updateParticipantToGoogleSheet(email, existing);
+              changedParticipants.push(existing);
               updated++;
             } else {
               const newUser = {
@@ -2328,11 +2366,12 @@
                 goodiesClaimed: false
               };
               participants.push(newUser);
-              saveParticipantToGoogleSheet(newUser);
+              changedParticipants.push(newUser);
               added++;
             }
           }
 
+          sendParticipantsToRegistrationSheet(changedParticipants);
           saveState();
           renderIntegratedParticipantsTable();
           renderStageView();
