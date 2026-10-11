@@ -15,12 +15,16 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <!-- Confetti (Keraian Pemenang Cabutan Pentas) -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Jana e-Sijil PDF untuk lampiran emel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
   <style>
     /* Latar Belakang Rasmi Aplikasi */
     body {
       background-color: #030712;
       background-image: 
+        linear-gradient(rgba(3, 7, 18, 0.45), rgba(3, 7, 18, 0.62)),
+        url("./background-motac.png"),
         radial-gradient(circle at 80% 20%, rgba(30, 64, 175, 0.45) 0%, transparent 40%),
         radial-gradient(circle at 20% 80%, rgba(147, 51, 234, 0.35) 0%, transparent 40%),
         linear-gradient(to bottom, rgba(3, 7, 18, 0.85), rgba(3, 7, 18, 0.92));
@@ -187,9 +191,9 @@
              onerror="this.onerror=null; this.src='https://www.motac.gov.my/images/jata_negara.png';">
         <div>
           <h1 class="text-sm md:text-base font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300">
-            HARI PENDIGITALAN MOTAC TAHUN 2026
+            Cop Digital, Cabutan Bertuah &  e-Sijil
           </h1>
-          <p class="text-[10px] text-cyan-200/80 font-mono tracking-wider">Memacu Transformasi Digital MOTAC • 11 Reruai</p>
+          <p class="text-[10px] text-cyan-200/80 font-mono tracking-wider">HARI PENDIGITALAN MOTAC 2026 • Memacu Transformasi Digital MOTAC</p>
         </div>
       </div>
       
@@ -720,13 +724,14 @@
             </div>
           </div>
 
-          <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 text-xs text-cyan-200/80">
-            <span class="font-bold text-cyan-300">🔗 Sync Google Sheets aktif</span>
-            <p class="mt-1 text-[11px] text-slate-300">Masukkan URL Web App Apps Script untuk simpan pendaftaran manual dan pukal dalam tab Peserta.</p>
+          <div class="glass-card rounded-2xl p-4 border border-cyan-500/30">
+            <label for="databaseWebAppUrl" class="block text-xs font-bold text-cyan-300">Google Apps Script Database</label>
+            <p class="text-[11px] text-slate-400 mt-1">Masukkan URL Web App /exec untuk simpan dan kongsi data peserta antara peranti.</p>
             <div class="mt-3 flex flex-col sm:flex-row gap-2">
-              <input id="registrationSheetUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="min-w-0 flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white">
-              <button onclick="saveRegistrationSheetUrl()" class="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-xs font-bold">Simpan URL Pendaftaran</button>
+              <input id="databaseWebAppUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="min-w-0 flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white">
+              <button onclick="connectDatabase()" class="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-xs font-bold">Sambung Database</button>
             </div>
+            <p id="databaseConnectionStatus" class="text-[11px] text-slate-400 mt-2" role="status">Belum disambungkan.</p>
           </div>
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1119,6 +1124,8 @@
     </div>
   </div>
 
+  
+
   <footer class="no-print py-4 text-center text-[11px] text-cyan-200/60 border-t border-cyan-500/10">
     Hari Pendigitalan Kementerian Pelancongan, Seni dan Budaya (MOTAC) © 2026
   </footer>
@@ -1160,14 +1167,13 @@
     let adminAccounts = JSON.parse(localStorage.getItem('motac_admins_v28')) || defaultAdmins;
     let winnersList = JSON.parse(localStorage.getItem('motac_winners_v28')) || [];
     let feedbackResponses = JSON.parse(localStorage.getItem('motac_feedbacks_v28')) || [];
-    let googleSheetWebhookUrl = "https://script.google.com/macros/s/AKfycbxNhUXxe-QkOrYQN1WlgQK_eZggqAIeBcM44600VP6_CKWvIRpPyoLxwtAdFFcqbPX0/exec";
-    let googleSheetRegistrationUrl = localStorage.getItem('motac_registration_sheet_url') || "https://script.google.com/macros/s/AKfycbxNhUXxe-QkOrYQN1WlgQK_eZggqAIeBcM44600VP6_CKWvIRpPyoLxwtAdFFcqbPX0/exec";
     let currentParticipantEmail = localStorage.getItem('motac_logged_email') || null;
     let activeAdminUser = sessionStorage.getItem('motac_active_admin') || null;
     let html5ScannerInstance = null;
+    let databaseWebAppUrl = localStorage.getItem('motac_apps_script_url_v2') || 'https://script.google.com/macros/s/AKfycbz4OIW6B9dMmGopG9R2DipvY-ZmBXyOTIlOf76PLZXiVAenqw8CWHF0BImMmxkHtfm_/exec';
 
-    const registrationSheetUrlInput = document.getElementById('registrationSheetUrl');
-    if (registrationSheetUrlInput) registrationSheetUrlInput.value = googleSheetRegistrationUrl;
+    const databaseUrlInput = document.getElementById('databaseWebAppUrl');
+    if (databaseUrlInput) databaseUrlInput.value = databaseWebAppUrl;
 
     // Cross-Tab Sync
     const syncChannel = window.BroadcastChannel ? new BroadcastChannel('motac_sync_channel_v28') : null;
@@ -1206,98 +1212,79 @@
       if (syncChannel) syncChannel.postMessage({ type: 'STATE_UPDATED' });
     }
 
-    function sendToGoogleSheets(payload) {
-      if (!googleSheetWebhookUrl) return;
-      try {
-        fetch(googleSheetWebhookUrl, {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(payload)
-        })
-        .then(async (response) => {
-          const text = await response.text();
-          console.log('[Google Sync]', payload.action, 'status=', response.status, 'response=', text || '(empty response)');
-        })
-        .catch((err) => {
-          console.error('[Google Sync ERROR]', payload.action, err);
-        });
-      } catch (err) {
-        console.error('[Google Sync Catch ERROR]', payload.action, err);
-      }
-    }
-
-    function saveParticipantToGoogleSheet(user) {
-      if (!user || !user.email) return;
-      sendToGoogleSheets({
-        action: 'ADD_PARTICIPANT',
-        timestamp: new Date().toISOString(),
-        name: user.name || '',
-        email: user.email,
-        agency: user.agency || '',
-        stamps: Array.isArray(user.stamps) ? user.stamps : [],
-        feedbackDone: !!user.feedbackDone,
-        goodiesClaimed: !!user.goodiesClaimed,
-        certDownloaded: !!user.certDownloaded
+    function readDatabaseState() {
+      return new Promise((resolve, reject) => {
+        const callbackName = `motacDatabaseCallback${Date.now()}${Math.floor(Math.random() * 1000)}`;
+        const script = document.createElement('script');
+        const timeoutId = setTimeout(() => finish(new Error('Sambungan database tamat masa.')), 15000);
+        const finish = (error, result) => {
+          clearTimeout(timeoutId);
+          delete window[callbackName];
+          script.remove();
+          if (error) reject(error);
+          else resolve(result);
+        };
+        window[callbackName] = result => finish(null, result);
+        script.onerror = () => finish(new Error('Tidak dapat membuka Web App. Semak URL dan akses deployment.'));
+        script.src = `${databaseWebAppUrl}?action=GET_STATE&callback=${callbackName}&t=${Date.now()}`;
+        document.head.appendChild(script);
       });
     }
 
-    function sendParticipantsToRegistrationSheet(users) {
-      if (!googleSheetRegistrationUrl || !users.length) return;
-      const participantsToSave = users.map(user => ({
-        name: user.name || '',
-        email: user.email || '',
-        agency: user.agency || ''
-      }));
-      fetch(googleSheetRegistrationUrl, {
+    function postDatabase(action, data = {}, throwOnError = false) {
+      if (!databaseWebAppUrl) return Promise.resolve();
+      const request = fetch(databaseWebAppUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'UPSERT_PARTICIPANTS', participants: participantsToSave })
-      }).catch(error => console.error('[Registration Sheet ERROR]', error));
+        body: JSON.stringify({ action, ...data })
+      });
+      if (throwOnError) return request;
+      return request.catch(error => console.error('[MOTAC Database]', action, error));
     }
 
-    function saveRegistrationSheetUrl() {
-      const url = document.getElementById('registrationSheetUrl').value.trim();
+    async function connectDatabase() {
+      const url = document.getElementById('databaseWebAppUrl').value.trim();
+      const status = document.getElementById('databaseConnectionStatus');
       if (!url.startsWith('https://script.google.com/macros/s/') || !url.endsWith('/exec')) {
         alert('Sila masukkan URL Web App Apps Script yang berakhir dengan /exec.');
         return;
       }
-      googleSheetRegistrationUrl = url;
-      localStorage.setItem('motac_registration_sheet_url', url);
-      sendParticipantsToRegistrationSheet(participants);
-      alert(`URL disimpan. ${participants.length} rekod peserta sedang dihantar ke Google Sheet. Refresh tab Peserta sebentar lagi untuk semak.`);
+      databaseWebAppUrl = url;
+      localStorage.setItem('motac_apps_script_url_v2', url);
+      await initializeDatabase(true);
     }
 
-    function updateParticipantToGoogleSheet(originalEmail, user) {
-      if (!originalEmail || !user || !user.email) return;
-      sendToGoogleSheets({
-        action: 'UPDATE_PARTICIPANT',
-        timestamp: new Date().toISOString(),
-        originalEmail,
-        name: user.name || '',
-        email: user.email,
-        agency: user.agency || '',
-        stamps: Array.isArray(user.stamps) ? user.stamps : [],
-        feedbackDone: !!user.feedbackDone,
-        goodiesClaimed: !!user.goodiesClaimed,
-        certDownloaded: !!user.certDownloaded
-      });
-    }
-
-    function sendCertificateEmailToGoogle(email, name, serialNo) {
-      if (!email || !googleSheetWebhookUrl) return;
-      sendToGoogleSheets({
-        action: 'SEND_CERT_EMAIL',
-        timestamp: new Date().toISOString(),
-        email,
-        name: name || '',
-        serialNo: serialNo || '',
-        certificateUrl: window.location.href || 'https://example.com/certificate'
-      });
+    async function initializeDatabase(seedWhenEmpty) {
+      const status = document.getElementById('databaseConnectionStatus');
+      if (!databaseWebAppUrl) return;
+      if (status) status.innerText = 'Menyambung ke database...';
+      try {
+        const result = await readDatabaseState();
+        if (!result || !result.ok || !result.state) throw new Error(result?.error || 'Respons database tidak sah.');
+        const state = result.state;
+        if (state.participants && state.participants.length) {
+          participants = state.participants.map(person => ({
+            ...person,
+            stamps: Array.isArray(person.stamps) ? person.stamps : [],
+            feedbackDone: !!person.feedbackDone,
+            certDownloaded: !!person.certDownloaded,
+            goodiesClaimed: !!person.goodiesClaimed
+          }));
+          feedbackResponses = state.feedbackResponses || [];
+          winnersList = state.winnersList || [];
+          saveState();
+          refreshViews();
+        } else if (seedWhenEmpty) {
+          await postDatabase('UPSERT_PARTICIPANTS', { participants });
+          for (const feedback of feedbackResponses) await postDatabase('UPSERT_FEEDBACK', { feedback });
+          for (const winner of winnersList) await postDatabase('ADD_WINNER', { winner });
+        }
+        if (status) status.innerText = `Database disambungkan. ${participants.length} peserta dimuatkan.`;
+      } catch (error) {
+        console.error('[MOTAC Database]', error);
+        if (status) status.innerText = `Gagal sambung: ${error.message}`;
+      }
     }
 
     // ==============================================================
@@ -1389,7 +1376,7 @@
         if (certPill) {
           certPill.classList.add('hidden');
         }
-        certDesc.innerText = "Tahniah! e-Sijil rasmi anda telah sedia. Anda boleh melihat atau memuat turun PDF pada bila-bila masa.";
+        certDesc.innerText = "Tahniah! e-Sijil rasmi anda telah sedia. Anda boleh melihat atau memuat turun PDF.";
         
         btnViewCert.disabled = false;
         btnViewCert.className = "w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 text-white font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-95 transition cursor-pointer";
@@ -1599,21 +1586,10 @@
 
       user.stamps.push(boothId);
       saveState();
+      postDatabase('ADD_STAMP', { email: user.email, boothId });
       stopQRScanner();
       renderUserView();
       renderStageView();
-
-      sendToGoogleSheets({
-        action: "STAMP",
-        timestamp: new Date().toLocaleString('ms-MY'),
-        name: user.name,
-        email: user.email,
-        agency: user.agency,
-        boothId: targetBooth.id,
-        boothLot: targetBooth.lot,
-        boothName: targetBooth.name,
-        totalStamps: user.stamps.length
-      });
 
       if (user.stamps.length === 11) {
         confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
@@ -1637,6 +1613,92 @@
       document.getElementById('feedbackModal').classList.add('hidden');
     }
 
+    async function createCertificatePdfBase64(user) {
+      if (!window.html2pdf) throw new Error('Modul jana PDF belum dimuatkan.');
+      const certificate = document.getElementById('printableCertificateArea').cloneNode(true);
+      const serial = `MOTAC-DIGI-2026-${String(participants.findIndex(p => p.email.toLowerCase() === user.email.toLowerCase()) + 1).padStart(4, '0')}`;
+      certificate.querySelector('#certRecipientName').innerText = (user.name || '').toUpperCase();
+      certificate.querySelector('#certSerialNo').innerText = serial;
+      certificate.dataset.pdfCaptureRoot = 'true';
+      Object.assign(certificate.style, {
+        width: '1122px',
+        height: '794px',
+        maxWidth: 'none',
+        aspectRatio: 'auto',
+        borderRadius: '0',
+        transform: 'none'
+      });
+
+      const container = document.createElement('div');
+      Object.assign(container.style, {
+        position: 'fixed',
+        left: '0',
+        top: '0',
+        width: '1122px',
+        height: '794px',
+        overflow: 'hidden',
+        zIndex: '2147483647',
+        opacity: '0',
+        pointerEvents: 'none'
+      });
+      container.appendChild(certificate);
+      document.body.appendChild(container);
+
+      const renderPdf = () => window.html2pdf().set({
+        margin: 0,
+        image: { type: 'jpeg', quality: 0.96 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#030a21',
+          onclone: clonedDocument => {
+            const clonedCertificate = clonedDocument.querySelector('[data-pdf-capture-root="true"]');
+            if (!clonedCertificate) return;
+            Object.assign(clonedCertificate.style, {
+              position: 'relative',
+              left: '0',
+              top: '0',
+              width: '1122px',
+              height: '794px',
+              opacity: '1',
+              visibility: 'visible',
+              transform: 'none',
+              backgroundColor: '#030a21'
+            });
+            const title = clonedCertificate.querySelector('h1');
+            const recipientName = clonedCertificate.querySelector('#certRecipientName');
+            [title, recipientName].forEach((element, index) => {
+              if (!element) return;
+              element.classList.remove('text-transparent', 'bg-clip-text', 'bg-gradient-to-r');
+              Object.assign(element.style, {
+                background: 'none',
+                backgroundImage: 'none',
+                backgroundClip: 'border-box',
+                color: index === 0 ? '#67e8f9' : '#fde047',
+                webkitTextFillColor: index === 0 ? '#67e8f9' : '#fde047',
+                webkitBackgroundClip: 'border-box'
+              });
+            });
+          }
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      }).from(certificate).outputPdf('datauristring');
+
+      try {
+        let dataUri;
+        try {
+          dataUri = await renderPdf();
+        } catch (error) {
+          if (!/tainted canvas|toDataURL/i.test(error.message || '')) throw error;
+          certificate.querySelector('.cert-bg-img')?.remove();
+          dataUri = await renderPdf();
+        }
+        return dataUri.split(',')[1];
+      } finally {
+        container.remove();
+      }
+    }
+
     async function handleSurveySubmit(e) {
       e.preventDefault();
       const user = participants.find(p => p.email.toLowerCase() === currentParticipantEmail.toLowerCase());
@@ -1654,7 +1716,6 @@
       }
 
       const payload = {
-        action: "FEEDBACK",
         timestamp: new Date().toLocaleString('ms-MY'),
         name: user.name,
         email: user.email,
@@ -1666,30 +1727,33 @@
         q5_suggestions: q5 || "-"
       };
 
+      try {
+        await postDatabase('SAVE_PROGRESS', { email: user.email, feedbackDone: true, feedback: payload }, true);
+      } catch (error) {
+        console.error('[MOTAC Feedback Save]', error);
+        alert(`Maklum balas belum dapat dihantar ke Google Sheet. Sila cuba semula. (${error.message})`);
+        return;
+      }
+
       const fbIdx = feedbackResponses.findIndex(f => f.email.toLowerCase() === user.email.toLowerCase());
       if (fbIdx !== -1) feedbackResponses[fbIdx] = payload;
       else feedbackResponses.push(payload);
 
       user.feedbackDone = true;
       saveState();
-      sendToGoogleSheets(payload);
-
-      const certSerial = `MOTAC-DIGI-2026-${String(participants.findIndex(p => p.email.toLowerCase() === user.email.toLowerCase()) + 1).padStart(4, '0')}`;
-      sendCertificateEmailToGoogle(user.email, user.name, certSerial);
-
       closeFeedbackModal();
       renderUserView();
       if (activeAdminUser) renderAdminView();
 
-      alert("Maklum balas diterima! e-Sijil anda telah dibuka dan boleh dimuat turun bila-bila masa pada dashboard.");
+      try {
+        const pdfBase64 = await createCertificatePdfBase64(user);
+        await postDatabase('SEND_CERTIFICATE', { feedback: payload, pdfBase64 }, true);
+        alert(`Maklum balas diterima dan permintaan penghantaran e-Sijil PDF telah dihantar ke ${user.email}. Sila semak Inbox atau Spam.`);
+      } catch (error) {
+        console.error('[MOTAC Certificate Email]', error);
+        alert(`Jawapan maklum balas sudah disimpan dalam Google Sheet. PDF e-sijil tidak dapat dihantar secara automatik, tetapi boleh dimuat turun dari dashboard. (${error.message})`);
+      }
       openCertificateModal();
-    }
-
-    function saveWebhookUrl() {
-      const url = document.getElementById('googleSheetWebhookUrl').value.trim();
-      googleSheetWebhookUrl = url;
-      localStorage.setItem('motac_gsheet_url_v28', url);
-      alert("URL Webhook disimpan!");
     }
 
     function openCertificateModal() {
@@ -1714,12 +1778,8 @@
       if (user) {
         user.certDownloaded = true;
         saveState();
+        postDatabase('SAVE_PROGRESS', { email: user.email, certDownloaded: true });
         renderUserView();
-      }
-
-      if (user && currentParticipantEmail) {
-        const serialNo = document.getElementById('certSerialNo')?.innerText || 'MOTAC-DIGI-2026-0001';
-        sendCertificateEmailToGoogle(user.email, user.name, serialNo);
       }
 
       document.body.classList.add('printing-cert');
@@ -1760,17 +1820,10 @@
       if (!user) return;
       user.goodiesClaimed = !user.goodiesClaimed;
       saveState();
+      postDatabase('SAVE_PROGRESS', { email: user.email, goodiesClaimed: user.goodiesClaimed });
       renderIntegratedParticipantsTable();
       renderUserView();
 
-      sendToGoogleSheets({
-        action: "CLAIM_GOODIES",
-        timestamp: new Date().toLocaleString('ms-MY'),
-        name: user.name,
-        email: user.email,
-        agency: user.agency,
-        goodiesClaimed: user.goodiesClaimed
-      });
     }
 
     function resetHubFilters() {
@@ -1970,6 +2023,7 @@
             wonAt: new Date().toLocaleTimeString('ms-MY')
           });
           saveState();
+          postDatabase('ADD_WINNER', { winner: winnersList[winnersList.length - 1] });
 
           const winTitle = `🎉 TAHNIAH PEMENANG CABUTAN #${winnersList.length} 🎉`;
           
@@ -1997,6 +2051,7 @@
       if (!confirm(`Batalkan kemenangan untuk ${email} dan kembalikan peserta ke dalam balang cabutan?`)) return;
       winnersList = winnersList.filter(w => w.email.toLowerCase() !== email.toLowerCase());
       saveState();
+      postDatabase('REMOVE_WINNER', { email });
       renderStageView();
     }
 
@@ -2008,6 +2063,7 @@
       if (!confirm("AMARAN: Anda pasti mahu mengosongkan semula semua rekod pemenang dan memasukkan semua peserta layak ke dalam balang semula?")) return;
       winnersList = [];
       saveState();
+      postDatabase('RESET_WINNERS');
       renderStageView();
       alert("Senarai pemenang telah diset semula!");
     }
@@ -2282,7 +2338,7 @@
       const newUser = { name, email, agency, stamps: [], feedbackDone: false, certDownloaded: false, goodiesClaimed: false };
       participants.push(newUser);
       saveState();
-      sendParticipantsToRegistrationSheet([newUser]);
+      postDatabase('UPSERT_PARTICIPANTS', { participants: [newUser] });
       renderIntegratedParticipantsTable();
       renderStageView();
 
@@ -2315,8 +2371,8 @@
               count++;
             }
           }
-          sendParticipantsToRegistrationSheet(importedParticipants);
           saveState();
+          postDatabase('UPSERT_PARTICIPANTS', { participants: importedParticipants });
           renderIntegratedParticipantsTable();
           renderStageView();
           alert(`Berjaya memuat naik ${count} peserta baharu!`);
@@ -2338,7 +2394,6 @@
           let updated = 0;
           let added = 0;
           const changedParticipants = [];
-
           for (let i = 1; i < rows.length; i++) {
             const r = rows[i];
             if (!r || r.length < 3) continue;
@@ -2371,8 +2426,8 @@
             }
           }
 
-          sendParticipantsToRegistrationSheet(changedParticipants);
           saveState();
+          postDatabase('UPSERT_PARTICIPANTS', { participants: changedParticipants });
           renderIntegratedParticipantsTable();
           renderStageView();
           renderUserView();
@@ -2400,6 +2455,7 @@
       feedbackResponses = feedbackResponses.filter(f => f.email.toLowerCase() !== email.toLowerCase());
       if (currentParticipantEmail === email) handleUserLogout();
       saveState();
+      postDatabase('DELETE_PARTICIPANT', { email });
       renderIntegratedParticipantsTable();
       renderStageView();
     }
@@ -2411,6 +2467,7 @@
       feedbackResponses = [];
       handleUserLogout();
       saveState();
+      postDatabase('CLEAR_DATA');
       renderIntegratedParticipantsTable();
       renderStageView();
     }
@@ -2447,7 +2504,10 @@
       if (currentParticipantEmail && currentParticipantEmail.toLowerCase() === orig.toLowerCase()) currentParticipantEmail = nEmail;
 
       saveState();
-      updateParticipantToGoogleSheet(oldEmail, user);
+      postDatabase('UPDATE_PARTICIPANT', {
+        originalEmail: oldEmail,
+        participant: { name: user.name, email: user.email, agency: user.agency }
+      });
       closeProxyModal();
       renderIntegratedParticipantsTable();
       renderUserView();
@@ -2608,6 +2668,7 @@
       renderUserView();
       renderStageView();
       if (activeAdminUser) renderAdminView();
+      initializeDatabase(true);
     };
   </script>
 </body>
