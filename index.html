@@ -730,6 +730,7 @@
             <div class="mt-3 flex flex-col sm:flex-row gap-2">
               <input id="databaseWebAppUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="min-w-0 flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white">
               <button onclick="connectDatabase()" class="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 text-white rounded-lg text-xs font-bold">Sambung Database</button>
+              <button onclick="pushAllToDatabase()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-bold">Hantar Semua Data ke Sheet</button>
             </div>
             <p id="databaseConnectionStatus" class="text-[11px] text-slate-400 mt-2" role="status">Belum disambungkan.</p>
           </div>
@@ -1170,7 +1171,7 @@
     let currentParticipantEmail = localStorage.getItem('motac_logged_email') || null;
     let activeAdminUser = sessionStorage.getItem('motac_active_admin') || null;
     let html5ScannerInstance = null;
-    let databaseWebAppUrl = localStorage.getItem('motac_apps_script_url_v2') || 'https://script.google.com/macros/s/AKfycbz4OIW6B9dMmGopG9R2DipvY-ZmBXyOTIlOf76PLZXiVAenqw8CWHF0BImMmxkHtfm_/exec';
+    let databaseWebAppUrl = localStorage.getItem('motac_apps_script_url_v3') || 'https://script.google.com/macros/s/AKfycbwh6-Ccxtz0kFIQY4nOcfRtU60Sa46rqQiukBY308yJz1LCISor-6dcReNe4evWNpareg/exec';
 
     const databaseUrlInput = document.getElementById('databaseWebAppUrl');
     if (databaseUrlInput) databaseUrlInput.value = databaseWebAppUrl;
@@ -1231,59 +1232,204 @@
       });
     }
 
+    // ---------- Penghantaran ke Google Sheet (dengan baris gilir & cuba semula) ----------
+    const OUTBOX_KEY = 'motac_db_outbox_v1';
+    let dbChain = Promise.resolve();
+
+    function updateDatabaseStatus(message) {
+      const status = document.getElementById('databaseConnectionStatus');
+      if (status) status.innerText = message;
+    }
+
+    function getOutbox() {
+      try { return JSON.parse(localStorage.getItem(OUTBOX_KEY)) || []; } catch (e) { return []; }
+    }
+
+    function setOutbox(list) {
+      try { localStorage.setItem(OUTBOX_KEY, JSON.stringify(list)); } catch (e) { console.error('[MOTAC Outbox]', e); }
+    }
+
+    function queueOutbox(payload) {
+      // Jangan simpan PDF besar dalam localStorage
+      if (payload.action === 'SEND_CERTIFICATE') return;
+      const list = getOutbox();
+      list.push(payload);
+      setOutbox(list);
+    }
+
+    async function sendToDatabase(payload) {
+      const body = JSON.stringify(payload);
+      let response;
+      try {
+        // text/plain = "simple request" (tiada preflight CORS), respons boleh dibaca
+        response = await fetch(databaseWebAppUrl, { method: 'POST', body, redirect: 'follow' });
+      } catch (readError) {
+        // Pelayar tidak dapat baca respons; hantar secara "buta" sebagai pilihan terakhir.
+        // Jika peranti offline, panggilan ini juga akan gagal dan ralat akan dilontar.
+        await fetch(databaseWebAppUrl, { method: 'POST', mode: 'no-cors', body });
+        return { ok: true, blind: true };
+      }
+      const text = await response.text();
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (parseError) {
+        const err = new Error('Web App tidak memulangkan JSON. Semak Deploy: Execute as "Me" dan Who has access "Anyone".');
+        err.permanent = true;
+        throw err;
+      }
+      if (!result.ok) {
+        const err = new Error(result.error || 'Pelayan menolak permintaan.');
+        err.permanent = true;
+        throw err;
+      }
+      return result;
+    }
+
+    async function flushOutboxNow() {
+      const list = getOutbox();
+      while (list.length) {
+        try {
+          await sendToDatabase(list[0]);
+          list.shift();
+        } catch (error) {
+          if (error.permanent) {
+            console.error('[MOTAC Outbox] Dibuang (ditolak pelayan):', list[0].action, error.message);
+            list.shift();
+          } else {
+            setOutbox(list);
+            return false;
+          }
+        }
+        setOutbox(list);
+      }
+      return true;
+    }
+
+    function flushOutbox() {
+      if (!databaseWebAppUrl) return Promise.resolve(true);
+      const task = dbChain.then(flushOutboxNow);
+      dbChain = task.catch(() => {});
+      return task;
+    }
+
     function postDatabase(action, data = {}, throwOnError = false) {
       if (!databaseWebAppUrl) return Promise.resolve();
-      const request = fetch(databaseWebAppUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action, ...data })
+      const payload = { action, ...data };
+      const task = dbChain.then(async () => {
+        if (getOutbox().length) await flushOutboxNow(); // kekalkan susunan
+        return sendToDatabase(payload);
       });
-      if (throwOnError) return request;
-      return request.catch(error => console.error('[MOTAC Database]', action, error));
+      dbChain = task.catch(() => {});
+      if (throwOnError) return task;
+      return task.catch(error => {
+        console.error('[MOTAC Database]', action, error);
+        queueOutbox(payload);
+        updateDatabaseStatus(`Gagal hantar ke Google Sheet (${error.message}). ${getOutbox().length} perubahan akan dicuba semula secara automatik.`);
+      });
+    }
+
+    window.addEventListener('online', () => flushOutbox());
+    setInterval(() => { if (getOutbox().length) flushOutbox(); }, 30000);
+
+    function readDatabaseState() {
+      return new Promise((resolve, reject) => {
+        const callbackName = `motacDatabaseCallback${Date.now()}${Math.floor(Math.random() * 1000)}`;
+        const script = document.createElement('script');
+        let settled = false;
+        const timeoutId = setTimeout(() => finish(new Error('Sambungan database tamat masa.')), 20000);
+        const finish = (error, result) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timeoutId);
+          delete window[callbackName];
+          script.remove();
+          if (error) reject(error);
+          else resolve(result);
+        };
+        window[callbackName] = result => finish(null, result);
+        script.onerror = () => finish(new Error('Tidak dapat membuka Web App. Semak URL dan akses deployment (Anyone).'));
+        script.onload = () => setTimeout(() => finish(new Error('Web App tidak memulangkan data. Pastikan kod Apps Script terkini telah di-Deploy sebagai versi baharu.')), 300);
+        script.src = `${databaseWebAppUrl}${databaseWebAppUrl.includes('?') ? '&' : '?'}action=GET_STATE&callback=${callbackName}&t=${Date.now()}`;
+        document.head.appendChild(script);
+      });
     }
 
     async function connectDatabase() {
       const url = document.getElementById('databaseWebAppUrl').value.trim();
-      const status = document.getElementById('databaseConnectionStatus');
       if (!url.startsWith('https://script.google.com/macros/s/') || !url.endsWith('/exec')) {
         alert('Sila masukkan URL Web App Apps Script yang berakhir dengan /exec.');
         return;
       }
       databaseWebAppUrl = url;
-      localStorage.setItem('motac_apps_script_url_v2', url);
+      localStorage.setItem('motac_apps_script_url_v3', url);
       await initializeDatabase(true);
     }
 
+    function normalizeBool(v) { return v === true || String(v).toLowerCase() === 'true'; }
+
+    function normalizeStamps(v) {
+      if (Array.isArray(v)) return v.map(Number).filter(Boolean);
+      if (typeof v === 'number') return [v];
+      if (typeof v === 'string' && v.trim()) {
+        try {
+          const parsed = JSON.parse(v);
+          if (Array.isArray(parsed)) return parsed.map(Number).filter(Boolean);
+        } catch (e) { /* bukan JSON */ }
+        return v.split(/[,;\s]+/).map(Number).filter(Boolean);
+      }
+      return [];
+    }
+
     async function initializeDatabase(seedWhenEmpty) {
-      const status = document.getElementById('databaseConnectionStatus');
       if (!databaseWebAppUrl) return;
-      if (status) status.innerText = 'Menyambung ke database...';
+      updateDatabaseStatus('Menyambung ke database...');
       try {
+        // Hantar dahulu perubahan tertunggak supaya tidak ditimpa oleh data Sheet
+        await flushOutbox();
         const result = await readDatabaseState();
         if (!result || !result.ok || !result.state) throw new Error(result?.error || 'Respons database tidak sah.');
         const state = result.state;
         if (state.participants && state.participants.length) {
           participants = state.participants.map(person => ({
             ...person,
-            stamps: Array.isArray(person.stamps) ? person.stamps : [],
-            feedbackDone: !!person.feedbackDone,
-            certDownloaded: !!person.certDownloaded,
-            goodiesClaimed: !!person.goodiesClaimed
+            email: String(person.email || '').trim().toLowerCase(),
+            stamps: normalizeStamps(person.stamps),
+            feedbackDone: normalizeBool(person.feedbackDone),
+            certDownloaded: normalizeBool(person.certDownloaded),
+            goodiesClaimed: normalizeBool(person.goodiesClaimed)
           }));
           feedbackResponses = state.feedbackResponses || [];
           winnersList = state.winnersList || [];
           saveState();
           refreshViews();
         } else if (seedWhenEmpty) {
-          await postDatabase('UPSERT_PARTICIPANTS', { participants });
-          for (const feedback of feedbackResponses) await postDatabase('UPSERT_FEEDBACK', { feedback });
-          for (const winner of winnersList) await postDatabase('ADD_WINNER', { winner });
+          await pushAllToDatabase(true);
         }
-        if (status) status.innerText = `Database disambungkan. ${participants.length} peserta dimuatkan.`;
+        const pending = getOutbox().length;
+        updateDatabaseStatus(`Database disambungkan. ${participants.length} peserta dimuatkan.${pending ? ` ${pending} perubahan menunggu dihantar.` : ''}`);
       } catch (error) {
         console.error('[MOTAC Database]', error);
-        if (status) status.innerText = `Gagal sambung: ${error.message}`;
+        updateDatabaseStatus(`Gagal sambung: ${error.message}`);
+      }
+    }
+
+    // Hantar SEMUA data tempatan (peserta, maklum balas, pemenang) ke Google Sheet
+    async function pushAllToDatabase(silent) {
+      if (!databaseWebAppUrl) { alert('Sila sambung database dahulu.'); return; }
+      updateDatabaseStatus('Menghantar semua data ke Google Sheet...');
+      try {
+        for (let i = 0; i < participants.length; i += 100) {
+          await postDatabase('UPSERT_PARTICIPANTS', { participants: participants.slice(i, i + 100) }, true);
+        }
+        for (const feedback of feedbackResponses) await postDatabase('UPSERT_FEEDBACK', { feedback }, true);
+        for (const winner of winnersList) await postDatabase('ADD_WINNER', { winner }, true);
+        updateDatabaseStatus(`Selesai: ${participants.length} peserta, ${feedbackResponses.length} maklum balas, ${winnersList.length} pemenang dihantar ke Google Sheet.`);
+        if (!silent) alert('Semua data tempatan berjaya dihantar ke Google Sheet. Semak tab Peserta dalam Sheet anda.');
+      } catch (error) {
+        console.error('[MOTAC Database]', error);
+        updateDatabaseStatus(`Gagal hantar: ${error.message}`);
+        if (!silent) alert(`Gagal hantar data ke Google Sheet: ${error.message}`);
       }
     }
 
